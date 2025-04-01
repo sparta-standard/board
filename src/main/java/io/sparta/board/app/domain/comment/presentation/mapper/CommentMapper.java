@@ -3,6 +3,7 @@ package io.sparta.board.app.domain.comment.presentation.mapper;
 import io.sparta.board.app.domain.comment.model.entity.Comment;
 import io.sparta.board.app.domain.comment.presentation.dto.request.CommentCreateRequestDto;
 import io.sparta.board.app.domain.comment.presentation.dto.response.CommentCreateResponseDto;
+import io.sparta.board.app.domain.comment.presentation.dto.response.CommentUpdateResponseDto;
 import io.sparta.board.app.domain.post.model.entity.Post;
 
 public class CommentMapper {
@@ -18,5 +19,13 @@ public class CommentMapper {
 		return CommentCreateResponseDto.builder()
 				.id(comment.getId())
 				.build();
+	}
+
+	public static CommentUpdateResponseDto entityToUpdateResponseDto(Post post, Comment comment) {
+		return CommentUpdateResponseDto.builder()
+			.id(comment.getId())
+			.postId(post.getId())
+			.content(comment.getContent())
+			.build();
 	}
 }
