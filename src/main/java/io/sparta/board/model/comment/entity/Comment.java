@@ -27,7 +27,7 @@ public class Comment extends BaseEntity {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OnDelete(action = OnDeleteAction.CASCADE)//Hibernate 문법...cascade 제약조건 추가. db 변경을 고려하면 ddl을 직접 작성하는게 좋을 것 같지만 콘솔이 안보인다...
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
