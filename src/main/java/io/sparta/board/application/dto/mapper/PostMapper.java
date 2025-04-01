@@ -3,6 +3,7 @@ package io.sparta.board.application.dto.mapper;
 import io.sparta.board.application.dto.response.CommentResponseDto;
 import io.sparta.board.application.dto.response.PostCreateResponseDto;
 import io.sparta.board.application.dto.response.PostGetResponseDto;
+import io.sparta.board.application.dto.response.post.PostUpdateResponseDto;
 import io.sparta.board.domain.entity.Comment;
 import io.sparta.board.domain.entity.Post;
 
@@ -40,6 +41,13 @@ public class PostMapper {
                 .id(comment.getId())
                 .content(comment.getContent())
                 .createdAt(comment.getCreatedAt())
+                .build();
+    }
+
+    public static PostUpdateResponseDto toPostUpdateResponseDto(Post post) {
+        return PostUpdateResponseDto.builder()
+                .title(post.getTitle())
+                .content(post.getContent())
                 .build();
     }
 }
