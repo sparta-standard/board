@@ -7,7 +7,6 @@ import lombok.Getter;
 @Getter
 public class CommentCreateRequestDto {
 
-    private UUID postId;
     private String content;
 
 }

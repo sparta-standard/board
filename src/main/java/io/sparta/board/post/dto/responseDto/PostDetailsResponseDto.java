@@ -5,8 +5,10 @@ import io.sparta.board.post.model.Post;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.data.domain.Page;
 
+@Getter
 @AllArgsConstructor
 public class PostDetailsResponseDto {
 

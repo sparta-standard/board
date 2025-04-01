@@ -4,7 +4,9 @@ import io.sparta.board.post.model.Post;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
 @AllArgsConstructor
 public class PostResponseDto {
 
