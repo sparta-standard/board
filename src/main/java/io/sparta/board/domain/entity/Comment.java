@@ -53,4 +53,8 @@ public class Comment {
                 .post(post)
                 .build();
     }
+
+    public void update(String content) {
+        this.content = content;
+    }
 }

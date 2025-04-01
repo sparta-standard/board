@@ -2,7 +2,9 @@ package io.sparta.board.application.service;
 
 import io.sparta.board.application.dto.mapper.CommentMapper;
 import io.sparta.board.application.dto.request.CommentCreateRequestDto;
+import io.sparta.board.application.dto.request.comment.CommentUpdateRequestDto;
 import io.sparta.board.application.dto.response.CommentCreateResponseDto;
+import io.sparta.board.application.dto.response.comment.CommentUpdateResponseDto;
 import io.sparta.board.domain.entity.Comment;
 import io.sparta.board.domain.entity.Post;
 import io.sparta.board.domain.repository.CommentRepository;
@@ -30,5 +32,18 @@ public class CommentService {
         CommentCreateResponseDto response = CommentMapper.toCommentCreateResponseDto(savedComment);
 
         return response;
+    }
+
+    @Transactional
+    public CommentUpdateResponseDto updateComment(UUID id, CommentUpdateRequestDto request) {
+        Comment comment = commentRepository.findById(id);
+
+        if(comment.isDeleted()){
+            throw new IllegalArgumentException("삭제된 댓글입니다.");
+        }
+
+        comment.update(request.getContent());
+
+        return CommentMapper.toCommentUpdateResponseDto(comment);
     }
 }
