@@ -1,6 +1,7 @@
 package io.sparta.board.domain.comment.service;
 
 import io.sparta.board.domain.comment.dto.requeset.CommentCreateRequestDto;
+import io.sparta.board.domain.comment.dto.requeset.CommentUpdateRequestDto;
 import io.sparta.board.domain.comment.dto.response.CommentResponseDto;
 import io.sparta.board.model.comment.entity.Comment;
 import io.sparta.board.model.comment.repository.CommentReposiroy;
@@ -39,6 +40,23 @@ public class CommentService {
                 .id(saveComment.getId())
                 .postId(saveComment.getPost().getId())
                 .content(saveComment.getContent())
+                .build();
+    }
+
+    public CommentResponseDto updateComment(UUID id, CommentUpdateRequestDto request) {
+
+        Comment existComment = commentReposiroy.findByIdAndDeletedIsFalse(id)
+                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글"));
+
+
+        existComment.UpdateComment(request.getContent());
+
+        Comment updateComment = commentReposiroy.save(existComment);
+
+        return CommentResponseDto.builder()
+                .id(updateComment.getId())
+                .postId(updateComment.getPost().getId())
+                .content(updateComment.getContent())
                 .build();
     }
 }
