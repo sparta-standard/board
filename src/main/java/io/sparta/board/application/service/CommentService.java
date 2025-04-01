@@ -2,6 +2,7 @@ package io.sparta.board.application.service;
 
 import io.sparta.board.application.dto.response.CommentCreateResponseDto;
 import io.sparta.board.application.dto.response.CommentUpdateResponseDto;
+import io.sparta.board.application.dto.response.DeleteCommentResponseDto;
 import io.sparta.board.domain.model.Comment;
 import io.sparta.board.domain.model.Post;
 import io.sparta.board.domain.repository.CommentRepository;
@@ -43,7 +44,7 @@ public class CommentService {
     @Transactional
     public CommentUpdateResponseDto update(UUID commentId, Map<String, String> request) {
         // 1. 댓글 존재 여부 확인
-        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다."));
+        Comment comment = getComment(commentId);
 
         // 2. 클라이언트가 전달한 데이터 여부 확인
         // isBlank() 는 null, 빈문자열("")과 공백으로만 채워진 문자열을 검증하는 역할, isEmpty() 는 공백으로만 채워진 문자열을 필터하지 못함.
@@ -57,5 +58,18 @@ public class CommentService {
         }
         Comment updateComment = commentRepository.save(comment);
         return new CommentUpdateResponseDto(updateComment);
+    }
+
+    @Transactional
+    public DeleteCommentResponseDto delete(UUID commentId) {
+        Comment comment = getComment(commentId);
+        comment.delete();
+        Comment deleteComment = commentRepository.save(comment);
+        return new DeleteCommentResponseDto(deleteComment);
+    }
+
+    // 수정과 삭제 메서드에서 댓글 존재 확인 코드가 중복되어 메서드 추출함.
+    private Comment getComment(UUID commentId) {
+        return commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다."));
     }
 }
