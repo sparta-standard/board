@@ -22,3 +22,8 @@ Content-Type: application/json
   "title": "게시물 제목 수정완2",
   "content": "게시물 내용 수정완2"
 }
+
+### 4. 게시물 삭제
+DELETE http://localhost:8080/api/boards/4b1da82c-f2e5-4778-8be7-4533d5c6390a
+Authorization: Bearer jwt_token_string
+Content-Type: application/json
