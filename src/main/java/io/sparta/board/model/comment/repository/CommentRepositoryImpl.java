@@ -4,6 +4,9 @@ import io.sparta.board.model.comment.entity.Comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
 @RequiredArgsConstructor
 public class CommentRepositoryImpl implements CommentReposiroy{
@@ -13,5 +16,10 @@ public class CommentRepositoryImpl implements CommentReposiroy{
     @Override
     public Comment save(Comment comment) {
         return commentJpaRepository.save(comment);
+    }
+
+    @Override
+    public Optional<Comment> findByIdAndDeletedIsFalse(UUID id) {
+        return commentJpaRepository.findByIdAndDeletedIsFalse(id);
     }
 }
