@@ -1,5 +1,6 @@
 package io.sparta.board.post.controller;
 
+import io.sparta.board.post.dto.requestDto.PostRequestDto;
 import io.sparta.board.post.dto.responseDto.PostDetailsResponseDto;
 import io.sparta.board.post.dto.responseDto.PostResponseDto;
 import io.sparta.board.post.service.PostService;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,5 +42,11 @@ public class PostController {
         return ResponseEntity.ok(responseDtos);
     }
 
+    // 게시물 생성
+    @PostMapping
+    public ResponseEntity<PostResponseDto> createPost(@RequestBody PostRequestDto requestDto){
+        PostResponseDto responseDto = postService.createPost(requestDto);
+        return ResponseEntity.ok(responseDto);
+    }
 
 }
