@@ -1,4 +1,7 @@
 package io.sparta.board.application.dto.request;
 
-public record CommentUpdateRequestDto() {
+public record CommentUpdateRequestDto(
+
+        String content
+) {
 }
