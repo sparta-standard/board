@@ -29,6 +29,6 @@ public class BoardService {
     @Transactional
     public void deleteBoard(String title) {
         Board board = boardRepository.findByTitle(title);
-        board.delete(board.getTitle());
+        board.delete();
     }
 }

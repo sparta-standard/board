@@ -23,9 +23,9 @@ public abstract class BaseEntity {
     private LocalDateTime updatedAt;
 
     @Column
-    private String deletedBy;
+    private boolean deletedBy;
 
-    public void delete(String deletedBy) {
-        this.deletedBy = deletedBy;
+    public void delete() {
+        this.deletedBy = true;
     }
 }

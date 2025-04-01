@@ -1,11 +1,11 @@
 package io.sparta.board.controller.dto;
 
 import lombok.Getter;
-import lombok.Setter;
+
+import java.util.UUID;
 
 @Getter
-@Setter
-public class CreateBoardRequestDto {
-    public String title;
+public class UpdateCommentRequestDto {
+    public UUID id;
     public String content;
 }
