@@ -2,7 +2,7 @@ package io.sparta.board.presentation.controller;
 
 import io.sparta.board.application.facade.PostFacade;
 import io.sparta.board.presentation.dto.PostCreateRequestDto;
-import java.util.UUID;
+import io.sparta.board.presentation.dto.PostResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +18,7 @@ public class PostController {
     private final PostFacade postFacade;
 
     @PostMapping
-    public ResponseEntity<UUID> createPost(
+    public ResponseEntity<PostResponseDto> createPost(
         @RequestBody PostCreateRequestDto requestDto
     ) {
         return ResponseEntity.ok(postFacade.createPost(requestDto));

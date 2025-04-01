@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 
 @Table(name = "p_post")
 @NoArgsConstructor
+@Getter
 @Entity
 public class Post {
 
     @Id
-    @Getter
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 

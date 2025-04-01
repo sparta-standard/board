@@ -1,8 +1,8 @@
 package io.sparta.board.application.facade;
 
 import io.sparta.board.presentation.dto.PostCreateRequestDto;
-import java.util.UUID;
+import io.sparta.board.presentation.dto.PostResponseDto;
 
 public interface PostFacade {
-    UUID createPost(PostCreateRequestDto requestDto);
+    PostResponseDto createPost(PostCreateRequestDto requestDto);
 }
