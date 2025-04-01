@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -20,6 +21,8 @@ public class Post extends BaseEntity {
     @Id
     @UuidGenerator // @UuidGenerator, @GeneratedValue(strategy = GenerationType.IDENTITY) 차이
     private UUID id;
+    @Setter
     private String title; // VARCHAR(100)
+    @Setter
     private String content; // TEXT 타입
 }
