@@ -3,6 +3,7 @@ package io.sparta.board.presentation;
 import io.sparta.board.application.dto.request.CommentCreateRequestDto;
 import io.sparta.board.application.dto.request.comment.CommentUpdateRequestDto;
 import io.sparta.board.application.dto.response.CommentCreateResponseDto;
+import io.sparta.board.application.dto.response.comment.CommentDeleteResponseDto;
 import io.sparta.board.application.dto.response.comment.CommentUpdateResponseDto;
 import io.sparta.board.application.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,13 @@ public class CommentController {
             @PathVariable UUID id,
             @RequestBody CommentUpdateRequestDto request){
         CommentUpdateResponseDto response = commentService.updateComment(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CommentDeleteResponseDto> deleteComment(
+            @PathVariable UUID id){
+        CommentDeleteResponseDto response = commentService.deleteComment(id);
         return ResponseEntity.ok(response);
     }
 }
