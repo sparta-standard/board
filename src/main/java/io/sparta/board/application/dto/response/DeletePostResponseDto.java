@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
-public class DeletePost {
+public class DeletePostResponseDto {
     private UUID id;
     private String title;
     private String content;
@@ -21,7 +21,7 @@ public class DeletePost {
     private LocalDateTime updatedAt;
     private boolean deleted;
 
-    public DeletePost(Post post) {
+    public DeletePostResponseDto(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
