@@ -83,4 +83,20 @@ public class PostService {
 
         return new PostUpdateResponseDto(post);
     }
+
+    // 게시물 삭제 (soft delete + 댓글 삭제)
+    @Transactional
+    public PostDeleteResponseDto deletePost(UUID postId) {
+        log.info("delete Post - postId : " + postId);
+
+        Post post = postRepository.findByIdAndIsDeletedFalse(postId)
+            .orElseThrow(() -> new EntityNotFoundException("Post not found"));
+
+        post.deletePost();
+
+        List<Comment> comments = commentRepository.findAllByPostId(postId);
+        comments.forEach(Comment::deleteComment);
+
+        return new PostDeleteResponseDto(postId, "Post deleted successfully");
+    }
 }
