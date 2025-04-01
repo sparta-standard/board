@@ -3,6 +3,8 @@ package io.sparta.board.presentation;
 import io.sparta.board.application.dto.request.PostCreateRequestDto;
 import io.sparta.board.application.dto.response.PostCreateResponseDto;
 import io.sparta.board.application.dto.response.PostGetResponseDto;
+import io.sparta.board.application.dto.response.comment.PostUpdateRequestDto;
+import io.sparta.board.application.dto.response.post.PostUpdateResponseDto;
 import io.sparta.board.application.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,14 @@ public class PostController {
             @PathVariable UUID id){
 
         PostGetResponseDto response = postService.getDetailPost(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}/update")
+    public ResponseEntity<PostUpdateResponseDto> updatePost(
+            @PathVariable UUID id,
+            @RequestBody PostUpdateRequestDto request){
+        PostUpdateResponseDto response = postService.updatePost(id, request);
         return ResponseEntity.ok(response);
     }
 }
