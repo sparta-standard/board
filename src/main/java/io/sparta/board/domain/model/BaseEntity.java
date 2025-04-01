@@ -1,5 +1,6 @@
 package io.sparta.board.domain.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Builder;
@@ -24,7 +25,9 @@ import java.time.LocalDateTime;
 public class BaseEntity {
     protected boolean deleted; // *** boolean 타입인 컬럼 deleted 의 기본 값을 false 로 설정하기
     @CreationTimestamp // @TimeStamp, @CreatedDate, @CreationTimestamp 의 차이
-    protected LocalDateTime created_at;
+    @Column(name = "created_at")
+    protected LocalDateTime createdAt;
     @UpdateTimestamp // @TimeStamp 랑 @UpdateTimestamp 의 차이
-    protected LocalDateTime updated_at;
+    @Column(name = "updated_at")
+    protected LocalDateTime updatedAt;
 }

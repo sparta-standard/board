@@ -5,11 +5,11 @@ import io.sparta.board.application.dto.request.PostUpdateRequestDto;
 import io.sparta.board.application.dto.response.DeletePost;
 import io.sparta.board.application.dto.response.PostCreationResponseDto;
 import io.sparta.board.application.dto.response.PostUpdateResponseDto;
+import io.sparta.board.application.dto.response.ShowPostOneResponseDto;
 import io.sparta.board.domain.model.Post;
 import io.sparta.board.domain.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -79,5 +79,20 @@ public class PostService {
                 // 상황에 따른 예외 클래스 사용법에 대한 기준을 모르겠음.
                 () -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다.")
         );
+    }
+
+    /*
+        - 게시글에 포함된 모든 댓글 목록을 조회
+        - 삭제된 데이터는 조회 불가능
+     */
+    public ShowPostOneResponseDto findOnePost(UUID id) {
+        Post post = getPost(id);
+        // 삭제된 데이터는 조회 불가능하게 처리
+        if(post.isDeleted()) {
+            throw new IllegalArgumentException("해당 게시물은 삭제되었습니다.");
+        }
+
+        return new ShowPostOneResponseDto(post);
+
     }
 }

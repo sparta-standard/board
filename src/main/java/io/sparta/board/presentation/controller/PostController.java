@@ -5,6 +5,7 @@ import io.sparta.board.application.dto.request.PostUpdateRequestDto;
 import io.sparta.board.application.dto.response.DeletePost;
 import io.sparta.board.application.dto.response.PostCreationResponseDto;
 import io.sparta.board.application.dto.response.PostUpdateResponseDto;
+import io.sparta.board.application.dto.response.ShowPostOneResponseDto;
 import io.sparta.board.application.service.PostService;
 import io.sparta.board.domain.model.Post;
 import jakarta.validation.Valid;
@@ -48,9 +49,17 @@ public class PostController {
 
     // 게시글 삭제
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<DeletePost> deletePost(@PathVariable UUID id) {
+    public ResponseEntity<DeletePost> delete(@PathVariable UUID id) {
         log.info("Delete Method - 게시글 삭제");
         DeletePost delete = postService.delete(id);
         return ResponseEntity.ok().body(delete);
+    }
+
+    // 게시글 조회
+    @GetMapping("/{id}")
+    public ResponseEntity<ShowPostOneResponseDto> findOnePost(@PathVariable UUID id) {
+        log.info("Get Method - 게시글 조회");
+        ShowPostOneResponseDto onePost = postService.findOnePost(id);
+        return ResponseEntity.ok().body(onePost);
     }
 }
