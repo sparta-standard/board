@@ -1,6 +1,7 @@
 package io.sparta.board.model.post.entity;
 
 import io.sparta.board.common.BaseEntity;
+import io.sparta.board.domain.post.dto.request.PostUpdateRequestDto;
 import io.sparta.board.model.comment.entity.Comment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,8 +14,6 @@ import java.util.UUID;
 
 @Entity
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "p_post")
 public class Post extends BaseEntity {
@@ -33,4 +32,15 @@ public class Post extends BaseEntity {
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
+
+    @Builder
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public void updatePost(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
