@@ -6,6 +6,7 @@ import io.sparta.board.comment.model.Comment;
 import io.sparta.board.comment.repository.CommentRepository;
 import io.sparta.board.common.PageRequestDto;
 import io.sparta.board.post.dto.requestDto.PostRequestDto;
+import io.sparta.board.post.dto.responseDto.PostCreateResponseDto;
 import io.sparta.board.post.dto.responseDto.PostDeleteResponseDto;
 import io.sparta.board.post.dto.responseDto.PostDetailsResponseDto;
 import io.sparta.board.post.dto.responseDto.PostResponseDto;
@@ -59,7 +60,7 @@ public class PostService {
 
     // 게시물 생성
     @Transactional
-    public PostResponseDto createPost(PostRequestDto requestDto) {
+    public PostCreateResponseDto createPost(PostRequestDto requestDto) {
         log.info("create Post - requestDto : " + requestDto);
 
         Post post = Post.builder()
@@ -68,7 +69,7 @@ public class PostService {
             .build();
 
         postRepository.save(post);
-        return new PostResponseDto(post);
+        return new PostCreateResponseDto(post);
     }
 
     // 게시물 수정

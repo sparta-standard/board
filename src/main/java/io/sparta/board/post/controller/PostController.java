@@ -1,6 +1,7 @@
 package io.sparta.board.post.controller;
 
 import io.sparta.board.post.dto.requestDto.PostRequestDto;
+import io.sparta.board.post.dto.responseDto.PostCreateResponseDto;
 import io.sparta.board.post.dto.responseDto.PostDeleteResponseDto;
 import io.sparta.board.post.dto.responseDto.PostDetailsResponseDto;
 import io.sparta.board.post.dto.responseDto.PostResponseDto;
@@ -48,8 +49,8 @@ public class PostController {
 
     // 게시물 생성
     @PostMapping
-    public ResponseEntity<PostResponseDto> createPost(@RequestBody PostRequestDto requestDto){
-        PostResponseDto responseDto = postService.createPost(requestDto);
+    public ResponseEntity<PostCreateResponseDto> createPost(@RequestBody PostRequestDto requestDto){
+        PostCreateResponseDto responseDto = postService.createPost(requestDto);
         return ResponseEntity.ok(responseDto);
     }
 
