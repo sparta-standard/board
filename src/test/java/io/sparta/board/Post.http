@@ -1,0 +1,8 @@
+### Post CREATE
+POST http://localhost:8080/api/posts
+Content-Type: application/json
+
+{
+    "title": "test title....",
+    "content": "test content...."
+}
