@@ -35,10 +35,30 @@ public class CommentCotroller {
             @PathVariable UUID id,
             @RequestBody CommentUpdateRequestDto request
     ){
+        if(id == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         CommentResponseDto response = commentService.updateComment(id, request);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     //댓글 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CommentResponseDto> deleteComment(
+            @PathVariable UUID id
+    ){
+
+        if(id == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        commentService.deleteComment(id);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+
+
 }
