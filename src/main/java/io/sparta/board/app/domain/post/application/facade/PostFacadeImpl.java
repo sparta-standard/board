@@ -5,9 +5,11 @@ import io.sparta.board.app.domain.post.presentation.dto.request.PostCreateReques
 import io.sparta.board.app.domain.post.presentation.dto.request.PostUpdateRequestDto;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostCreatResponseDto;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostDeleteResponseDto;
+import io.sparta.board.app.domain.post.presentation.dto.response.PostReadResponseDto;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostUpdateResponseDto;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +20,10 @@ public class PostFacadeImpl implements PostFacade {
 	@Override
 	public PostCreatResponseDto createPost(PostCreateRequestDto postCreatRequestDto) {
 		return postService.createPost(postCreatRequestDto);
+	}
+	@Override
+	public PostReadResponseDto readPost(UUID id, Pageable pageable) {
+		return postService.readPost(id, pageable);
 	}
 
 	@Override
