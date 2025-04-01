@@ -15,7 +15,7 @@
    - 댓글 수정 : 내용
    - 댓글 삭제 : soft-delete 방식 / 복구 불가능
 
-## ☑️To Do List (Chanlenge)
+## ☑️To Do List (Challenge)
 목표예정
 
 ## 🔖참고사항
