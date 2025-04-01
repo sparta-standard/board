@@ -1,10 +1,12 @@
 package io.sparta.board.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "p_post")
 @Getter
 @NoArgsConstructor
@@ -41,4 +44,18 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST)
     private List<Comment> commentList = new ArrayList<>();
+
+    @Builder
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public static Post create(String title, String content) {
+        Post post = Post.builder()
+                .title(title)
+                .content(content)
+                .build();
+        return post;
+    }
 }
