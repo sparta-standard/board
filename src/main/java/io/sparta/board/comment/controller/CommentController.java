@@ -24,9 +24,11 @@ public class CommentController {
     private final CommentService commentService;
 
     // 댓글 등록
-    @PostMapping
-    public ResponseEntity<CommentCreateResponseDto> createComment(@RequestBody CommentCreateRequestDto requestDto) {
-        CommentCreateResponseDto responseDto = commentService.createComment(requestDto);
+    @PostMapping("/{post_id}")
+    public ResponseEntity<CommentCreateResponseDto> createComment(
+        @PathVariable("post_id") UUID postId,
+        @RequestBody CommentCreateRequestDto requestDto) {
+        CommentCreateResponseDto responseDto = commentService.createComment(postId, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 
