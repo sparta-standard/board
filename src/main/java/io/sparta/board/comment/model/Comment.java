@@ -1,5 +1,6 @@
 package io.sparta.board.comment.model;
 
+import io.sparta.board.comment.dto.requestDto.CommentUpdateRequestDto;
 import io.sparta.board.post.model.Post;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -56,6 +57,10 @@ public class Comment {
     @Builder
     public Comment(Post post, String content) {
         this.post = post;
+        this.content = content;
+    }
+
+    public void updateComment(String content) {
         this.content = content;
     }
 
