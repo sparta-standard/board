@@ -1,5 +1,6 @@
 package io.sparta.board.domain.entity;
 
+import io.sparta.board.application.dto.request.PostUpdateRequestDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -32,5 +33,10 @@ public class Post extends BaseTimeEntity{
     public Post(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public void updateOf(PostUpdateRequestDto dto) {
+        this.title = dto.title();
+        this.content = dto.content();
     }
 }
