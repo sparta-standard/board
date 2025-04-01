@@ -57,4 +57,8 @@ public class Comment {
     public void update(String content) {
         this.content = content;
     }
+
+    public void softDelete() {
+        this.deleted = true;
+    }
 }

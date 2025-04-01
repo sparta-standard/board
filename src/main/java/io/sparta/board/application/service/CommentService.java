@@ -4,6 +4,7 @@ import io.sparta.board.application.dto.mapper.CommentMapper;
 import io.sparta.board.application.dto.request.CommentCreateRequestDto;
 import io.sparta.board.application.dto.request.comment.CommentUpdateRequestDto;
 import io.sparta.board.application.dto.response.CommentCreateResponseDto;
+import io.sparta.board.application.dto.response.comment.CommentDeleteResponseDto;
 import io.sparta.board.application.dto.response.comment.CommentUpdateResponseDto;
 import io.sparta.board.domain.entity.Comment;
 import io.sparta.board.domain.entity.Post;
@@ -45,5 +46,17 @@ public class CommentService {
         comment.update(request.getContent());
 
         return CommentMapper.toCommentUpdateResponseDto(comment);
+    }
+
+    @Transactional
+    public CommentDeleteResponseDto deleteComment(UUID id) {
+        Comment comment = commentRepository.findById(id);
+        if(comment.isDeleted()){
+            throw new IllegalArgumentException("삭제된 댓글입니다.");
+        }
+
+        comment.softDelete();
+
+        return CommentMapper.toCommentDeleteResponseDto(comment);
     }
 }
