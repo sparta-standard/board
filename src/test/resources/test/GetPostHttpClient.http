@@ -1,0 +1,6 @@
+### GET request to example server
+GET http://localhost:8080/api/v1/post/d1670ac6-adc6-4235-9045-b53212009970
+Content-Type: application/json
+
+
+###
