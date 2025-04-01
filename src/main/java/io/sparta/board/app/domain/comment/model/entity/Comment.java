@@ -1,5 +1,6 @@
 package io.sparta.board.app.domain.comment.model.entity;
 
+import io.sparta.board.app.domain.comment.presentation.dto.request.CommentUpdateRequestDto;
 import io.sparta.board.app.domain.post.model.entity.Post;
 import io.sparta.board.app.global.entity.BaseEntity;
 import jakarta.persistence.CascadeType;
@@ -38,4 +39,8 @@ public class Comment extends BaseEntity {
 	@Column(columnDefinition = "TEXT")
 	private String content;
 
+	public void update(Post post, CommentUpdateRequestDto commentUpdateRequestDto) {
+		this.post = post;
+		this.content = commentUpdateRequestDto.getContent();
+	}
 }
