@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Post {
+public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -30,6 +31,9 @@ public class Post {
 
     @Column(nullable = false)
     private boolean deleted = Boolean.FALSE;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 
     @Builder(access = AccessLevel.PRIVATE)
     private Post(String title, String content) {
@@ -46,5 +50,6 @@ public class Post {
 
     public void deletePost() {
         deleted = Boolean.TRUE;
+        deletedAt = LocalDateTime.now();
     }
 }
