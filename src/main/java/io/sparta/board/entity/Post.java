@@ -27,4 +27,9 @@ public class Post extends BaseEntity {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
     }
+
+    public void updatePost(PostRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+    }
 }
