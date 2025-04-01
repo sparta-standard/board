@@ -5,6 +5,7 @@ import io.sparta.board.dto.PostResponseDto;
 import io.sparta.board.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -32,5 +33,17 @@ public class PostController {
     @DeleteMapping("/posts/{id}")
     public UUID deletePost(@PathVariable UUID id) {
         return postService.deletePost(id);
+    }
+
+    // 전체 조회
+    @GetMapping("/posts")
+    public List<PostResponseDto> getAllPosts() {
+        return postService.getAllPosts();
+    }
+
+    // 단건 조회
+    @GetMapping("/posts/{id}")
+    public PostResponseDto getPost(@PathVariable UUID id) {
+        return postService.getPost(id);
     }
 }

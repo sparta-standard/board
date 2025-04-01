@@ -8,6 +8,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -40,6 +41,19 @@ public class PostService {
         Post post = findPost(id);
         post.softDelete();
         return id;
+    }
+
+    // 전체 조회
+    public List<PostResponseDto> getAllPosts() {
+        return postRepository.findAllByDeletedFalseOrderByCreatedAtDesc().stream().map(PostResponseDto::from).toList();
+    }
+
+    // 단건 조회
+    public PostResponseDto getPost(UUID id) {
+        Post post = postRepository.findByIdAndDeletedFalse(id).orElseThrow(() ->
+                new EntityNotFoundException("해당 게시글을 찾을 수 없습니다.")
+        );
+        return PostResponseDto.from(post);
     }
 
 
