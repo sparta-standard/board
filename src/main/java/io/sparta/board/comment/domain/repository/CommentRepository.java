@@ -2,6 +2,7 @@ package io.sparta.board.comment.domain.repository;
 
 import io.sparta.board.comment.domain.entity.Comment;
 import io.sparta.board.post.domain.entity.Post;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,4 +14,5 @@ public interface CommentRepository extends JpaRepository<Comment, UUID> {
 
     Page<Comment> findByPostId(UUID postId, Pageable pageable);
 
+    List<Comment> findAllByPostId(UUID postId);
 }

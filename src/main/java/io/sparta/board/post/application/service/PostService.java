@@ -69,9 +69,8 @@ public class PostService {
     @Transactional
     public void deletePost(UUID postId) {
         Post post = findPost(postId);
+        commentService.deleteComments(postId);
         post.delete();
-        postRepository.save(post);
-
     }
 
     public Post findPost(UUID postId) {

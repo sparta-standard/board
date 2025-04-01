@@ -12,11 +12,13 @@ import io.sparta.board.post.domain.entity.Post;
 import io.sparta.board.post.domain.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 @Service
 @RequiredArgsConstructor
@@ -80,6 +82,14 @@ public class CommentService {
             .content(comment.getContent())
             .build()
         );
+    }
+
+    @Transactional
+    public void deleteComments(UUID postId) {
+        List<Comment> commentList = commentRepository.findAllByPostId(postId);
+        for (Comment comment : commentList) {
+            comment.delete();
+        }
     }
 
 }
