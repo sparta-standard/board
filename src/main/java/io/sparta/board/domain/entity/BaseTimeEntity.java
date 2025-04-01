@@ -23,7 +23,7 @@ public abstract class BaseTimeEntity {
     @Column(name="updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column(name="deleted")
+    @Column(name="deleted", nullable = false)
     private Boolean deleted = false;
 
     public void deletedOf() {
