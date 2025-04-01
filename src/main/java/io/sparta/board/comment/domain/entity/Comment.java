@@ -1,7 +1,8 @@
 package io.sparta.board.comment.domain.entity;
 
-import io.sparta.board.board.domain.entity.Board;
+import io.sparta.board.comment.application.dto.request.CommentUpdateRequestDto;
 import io.sparta.board.global.BaseEntity;
+import io.sparta.board.post.domain.entity.Post;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -31,6 +32,12 @@ public class Comment extends BaseEntity {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "board_id")
-    private Board board;
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+    public void updateFromDto(CommentUpdateRequestDto requestDto) {
+        if (requestDto.getContent() != null && !requestDto.getContent().isEmpty()) {
+            this.content = requestDto.getContent();
+        }
+    }
 }

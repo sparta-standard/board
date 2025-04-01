@@ -1,6 +1,6 @@
-package io.sparta.board.board.domain.entity;
+package io.sparta.board.post.domain.entity;
 
-import io.sparta.board.board.application.dto.request.BoardUpdateRequestDto;
+import io.sparta.board.post.application.dto.request.PostUpdateRequestDto;
 import io.sparta.board.global.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,10 +16,10 @@ import org.hibernate.annotations.UuidGenerator;
 @Entity
 @Getter
 @Builder
-@Table(name = "p_board")
+@Table(name = "p_post")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Board extends BaseEntity {
+public class Post extends BaseEntity {
 
     @Id
     @UuidGenerator
@@ -31,7 +31,7 @@ public class Board extends BaseEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
-    public void updateFromDto(BoardUpdateRequestDto requestDto) {
+    public void updateFromDto(PostUpdateRequestDto requestDto) {
         if (requestDto.getTitle() != null && !requestDto.getTitle().isEmpty()) {
             this.title = requestDto.getTitle();
         }

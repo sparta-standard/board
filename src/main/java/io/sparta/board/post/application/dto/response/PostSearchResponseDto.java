@@ -1,4 +1,4 @@
-package io.sparta.board.board.presentation.controller;
+package io.sparta.board.post.application.dto.response;
 
 import java.util.UUID;
 import lombok.Builder;
@@ -6,9 +6,9 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class BoardUpdateResponseDto {
+public class PostSearchResponseDto {
 
-    private UUID boardId;
+    private UUID postId;
     private String title;
     private String content;
 }

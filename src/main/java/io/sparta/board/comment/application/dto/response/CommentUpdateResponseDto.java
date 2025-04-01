@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class CommentCreateResponseDto {
+public class CommentUpdateResponseDto {
 
     private UUID postId;
     private UUID commentId;
