@@ -9,6 +9,5 @@ import java.util.UUID;
 @Builder
 public class CreateCommentRequestInternalDto {
 
-    private UUID postId;
     private String content;
 }

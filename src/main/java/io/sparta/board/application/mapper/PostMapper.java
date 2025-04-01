@@ -16,7 +16,6 @@ public class PostMapper {
 
     public static PostResponseInternalDto toResponse(Post post) {
 
-
         return PostResponseInternalDto.builder()
                 .id(post.getId())
                 .createAt(post.getCreatedAt())
@@ -24,6 +23,5 @@ public class PostMapper {
                 .content(post.getContent())
                 .comments(CommentMapper.toResponseList(post.getComments()))
                 .build();
-
     }
 }

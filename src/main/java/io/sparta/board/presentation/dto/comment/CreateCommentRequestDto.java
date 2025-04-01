@@ -7,6 +7,5 @@ import java.util.UUID;
 @Getter
 public class CreateCommentRequestDto {
 
-    private UUID postId;
     private String content;
 }

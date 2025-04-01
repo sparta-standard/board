@@ -1,5 +1,6 @@
 package io.sparta.board.application.dto.comment;
 
+import io.sparta.board.application.dto.post.PostResponseInternalDto;
 import lombok.Builder;
 import lombok.Getter;
 
