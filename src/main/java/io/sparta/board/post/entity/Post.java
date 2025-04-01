@@ -1,6 +1,8 @@
 package io.sparta.board.post.entity;
 
 import io.sparta.board.common.model.BaseEntity;
+import io.sparta.board.post.dto.PostRequestDto;
+import io.sparta.board.post.dto.PostUpdateRequestDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,6 +29,11 @@ public class Post extends BaseEntity {
     public Post(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public Post(PostRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
     }
 
 }
