@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.UuidGenerator;
 
 @Entity
@@ -19,6 +20,7 @@ import org.hibernate.annotations.UuidGenerator;
 @Table(name = "p_post")
 @NoArgsConstructor
 @AllArgsConstructor
+@SQLRestriction("deleted IS false")
 public class Post extends BaseEntity {
 
     @Id

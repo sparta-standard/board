@@ -2,12 +2,13 @@ package io.sparta.board.post.presentation.controller;
 
 import io.sparta.board.post.application.dto.request.PostCreateRequestDto;
 import io.sparta.board.post.application.dto.request.PostUpdateRequestDto;
-import io.sparta.board.post.application.dto.response.PostUpdateResponseDto;
 import io.sparta.board.post.application.dto.response.PostCreateResponseDto;
 import io.sparta.board.post.application.dto.response.PostSearchResponseDto;
+import io.sparta.board.post.application.dto.response.PostUpdateResponseDto;
 import io.sparta.board.post.application.service.PostService;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,9 +37,10 @@ public class PostController {
 
     @GetMapping("/posts/{postId}")
     public ResponseEntity<PostSearchResponseDto> searchPostFromId(
-        @PathVariable(name = "postId") UUID postId
+        @PathVariable(name = "postId") UUID postId,
+        Pageable pageable
     ) {
-        PostSearchResponseDto responseDto = postService.searchPost(postId);
+        PostSearchResponseDto responseDto = postService.searchPost(postId, pageable);
         return ResponseEntity.ok(responseDto);
     }
 

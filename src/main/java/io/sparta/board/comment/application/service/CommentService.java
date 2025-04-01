@@ -1,5 +1,6 @@
 package io.sparta.board.comment.application.service;
 
+import io.sparta.board.comment.application.dto.response.CommentSearchResponseDto;
 import io.sparta.board.post.application.service.PostService;
 import io.sparta.board.comment.application.dto.request.CommentCreateRequestDto;
 import io.sparta.board.comment.application.dto.request.CommentUpdateRequestDto;
@@ -8,10 +9,13 @@ import io.sparta.board.comment.application.dto.response.CommentUpdateResponseDto
 import io.sparta.board.comment.domain.entity.Comment;
 import io.sparta.board.comment.domain.repository.CommentRepository;
 import io.sparta.board.post.domain.entity.Post;
+import io.sparta.board.post.domain.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,11 +23,12 @@ import org.springframework.stereotype.Service;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final PostService postService;
+    private final PostRepository postRepository;
 
     @Transactional
     public CommentCreateResponseDto createComment(UUID postId, CommentCreateRequestDto requestDto) {
-        Post post = postService.findPost(postId);
+        Post post = postRepository.findById(postId)
+            .orElseThrow(() -> new EntityNotFoundException("해당하는 post 를 찾을 수 없습니다 postId : " + postId));
 
         Comment comment = Comment.builder()
             .post(post)
@@ -64,6 +69,17 @@ public class CommentService {
     public Comment findComment(UUID commentId) {
         return commentRepository.findById(commentId)
             .orElseThrow(() -> new EntityNotFoundException("해당하는 댓글을 찾을 수 없습니다. 받은 commentId : " + commentId));
+    }
+
+    public Page<CommentSearchResponseDto> searchComments(UUID postId, Pageable pageable) {
+        Page<Comment> commentPage = commentRepository.findByPostId(postId, pageable);
+
+        return commentPage.map(comment -> CommentSearchResponseDto.builder()
+            .postId(comment.getPost().getId())
+            .commentId(comment.getId())
+            .content(comment.getContent())
+            .build()
+        );
     }
 
 }
