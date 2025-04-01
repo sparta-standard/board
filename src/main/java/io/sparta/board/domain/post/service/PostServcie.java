@@ -1,5 +1,6 @@
 package io.sparta.board.domain.post.service;
 
+import io.sparta.board.domain.comment.service.CommentService;
 import io.sparta.board.domain.post.dto.request.PostCreateRequestDto;
 import io.sparta.board.domain.post.dto.request.PostUpdateRequestDto;
 import io.sparta.board.domain.post.dto.response.GetPostResponseDto;
@@ -23,6 +24,7 @@ import java.util.UUID;
 public class PostServcie {
 
     private final PostRepository postRepository;
+    private final CommentService commentService;
 
     @Transactional
     public PostResponseDto createPost(PostCreateRequestDto request){
@@ -51,26 +53,29 @@ public class PostServcie {
         Post post = postRepository.findByIdAndDeletedIsFalse(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글 없음"));
 
-        List<String> comments = new ArrayList<>();
-        for(Comment comment : post.getComments()){
-            comments.add(comment.getContent());
+        List<Comment> comments = commentService.getPostComment(id);
+        List<String> commentList = new ArrayList<>();
+
+        for (Comment comment : comments) {
+            commentList.add(comment.getContent());
         }
 
         return GetPostResponseDto.builder()
                 .id(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())
-                .comments(comments)
+                .comments(commentList)
                 .build();
     }
 
-
+    @Transactional
     public PostUpdateResponse updatePost(UUID id, PostUpdateRequestDto request) {
 
         Post existPost = postRepository.findByIdAndDeletedIsFalse(id)
                 .orElseThrow(()-> new IllegalArgumentException("해당 게시글 없음"));
 
         existPost.updatePost(request.getTitle(), request.getContent());
+
 
         Post savePost = postRepository.save(existPost);
 
