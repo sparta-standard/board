@@ -58,3 +58,9 @@
     - [x] 존재하지 않는 게시글 삭제 요청 시 예외 처리
 
 <hr>
+
+## 구현 시 어렵거나 이해가 되지 않는 부분
+- soft-delete 구현 시, @SQLDelete 와 BaseEntity 에서 delete()를 호출하는 것 중 효율적인 방법과 추가적인 방법이 있는지
+- soft-delete 처리 및 데이터 조회 시, @Query 를 사용하여 필터하는 것과 조회 후 예외 처리 중 효율적인 것은 어떤 것인지
+- Page 처리 시, CommentRepository 에서 Page 조회를 하였는데, Post Entity 에 존재하는 List 와 중복되어 메모리가 낭비되지는 않는지  
+- 아직 이론적인 부분이 약하다고 생각함
