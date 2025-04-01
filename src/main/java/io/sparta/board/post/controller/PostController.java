@@ -1,6 +1,7 @@
 package io.sparta.board.post.controller;
 
 import io.sparta.board.post.dto.requestDto.PostRequestDto;
+import io.sparta.board.post.dto.responseDto.PostDeleteResponseDto;
 import io.sparta.board.post.dto.responseDto.PostDetailsResponseDto;
 import io.sparta.board.post.dto.responseDto.PostResponseDto;
 import io.sparta.board.post.dto.responseDto.PostUpdateResponseDto;
@@ -9,6 +10,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,6 +59,13 @@ public class PostController {
         @PathVariable("post_id") UUID postId,
         @RequestBody PostRequestDto requestDto){
         PostUpdateResponseDto responseDto = postService.updatePost(postId, requestDto);
+        return ResponseEntity.ok(responseDto);
+    }
+
+    // 게시물 삭제
+    @DeleteMapping("/{post_id}")
+    public ResponseEntity<PostDeleteResponseDto> deletePost(@PathVariable("post_id") UUID postId){
+        PostDeleteResponseDto responseDto = postService.deletePost(postId);
         return ResponseEntity.ok(responseDto);
     }
 
