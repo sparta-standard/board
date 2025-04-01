@@ -1,0 +1,43 @@
+package io.sparta.board.post.service;
+
+
+import io.sparta.board.comment.dto.responseDto.CommentResponseDto;
+import io.sparta.board.comment.model.Comment;
+import io.sparta.board.comment.repository.CommentRepository;
+import io.sparta.board.common.PageRequestDto;
+import io.sparta.board.post.dto.responseDto.PostDetailsResponseDto;
+import io.sparta.board.post.model.Post;
+import io.sparta.board.post.repository.PostRepository;
+import jakarta.persistence.EntityNotFoundException;
+import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j(topic = "PostService")
+public class PostService {
+
+    private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
+
+    // 게시물 단일 조회
+    @Transactional
+    public PostDetailsResponseDto getPost(UUID postId, Integer page, Integer size) {
+        log.info("get Post - postId : " + postId);
+
+        Post post = postRepository.findByIdAndIsDeletedFalse(postId)
+            .orElseThrow(() -> new EntityNotFoundException("Post not found"));
+
+        Page<Comment> comments = commentRepository.findAllByPostIdAndIsDeletedFalse(
+            postId, new PageRequestDto(page,size).getPageable());
+
+        post.upCount();
+
+        return new PostDetailsResponseDto(post, comments.map(CommentResponseDto::new));
+    }
+
+}
