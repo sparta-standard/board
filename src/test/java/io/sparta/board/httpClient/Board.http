@@ -29,3 +29,13 @@ Content-Type: application/json
   "content": "댓글 테스트 입니다."
 }
 
+### Comment Update
+PATCH http://localhost:8080/api/comments/db30789a-d7c7-4e61-be07-d86aa4483bc3
+Content-Type: application/json
+
+{
+  "post-id": "4ae65aa7-ffa4-4b38-86d2-b333e7accc5a",
+  "content": "댓글 수정 테스트입니다."
+}
+
+
