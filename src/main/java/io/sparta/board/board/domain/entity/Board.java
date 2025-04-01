@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,7 +22,7 @@ public class Board extends BaseEntity {
 
     @Id
     @UuidGenerator
-    private Long id;
+    private UUID id;
 
     @Column(name = "title", nullable = false)
     private String title;
