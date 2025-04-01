@@ -34,4 +34,12 @@ public class Post extends Timestamped{
 
 	@OneToMany(mappedBy = "post")
 	private List<Comment> commentList = new ArrayList<>();
+
+	public static Post createPost(String title, String content) {
+		Post post = new Post();
+		post.title = title;
+		post.content = content;
+		post.deleted = false;
+		return post;
+	}
 }
