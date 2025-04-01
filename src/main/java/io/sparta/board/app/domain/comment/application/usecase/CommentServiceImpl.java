@@ -5,6 +5,7 @@ import io.sparta.board.app.domain.comment.model.repository.CommentRepository;
 import io.sparta.board.app.domain.comment.presentation.dto.request.CommentCreateRequestDto;
 import io.sparta.board.app.domain.comment.presentation.dto.request.CommentUpdateRequestDto;
 import io.sparta.board.app.domain.comment.presentation.dto.response.CommentCreateResponseDto;
+import io.sparta.board.app.domain.comment.presentation.dto.response.CommentDeleteResponseDto;
 import io.sparta.board.app.domain.comment.presentation.dto.response.CommentUpdateResponseDto;
 import io.sparta.board.app.domain.comment.presentation.mapper.CommentMapper;
 import io.sparta.board.app.domain.post.model.entity.Post;
@@ -39,5 +40,13 @@ public class CommentServiceImpl implements CommentService {
 		Comment comment = commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("comment not found"));
 		comment.update(post, commentUpdateRequestDto);
 		return CommentMapper.entityToUpdateResponseDto(post, comment);
+	}
+
+	@Override
+	public CommentDeleteResponseDto deleteComment(UUID id) {
+		Comment comment = commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("comment not found"));
+		comment.delete(true);
+
+		return CommentMapper.entityToDeleteResponseDto(comment);
 	}
 }

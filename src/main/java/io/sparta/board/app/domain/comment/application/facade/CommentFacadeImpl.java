@@ -4,6 +4,7 @@ import io.sparta.board.app.domain.comment.application.usecase.CommentService;
 import io.sparta.board.app.domain.comment.presentation.dto.request.CommentCreateRequestDto;
 import io.sparta.board.app.domain.comment.presentation.dto.request.CommentUpdateRequestDto;
 import io.sparta.board.app.domain.comment.presentation.dto.response.CommentCreateResponseDto;
+import io.sparta.board.app.domain.comment.presentation.dto.response.CommentDeleteResponseDto;
 import io.sparta.board.app.domain.comment.presentation.dto.response.CommentUpdateResponseDto;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +24,10 @@ public class CommentFacadeImpl implements CommentFacade {
 	public CommentUpdateResponseDto updateComment(UUID id,
 		CommentUpdateRequestDto commentUpdateRequestDto) {
 		return commentService.updateComment(id, commentUpdateRequestDto);
+	}
+
+	@Override
+	public CommentDeleteResponseDto deleteComment(UUID id) {
+		return commentService.deleteComment(id);
 	}
 }
