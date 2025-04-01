@@ -1,7 +1,9 @@
 package io.sparta.board.presentation;
 
 import io.sparta.board.application.dto.request.CommentCreateRequestDto;
+import io.sparta.board.application.dto.request.comment.CommentUpdateRequestDto;
 import io.sparta.board.application.dto.response.CommentCreateResponseDto;
+import io.sparta.board.application.dto.response.comment.CommentUpdateResponseDto;
 import io.sparta.board.application.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,14 @@ public class CommentController {
             @RequestBody CommentCreateRequestDto request){
 
         CommentCreateResponseDto response = commentService.createComment(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}/updateComment")
+    public ResponseEntity<CommentUpdateResponseDto> updateComment(
+            @PathVariable UUID id,
+            @RequestBody CommentUpdateRequestDto request){
+        CommentUpdateResponseDto response = commentService.updateComment(id, request);
         return ResponseEntity.ok(response);
     }
 }
