@@ -81,4 +81,15 @@ public class PostServcie {
                 .build();
 
     }
+
+    public void deletePost(UUID id) {
+
+        Post existPost = postRepository.findByIdAndDeletedIsFalse(id)
+                .orElseThrow(()-> new IllegalArgumentException("해당 게시글 없음"));
+
+        existPost.setDeleted(true);
+
+        postRepository.save(existPost);
+
+    }
 }
