@@ -19,8 +19,8 @@ public class PostRepositoryImpl implements PostRepository{
     }
 
     @Override
-    public Optional<Post> findById(UUID id) {
-        return postJpaRepository.findById(id);
+    public Optional<Post> findByIdAndDeletedIsFalse(UUID id) {
+        return postJpaRepository.findByIdAndDeletedIsFalse(id);
     }
 
     @Override
