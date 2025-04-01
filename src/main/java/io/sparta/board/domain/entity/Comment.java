@@ -1,15 +1,18 @@
 package io.sparta.board.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "p_comment")
 @Getter
 @NoArgsConstructor
@@ -37,4 +40,17 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
+
+    @Builder
+    public Comment(String content, Post post){
+        this.content = content;
+        this.post = post;
+    }
+
+    public static Comment create(String content, Post post) {
+        return Comment.builder()
+                .content(content)
+                .post(post)
+                .build();
+    }
 }
