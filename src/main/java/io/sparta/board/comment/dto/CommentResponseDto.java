@@ -25,9 +25,5 @@ public class CommentResponseDto {
         this.id = comment.getId();
         this.postId = comment.getPost().getId();
         this.content = comment.getContent();
-
-        this.createdAt = comment.getCreatedAt();
-        this.updatedAt = comment.getUpdatedAt();
-        this.deleted = comment.isDeleted();
     }
 }

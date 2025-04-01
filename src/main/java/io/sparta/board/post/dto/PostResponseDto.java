@@ -28,10 +28,6 @@ public class PostResponseDto {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
-
-        this.createdAt = post.getCreatedAt();
-        this.updatedAt = post.getUpdatedAt();
-        this.deleted = post.isDeleted();
     }
 
     public PostResponseDto(Post post, Page<CommentResponseDto> comments) {

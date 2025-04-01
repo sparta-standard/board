@@ -1,6 +1,7 @@
 package io.sparta.board.post.service;
 
 import io.sparta.board.comment.dto.CommentResponseDto;
+import io.sparta.board.comment.model.Comment;
 import io.sparta.board.post.dto.PostRequestDto;
 import io.sparta.board.post.dto.PostResponseDto;
 import io.sparta.board.post.dto.PostUpdateRequestDto;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -73,7 +75,11 @@ public class PostService {
                 .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
 
         post.delete();
-        commentRepository.deleteAllByPostId(id);
+
+        List<Comment> comments = commentRepository.findByPostIdAndDeletedFalse(id);
+        for (Comment comment : comments) {
+            comment.delete();
+        }
 
         return new PostResponseDto(post);
     }
