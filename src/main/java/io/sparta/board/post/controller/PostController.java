@@ -1,9 +1,11 @@
 package io.sparta.board.post.controller;
 
 import io.sparta.board.post.dto.responseDto.PostDetailsResponseDto;
+import io.sparta.board.post.dto.responseDto.PostResponseDto;
 import io.sparta.board.post.service.PostService;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +30,14 @@ public class PostController {
         return ResponseEntity.ok(responseDto);
     }
 
-
+    // 게시물 전체 조회
+    @GetMapping
+    public ResponseEntity<Page<PostResponseDto>> getPosts(
+        @RequestParam(required = false, defaultValue = "0") Integer page,
+        @RequestParam(required = false, defaultValue = "10") Integer size){
+        Page<PostResponseDto> responseDtos = postService.getPosts(page, size);
+        return ResponseEntity.ok(responseDtos);
+    }
 
 
 }
