@@ -1,5 +1,7 @@
 package io.sparta.board.comment.model;
 
+import io.sparta.board.comment.dto.CommentRequestDto;
+import io.sparta.board.comment.dto.CommentUpdateRequestDto;
 import io.sparta.board.common.model.BaseEntity;
 import io.sparta.board.post.entity.Post;
 import jakarta.persistence.*;
@@ -30,6 +32,15 @@ public class Comment extends BaseEntity {
     public Comment(Post post, String content) {
         this.post = post;
         this.content = content;
+    }
+
+    public Comment(CommentRequestDto requestDto, Post post) {
+        this.post = post;
+        this.content = requestDto.getContent();;
+    }
+
+    public void updateComment(CommentUpdateRequestDto requestDto) {
+        this.content = requestDto.getContent();
     }
 
 }
