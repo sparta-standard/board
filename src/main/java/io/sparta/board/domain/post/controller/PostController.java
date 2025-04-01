@@ -1,8 +1,10 @@
 package io.sparta.board.domain.post.controller;
 
 import io.sparta.board.domain.post.dto.request.PostCreateRequestDto;
+import io.sparta.board.domain.post.dto.request.PostUpdateRequestDto;
 import io.sparta.board.domain.post.dto.response.GetPostResponseDto;
 import io.sparta.board.domain.post.dto.response.PostResponseDto;
+import io.sparta.board.domain.post.dto.response.PostUpdateResponse;
 import io.sparta.board.domain.post.service.PostServcie;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +50,22 @@ public class PostController {
         }
 
         GetPostResponseDto responseDto = postService.getPost(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
+    //게시글 수정
+    @PatchMapping("/{id}")
+    public ResponseEntity<PostUpdateResponse> updatePost(
+            @PathVariable UUID id,
+            @RequestBody PostUpdateRequestDto request
+    ){
+        if(id == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        }
+
+        PostUpdateResponse responseDto = postService.updatePost(id, request);
 
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
