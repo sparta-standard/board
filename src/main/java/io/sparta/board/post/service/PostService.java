@@ -54,7 +54,7 @@ public class PostService {
 
         Pageable pageable = new PageRequestDto(page, size).getPageable();
 
-        return postRepository.findAllAndIsDeletedFalse(pageable)
+        return postRepository.findAllByIsDeletedFalse(pageable)
             .map(PostResponseDto::new);
     }
 

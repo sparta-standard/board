@@ -26,9 +26,10 @@ public class CommentService {
 
     // 댓글 등록
     @Transactional
-    public CommentCreateResponseDto createComment(CommentCreateRequestDto requestDto) {
+    public CommentCreateResponseDto createComment(UUID postId, CommentCreateRequestDto requestDto) {
 
-        Post post = postRepository.findById(requestDto.getPostId()).orElseThrow(EntityNotFoundException::new);
+        Post post = postRepository.findByIdAndIsDeletedFalse(postId)
+            .orElseThrow(EntityNotFoundException::new);
 
         Comment comment = Comment.builder()
             .content(requestDto.getContent())
