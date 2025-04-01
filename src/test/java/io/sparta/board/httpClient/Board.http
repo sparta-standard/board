@@ -15,3 +15,7 @@ Content-Type: application/json
   "title": "게시글 수정 테스트",
   "content": "게시글 수정 테스트입니다."
 }
+
+### Post Delete
+DELETE http://localhost:8080/api/posts/4d04a59f-6164-44b1-9ec7-b28a182c3216
+Content-Type: application/json
