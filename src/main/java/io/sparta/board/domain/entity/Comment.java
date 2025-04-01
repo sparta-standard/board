@@ -1,5 +1,6 @@
 package io.sparta.board.domain.entity;
 
+import io.sparta.board.application.dto.request.CommentUpdateRequestDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -30,5 +31,9 @@ public class Comment extends BaseTimeEntity{
     public Comment(String content, Post post) {
         this.content = content;
         this.post = post;
+    }
+
+    public void updateOf(CommentUpdateRequestDto dto) {
+        this.content = dto.content();
     }
 }
