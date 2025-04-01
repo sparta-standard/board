@@ -11,8 +11,6 @@ import java.util.UUID;
 
 @Entity
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "p_comment")
 public class Comment extends BaseEntity {
@@ -27,8 +25,18 @@ public class Comment extends BaseEntity {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)//Hibernate 문법...cascade 제약조건 추가. db 변경을 고려하면 ddl을 직접 작성하는게 좋을 것 같지만 콘솔이 안보인다...
+    @OnDelete(action = OnDeleteAction.CASCADE)//cascade 제약조건 추가. db 변경을 고려하면 좋진 않은거 같은데...콘솔로 직접 입력하고 싶은데 어디 있나요...
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
+
+    @Builder
+    public Comment(String content, Post post) {
+        this.content = content;
+        this.post = post;
+    }
+
+    public void UpdateComment(String content) {
+        this.content = content;
+    }
 
 }
