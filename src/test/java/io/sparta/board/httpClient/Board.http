@@ -7,5 +7,11 @@ Content-Type: application/json
   "content": "게시글 테스트입니다."
 }
 
+### Post Patch
+PATCH http://localhost:8080/api/posts/d0fd4bc7-ca55-4ab3-8a1a-14f8ad339396
+Content-Type: application/json
 
-<> 2025-04-01T200943.200.json
+{
+  "title": "게시글 수정 테스트",
+  "content": "게시글 수정 테스트입니다."
+}
