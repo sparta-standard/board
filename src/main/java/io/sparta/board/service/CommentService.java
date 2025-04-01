@@ -24,7 +24,7 @@ public class CommentService {
     public void createComment(CreateCommentRequestDto createCommentRequestDto) {
         Board board = boardRepository.findByTitle(createCommentRequestDto.getTitle());
 
-        Comment comment = Comment.createComment(board.getId(), createCommentRequestDto.getContent());
+        Comment comment = Comment.createComment(board, createCommentRequestDto.getContent());
         commentRepository.save(comment);
     }
 

@@ -1,6 +1,5 @@
 package io.sparta.board.repository.entity;
 
-import io.sparta.board.controller.dto.CreateCommentRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.UuidGenerator;
@@ -12,18 +11,18 @@ import java.util.UUID;
 public class Comment extends BaseEntity {
     @UuidGenerator
     @Id
-    UUID id;
+    private UUID id;
 
-    @Column
-    String content;
+    private String content;
 
-    @Column
-    UUID post_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id")
+    private Board board;
 
-    public static Comment createComment(UUID post_id, String content) {
+    public static Comment createComment(Board board, String content) {
         Comment comment = new Comment();
-        comment.post_id = post_id;
         comment.content = content;
+        comment.board = board;
 
         return comment;
     }

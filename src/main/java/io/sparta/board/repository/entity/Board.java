@@ -2,14 +2,13 @@ package io.sparta.board.repository.entity;
 
 import io.sparta.board.controller.dto.CreateBoardRequestDto;
 import io.sparta.board.controller.dto.UpdateBoardRequestDto;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -21,11 +20,12 @@ public class Board extends BaseEntity {
     @Id
     private UUID id;
 
-    @Column
     private String title;
 
-    @Column
     private String content;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
     public static Board createBoard(CreateBoardRequestDto createBoardRequestDto) {
         Board board = new Board();

@@ -3,16 +3,21 @@ package io.sparta.board.service;
 import io.sparta.board.controller.dto.CreateBoardRequestDto;
 import io.sparta.board.controller.dto.UpdateBoardRequestDto;
 import io.sparta.board.repository.BoardRepository;
+import io.sparta.board.repository.CommentRepository;
 import io.sparta.board.repository.entity.Board;
+import io.sparta.board.repository.entity.Comment;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final CommentRepository commentRepository;
 
     @Transactional
     public void createBoard(CreateBoardRequestDto createBoardRequestDto) {
@@ -30,5 +35,11 @@ public class BoardService {
     public void deleteBoard(String title) {
         Board board = boardRepository.findByTitle(title);
         board.delete();
+
+        List<Comment> comments = commentRepository.findByBoardId(board.getId());
+        for (Comment comment : comments) {
+            System.out.println(comment.getId());
+            comment.delete();
+        }
     }
 }
