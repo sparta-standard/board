@@ -25,7 +25,17 @@ public class PostDtoMapper {
                 .createAt(response.getCreateAt())
                 .title(response.getTitle())
                 .content(response.getContent())
-                .comments(CommentDtoMapper.toResponseList(response.getComments()))
+                .build();
+    }
+
+    public static PostResponseDto toResponseWithComments(PostResponseInternalDto response) {
+
+        return PostResponseDto.builder()
+                .id(response.getId())
+                .createAt(response.getCreateAt())
+                .title(response.getTitle())
+                .content(response.getContent())
+                .comments(CommentDtoMapper.toResponseList(response.getComments().getContent()))
                 .build();
     }
 }

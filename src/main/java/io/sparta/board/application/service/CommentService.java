@@ -6,6 +6,7 @@ import io.sparta.board.application.mapper.CommentMapper;
 import io.sparta.board.domain.model.Comment;
 import io.sparta.board.domain.model.Post;
 import io.sparta.board.domain.service.CommentDomainService;
+import io.sparta.board.domain.service.PostDomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,11 @@ public class CommentService {
 
     private final CommentDomainService commentDomainService;
 
-    private final PostService postService;
+    private final PostDomainService postDomainService;
 
     public CommentResponseInternalDto createComment(UUID postId, CreateCommentRequestInternalDto request) {
 
-        Post post = postService.findPostById(postId);
+        Post post = postDomainService.findPostById(postId);
 
         Comment comment = CommentMapper.toEntity(request);
 

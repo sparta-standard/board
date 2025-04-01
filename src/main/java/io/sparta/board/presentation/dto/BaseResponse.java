@@ -22,7 +22,6 @@ public class BaseResponse<D> {
                 .build();
     }
 
-
     public static <D> BaseResponse<D> SUCCESS(D data, Pagination pagination) {
         return BaseResponse.<D>builder()
                 .data(data)

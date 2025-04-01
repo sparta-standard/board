@@ -3,9 +3,9 @@ package io.sparta.board.application.dto.post;
 import io.sparta.board.application.dto.comment.CommentResponseInternalDto;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -16,5 +16,5 @@ public class PostResponseInternalDto {
     private LocalDateTime createAt;
     private String title;
     private String content;
-    private List<CommentResponseInternalDto> comments;
+    private Page<CommentResponseInternalDto> comments;
 }

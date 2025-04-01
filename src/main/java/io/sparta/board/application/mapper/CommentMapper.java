@@ -3,20 +3,18 @@ package io.sparta.board.application.mapper;
 import io.sparta.board.application.dto.comment.CommentResponseInternalDto;
 import io.sparta.board.application.dto.comment.CreateCommentRequestInternalDto;
 import io.sparta.board.domain.model.Comment;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 
 public class CommentMapper {
 
-    public static Comment toEntity(CreateCommentRequestInternalDto request){
+    public static Comment toEntity(CreateCommentRequestInternalDto request) {
 
         return Comment.builder()
                 .content(request.getContent())
                 .build();
     }
 
-    public static CommentResponseInternalDto toResponse(Comment comment){
+    public static CommentResponseInternalDto toResponse(Comment comment) {
 
         return CommentResponseInternalDto.builder()
                 .id(comment.getId())
@@ -25,12 +23,8 @@ public class CommentMapper {
                 .build();
     }
 
-    public static List<CommentResponseInternalDto> toResponseList(List<Comment> comments){
+    public static Page<CommentResponseInternalDto> toResponsePage(Page<Comment> comments) {
 
-        if(comments == null) return null;
-
-        return comments.stream()
-                .map(CommentMapper::toResponse)
-                .collect(Collectors.toList());
+        return comments.map(CommentMapper::toResponse);
     }
 }
