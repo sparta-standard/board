@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
@@ -52,6 +53,7 @@ public class Comment {
     @Column(name = "is_deleted")
     private boolean isDeleted;
 
+    @Builder
     public Comment(Post post, String content) {
         this.post = post;
         this.content = content;
