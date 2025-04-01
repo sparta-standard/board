@@ -3,12 +3,14 @@ spring:
     name: board
 
   datasource:
-    hikari.jdbc-url: jdbc:h2:mem:test_db;
-    username: sa
-    password:
+    url: jdbc:postgresql://localhost:5432/board
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: hello12
 
   jpa:
-    hibernate.ddl-auto: create
+    hibernate:
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
