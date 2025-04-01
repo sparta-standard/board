@@ -1,0 +1,8 @@
+### GET request to example server
+PATCH http://localhost:8080/api/v1/comment/32a4ee2f-e3e1-4f39-a152-182a7dda859f
+Content-Type: application/json
+
+{
+    "content" : "댓글 수정 2"
+}
+###
