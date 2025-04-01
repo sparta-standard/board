@@ -54,4 +54,14 @@ public class PostService {
 
         return PostMapper.toResponse(post);
     }
+
+    @Transactional
+    public PostResponseInternalDto deletePostById(UUID postId) {
+
+        Post post = postDomainService.findPostById(postId);
+
+        postDomainService.deletePostById(postId);
+
+        return PostMapper.toResponse(post);
+    }
 }

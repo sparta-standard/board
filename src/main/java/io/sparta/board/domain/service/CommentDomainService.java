@@ -35,4 +35,9 @@ public class CommentDomainService {
 
         commentRepository.save(comment);
     }
+
+    public void deleteById(UUID commentId) {
+
+        commentRepository.deleteById(commentId);
+    }
 }

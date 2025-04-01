@@ -2,6 +2,7 @@ package io.sparta.board.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 
 import java.util.UUID;
 
@@ -10,6 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE p_comment SET deleted = true WHERE id = ?")
 @Entity
 @Table(name = "p_comment")
 public class Comment extends BaseEntity {
@@ -30,7 +32,7 @@ public class Comment extends BaseEntity {
         this.post = post;
     }
 
-    public void update(Comment comment) {
-        this.content = comment.content;
+    public void update(String content) {
+        this.content = content;
     }
 }

@@ -17,4 +17,6 @@ public interface CommentRepository {
     Page<Comment> findAllByPost(Post post, Pageable pageable);
 
     Optional<Comment> findById(UUID commentId);
+
+    void deleteById(UUID commentId);
 }

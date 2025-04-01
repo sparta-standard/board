@@ -28,4 +28,9 @@ public class PostDomainService {
 
         postRepository.save(post);
     }
+
+    public void deletePostById(UUID postId) {
+
+        postRepository.deleteById(postId);
+    }
 }

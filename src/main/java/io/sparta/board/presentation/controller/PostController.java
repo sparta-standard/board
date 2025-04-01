@@ -63,6 +63,13 @@ public class PostController {
         return BaseResponse.SUCCESS(PostDtoMapper.toResponse(response));
     }
 
+    @DeleteMapping("/{postId}")
+    public BaseResponse<PostResponseDto> deletePost(@PathVariable UUID postId) {
+
+        PostResponseInternalDto response = postService.deletePostById(postId);
+
+        return BaseResponse.SUCCESS(PostDtoMapper.toResponse(response));
+    }
     // ------------------- Comment ------------------- //
 
     @PostMapping("/{postId}/comments")
@@ -81,6 +88,14 @@ public class PostController {
         CommentRequestInternalDto internalDto = CommentDtoMapper.toInternalDto(request);
 
         CommentResponseInternalDto response = commentService.updateComment(commentId, internalDto);
+
+        return BaseResponse.SUCCESS(CommentDtoMapper.toResponse(response));
+    }
+
+    @DeleteMapping("/comments/{commentId}")
+    public BaseResponse<CommentResponseDto> deleteComment(@PathVariable UUID commentId) {
+
+        CommentResponseInternalDto response = commentService.deleteCommentById(commentId);
 
         return BaseResponse.SUCCESS(CommentDtoMapper.toResponse(response));
     }

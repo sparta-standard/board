@@ -25,4 +25,10 @@ public class PostRepositoryImpl implements PostRepository {
 
         return jpaPostRepository.findById(postId);
     }
+
+    @Override
+    public void deleteById(UUID postId) {
+
+        jpaPostRepository.deleteById(postId);
+    }
 }

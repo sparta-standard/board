@@ -34,4 +34,10 @@ public class CommentRepositoryImpl implements CommentRepository {
 
         return jpaCommentRepository.findById(commentId);
     }
+
+    @Override
+    public void deleteById(UUID commentId) {
+
+        jpaCommentRepository.deleteById(commentId);
+    }
 }

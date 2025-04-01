@@ -26,8 +26,4 @@ public class BaseEntity {
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     private Boolean deleted;
-
-    private void delete() {
-        this.deleted = true;
-    }
 }
