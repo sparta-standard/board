@@ -26,4 +26,7 @@ public abstract class BaseEntity implements Serializable {
 	@ColumnDefault("false")
 	private Boolean deleted;
 
+	public void delete(boolean deleted) {
+		this.deleted = deleted;
+	}
 }
