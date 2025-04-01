@@ -1,0 +1,6 @@
+### GET request to example server
+DELETE http://localhost:8080/api/v1/post/4e1b1496-fe75-4aa3-bbb2-bf1481cffa48
+Content-Type: application/json
+
+
+###
