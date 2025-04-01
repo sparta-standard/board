@@ -1,5 +1,6 @@
 package io.sparta.board.board.domain.entity;
 
+import io.sparta.board.board.application.dto.request.BoardUpdateRequestDto;
 import io.sparta.board.global.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,5 +30,16 @@ public class Board extends BaseEntity {
 
     @Column(name = "content", nullable = false)
     private String content;
+
+    public void updateFromDto(BoardUpdateRequestDto requestDto) {
+        if (requestDto.getTitle() != null && !requestDto.getTitle().isEmpty()) {
+            this.title = requestDto.getTitle();
+        }
+
+        if (requestDto.getContent() != null && !requestDto.getContent().isEmpty()) {
+            this.content = requestDto.getContent();
+        }
+
+    }
 
 }
