@@ -29,6 +29,10 @@ Content-Type: application/json
   "content": "댓글 테스트 입니다."
 }
 
+### Comment Read
+GET http://localhost:8080/api/posts/a0d72768-0ca2-40d5-9d25-5f7f194797ea?page=0&size=10&sort=DESC&orderby=CREATED
+Content-Type: application/json
+
 ### Comment Update
 PATCH http://localhost:8080/api/comments/db30789a-d7c7-4e61-be07-d86aa4483bc3
 Content-Type: application/json
