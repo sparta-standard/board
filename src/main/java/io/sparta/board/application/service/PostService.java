@@ -43,6 +43,11 @@ public class PostService {
     public void deletePost(UUID id) {
         Post post = getPostById(id);
         post.deletedOf();
+
+        List<Comment> commentList = commentRepository.findByPostIdAndDeletedIsFalse(id);
+        for(Comment comment : commentList) {
+            comment.deletedOf();
+        }
     }
 
     @Transactional(readOnly = true)
