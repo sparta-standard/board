@@ -63,4 +63,8 @@ public class Post {
         this.title = title;
         this.content = content;
     }
+
+    public void softDelete() {
+        this.deleted = true;
+    }
 }
