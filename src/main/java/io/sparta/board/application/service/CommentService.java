@@ -7,6 +7,7 @@ import io.sparta.board.domain.model.Comment;
 import io.sparta.board.domain.model.Post;
 import io.sparta.board.domain.service.CommentDomainService;
 import io.sparta.board.domain.service.PostDomainService;
+import io.sparta.board.infrastructure.exception.DeletedEntityException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,10 @@ public class CommentService {
 
         Post post = postDomainService.findPostById(postId);
 
+        if(post.getDeleted()) {
+            throw new DeletedEntityException("삭제된 게시글 입니다.");
+        }
+
         Comment comment = CommentMapper.toEntity(request);
 
         comment.addPost(post);
@@ -41,6 +46,10 @@ public class CommentService {
 
         Comment comment = commentDomainService.findCommentById(commentId);
 
+        if(comment.getDeleted()) {
+            throw new DeletedEntityException("삭제된 댓글입니다.");
+        }
+
         comment.update(request.getContent());
 
         commentDomainService.update(comment);
@@ -52,6 +61,10 @@ public class CommentService {
     public CommentResponseInternalDto deleteCommentById(UUID commentId) {
 
         Comment comment = commentDomainService.findCommentById(commentId);
+
+        if(comment.getDeleted()) {
+            throw new DeletedEntityException("이미 삭제된 댓글입니다.");
+        }
 
         commentDomainService.deleteById(commentId);
 

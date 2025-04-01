@@ -31,11 +31,11 @@ public class BaseResponse<D> {
                 .build();
     }
 
-    public static <D> BaseResponse<D> FAIL(String description) {
+    public static <D> BaseResponse<D> FAIL(String description, String status) {
 
         return BaseResponse.<D>builder()
                 .description(description)
-                .status("FAIL")
+                .status(status)
                 .build();
     }
 }
