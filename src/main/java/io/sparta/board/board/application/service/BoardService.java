@@ -8,6 +8,7 @@ import io.sparta.board.board.domain.entity.Board;
 import io.sparta.board.board.domain.repository.BoardRepository;
 import io.sparta.board.board.presentation.controller.BoardUpdateResponseDto;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
+    @Transactional
     public BoardCreateResponseDto createBoard(BoardCreateRequestDto requestDto) {
         Board board = Board.builder()
             .title(requestDto.getTitle())
@@ -44,6 +46,7 @@ public class BoardService {
             .build();
     }
 
+    @Transactional
     public BoardUpdateResponseDto updateBoard(UUID boardId, BoardUpdateRequestDto requestDto) {
         Board board = boardRepository.findById(boardId)
             .orElseThrow(() -> new EntityNotFoundException("id에 해당하는 board 를 찾을 수 없습니다. boardId : " + boardId));
@@ -58,4 +61,13 @@ public class BoardService {
             .build();
     }
 
+    @Transactional
+    public void deleteBoard(UUID boardId) {
+        Board board = boardRepository.findById(boardId)
+            .orElseThrow(() -> new EntityNotFoundException("id에 해당하는 board 를 찾을 수 없습니다. boardId : " + boardId));
+
+        board.delete();
+        boardRepository.save(board);
+
+    }
 }

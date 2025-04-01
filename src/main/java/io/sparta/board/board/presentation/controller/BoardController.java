@@ -9,6 +9,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,4 +50,11 @@ public class BoardController {
         return ResponseEntity.ok(responseDto);
     }
 
+    @DeleteMapping("/boards/{boardId}")
+    public ResponseEntity<String> deleteBoard(
+        @PathVariable(name = "boardId") UUID boardId
+    ) {
+        boardService.deleteBoard(boardId);
+        return ResponseEntity.ok("삭제 완료");
+    }
 }
