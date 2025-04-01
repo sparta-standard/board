@@ -50,15 +50,13 @@ public class PostService {
 
     // 단건 조회
     public PostResponseDto getPost(UUID id) {
-        Post post = postRepository.findByIdAndDeletedFalse(id).orElseThrow(() ->
-                new EntityNotFoundException("해당 게시글을 찾을 수 없습니다.")
-        );
+        Post post = findPost(id);
         return PostResponseDto.from(post);
     }
 
 
     private Post findPost(UUID id) {
-        return postRepository.findById(id).orElseThrow(() ->
+        return postRepository.findByIdAndDeletedFalse(id).orElseThrow(() ->
                 new EntityNotFoundException("해당 게시글이 존재하지 않습니다.")
         );
     }
