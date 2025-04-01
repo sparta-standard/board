@@ -1,0 +1,25 @@
+package io.sparta.board.service;
+
+import io.sparta.board.dto.PostCreateRequestDto;
+import io.sparta.board.dto.PostCreateResponseDto;
+import io.sparta.board.entity.Post;
+import io.sparta.board.repository.PostRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class PostService {
+
+    private final PostRepository postRepository;
+
+    @Transactional
+    public PostCreateResponseDto createPost(PostCreateRequestDto requestDto){
+        Post post = new Post(requestDto.getTitle(),requestDto.getContent());
+
+        Post savedPost = postRepository.save(post);
+        return new PostCreateResponseDto(savedPost);
+    }
+
+}
