@@ -50,4 +50,12 @@ public class PostController {
         return ResponseEntity.ok(responseDto);
     }
 
+    // 게시글 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePost(
+            @PathVariable UUID id) {
+        postService.deletePost(id);
+
+        return ResponseEntity.ok("게시물이 삭제되었습니다.");
+    }
 }

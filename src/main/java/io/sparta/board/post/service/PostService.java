@@ -3,6 +3,7 @@ package io.sparta.board.post.service;
 import io.sparta.board.comment.dto.CommentResponseDto;
 import io.sparta.board.post.dto.PostRequestDto;
 import io.sparta.board.post.dto.PostResponseDto;
+import io.sparta.board.post.dto.PostUpdateRequestDto;
 import io.sparta.board.post.entity.Post;
 import io.sparta.board.comment.repository.CommentRepository;
 import io.sparta.board.post.repository.PostRepository;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -51,5 +53,29 @@ public class PostService {
         return new PostResponseDto(post, comments);
     }
 
+    // 게시글 수정
+    @Transactional
+    public PostResponseDto updatePost(UUID id, PostUpdateRequestDto requestDto) {
+
+        Post post = postRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
+
+        post.updatePost(requestDto);
+
+        return new PostResponseDto(post);
+    }
+
+    // 게시글 삭제
+    @Transactional
+    public PostResponseDto deletePost(UUID id) {
+
+        Post post = postRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
+
+        post.delete();
+        commentRepository.deleteAllByPostId(id);
+
+        return new PostResponseDto(post);
+    }
 
 }
