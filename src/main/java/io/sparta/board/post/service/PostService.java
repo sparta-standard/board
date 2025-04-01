@@ -6,14 +6,11 @@ import io.sparta.board.comment.model.Comment;
 import io.sparta.board.comment.repository.CommentRepository;
 import io.sparta.board.common.PageRequestDto;
 import io.sparta.board.post.dto.requestDto.PostRequestDto;
-import io.sparta.board.post.dto.responseDto.PostDeleteResponseDto;
 import io.sparta.board.post.dto.responseDto.PostDetailsResponseDto;
 import io.sparta.board.post.dto.responseDto.PostResponseDto;
-import io.sparta.board.post.dto.responseDto.PostUpdateResponseDto;
 import io.sparta.board.post.model.Post;
 import io.sparta.board.post.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
-import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +52,20 @@ public class PostService {
 
         return postRepository.findAllAndIsDeletedFalse(pageable)
             .map(PostResponseDto::new);
+    }
+
+    // 게시물 생성
+    @Transactional
+    public PostResponseDto createPost(PostRequestDto requestDto) {
+        log.info("create Post - requestDto : " + requestDto);
+
+        Post post = Post.builder()
+            .title(requestDto.getTitle())
+            .content(requestDto.getContent())
+            .build();
+
+        postRepository.save(post);
+        return new PostResponseDto(post);
     }
 
 }
