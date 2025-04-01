@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -29,12 +28,6 @@ public class Post extends BaseEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(nullable = false)
-    private boolean deleted = Boolean.FALSE;
-
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
-
     @Builder(access = AccessLevel.PRIVATE)
     private Post(String title, String content) {
         this.title = title;
@@ -46,10 +39,5 @@ public class Post extends BaseEntity {
             .title(title)
             .content(content)
             .build();
-    }
-
-    public void deletePost() {
-        deleted = Boolean.TRUE;
-        deletedAt = LocalDateTime.now();
     }
 }

@@ -19,4 +19,15 @@ public class BaseEntity {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Column(nullable = false)
+    private boolean deleted = Boolean.FALSE;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
+    public void delete() {
+        deleted = Boolean.TRUE;
+        deletedAt = LocalDateTime.now();
+    }
 }
