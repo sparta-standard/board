@@ -4,10 +4,12 @@ import io.sparta.board.app.domain.comment.application.facade.CommentFacade;
 import io.sparta.board.app.domain.comment.presentation.dto.request.CommentCreateRequestDto;
 import io.sparta.board.app.domain.comment.presentation.dto.request.CommentUpdateRequestDto;
 import io.sparta.board.app.domain.comment.presentation.dto.response.CommentCreateResponseDto;
+import io.sparta.board.app.domain.comment.presentation.dto.response.CommentDeleteResponseDto;
 import io.sparta.board.app.domain.comment.presentation.dto.response.CommentUpdateResponseDto;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,5 +34,10 @@ public class CommentController {
 	public ResponseEntity<CommentUpdateResponseDto> UpdateComment(@PathVariable("id") UUID id, @RequestBody
 	CommentUpdateRequestDto commentUpdateRequestDto) {
 		return ResponseEntity.ok(commentFacade.updateComment(id, commentUpdateRequestDto));
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<CommentDeleteResponseDto> DeleteComment(@PathVariable("id") UUID id) {
+		return ResponseEntity.ok(commentFacade.deleteComment(id));
 	}
 }
