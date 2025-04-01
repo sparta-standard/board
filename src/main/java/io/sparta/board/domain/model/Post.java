@@ -1,6 +1,5 @@
 package io.sparta.board.domain.model;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,4 +24,8 @@ public class Post extends BaseEntity {
     private String title; // VARCHAR(100)
     @Setter
     private String content; // TEXT 타입
+
+    public void delete() {
+        this.deleted = true;
+    }
 }

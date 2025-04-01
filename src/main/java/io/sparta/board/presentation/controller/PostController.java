@@ -2,6 +2,7 @@ package io.sparta.board.presentation.controller;
 
 import io.sparta.board.application.dto.request.PostCreationRequestDto;
 import io.sparta.board.application.dto.request.PostUpdateRequestDto;
+import io.sparta.board.application.dto.response.DeletePost;
 import io.sparta.board.application.dto.response.PostCreationResponseDto;
 import io.sparta.board.application.dto.response.PostUpdateResponseDto;
 import io.sparta.board.application.service.PostService;
@@ -31,17 +32,25 @@ public class PostController {
     */
 
     @PostMapping
-    public ResponseEntity<PostCreationResponseDto> postCreate(@Valid @RequestBody PostCreationRequestDto dto) {
+    public ResponseEntity<PostCreationResponseDto> create(@Valid @RequestBody PostCreationRequestDto dto) {
         log.info("Post Method - 게시글 작성: dto = {}", dto.toString());
-        PostCreationResponseDto responseDto = postService.postCreate(dto);
+        PostCreationResponseDto responseDto = postService.create(dto);
         return ResponseEntity.ok().body(responseDto);
     }
 
     // *** @PathVariable 로 전달받은 값을 dto 에 포함할 수 있을까?
     @PatchMapping("/update/{id}")
-    public ResponseEntity<PostUpdateResponseDto> postUpdate(@RequestBody PostUpdateRequestDto dto, @PathVariable UUID id) {
+    public ResponseEntity<PostUpdateResponseDto> update(@RequestBody PostUpdateRequestDto dto, @PathVariable UUID id) {
         log.info("Patch Method - 게시글 수정: dto = {}", dto.toString());
-        PostUpdateResponseDto updateDto = postService.postUpdate(dto, id);
+        PostUpdateResponseDto updateDto = postService.update(dto, id);
         return ResponseEntity.ok().body(updateDto);
+    }
+
+    // 게시글 삭제
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<DeletePost> deletePost(@PathVariable UUID id) {
+        log.info("Delete Method - 게시글 삭제");
+        DeletePost delete = postService.delete(id);
+        return ResponseEntity.ok().body(delete);
     }
 }

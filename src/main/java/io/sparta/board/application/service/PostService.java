@@ -2,6 +2,7 @@ package io.sparta.board.application.service;
 
 import io.sparta.board.application.dto.request.PostCreationRequestDto;
 import io.sparta.board.application.dto.request.PostUpdateRequestDto;
+import io.sparta.board.application.dto.response.DeletePost;
 import io.sparta.board.application.dto.response.PostCreationResponseDto;
 import io.sparta.board.application.dto.response.PostUpdateResponseDto;
 import io.sparta.board.domain.model.Post;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -19,7 +21,7 @@ import java.util.UUID;
 public class PostService {
     private final PostRepository postRepository;
 
-    public PostCreationResponseDto postCreate(PostCreationRequestDto dto) {
+    public PostCreationResponseDto create(PostCreationRequestDto dto) {
         Post post = dto.toEntity();
         // log.info("자바 어플리케이션에서 post.create {}, post.updated {}, post.uuid {}", post.getCreated_at(), post.getUpdated_at(), post.getId());
         // --> 모두 null 이 찍힘
@@ -29,13 +31,10 @@ public class PostService {
         return new PostCreationResponseDto(saved);
     }
 
-    public PostUpdateResponseDto postUpdate(PostUpdateRequestDto dto, UUID id) {
+    @Transactional
+    public PostUpdateResponseDto update(PostUpdateRequestDto dto, UUID id) {
         // 1. 수정하고자 하는 post 가 존재하는지 확인
-        Post post = postRepository.findById(id).orElseThrow(
-                // 게시물이 존재하지 않을 때, 어떤 예외를 발생시켜야할지 모르겠음.
-                // 상황에 따른 예외 클래스 사용법에 대한 기준을 모르겠음.
-                () -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다.")
-        );
+        Post post = getPost(id);
 
         // 2. 요청 dto 가 null 이라면
         // *** controller 에서 예외처리할 것
@@ -60,5 +59,25 @@ public class PostService {
 
         Post updatePost = postRepository.save(post);
         return new PostUpdateResponseDto(updatePost);
+    }
+
+    @Transactional
+    public DeletePost delete(UUID id) {
+        // 1. 수정하고자 하는 post 가 존재하는지 확인
+        Post post = getPost(id);
+        // 2. 존재한다면 deleted 의 값을 true 로 변경
+        post.delete();
+        // 3. 상태 값 업데이트
+        Post delete = postRepository.save(post);
+        return new DeletePost(delete);
+    }
+
+    // 수정, 조회, 삭제 메서드에서 작성해야하는 공통 코드이므로 메서드 추출함.
+    private Post getPost(UUID id) {
+        return postRepository.findById(id).orElseThrow(
+                // 게시물이 존재하지 않을 때, 어떤 예외를 발생시켜야할지 모르겠음.
+                // 상황에 따른 예외 클래스 사용법에 대한 기준을 모르겠음.
+                () -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다.")
+        );
     }
 }
