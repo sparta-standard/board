@@ -1,0 +1,11 @@
+### 1. 게시물 생성
+POST http://localhost:8080/api/boards
+Authorization: Bearer jwt_token_string
+Content-Type: application/json
+
+{
+  "title": "게시물 제목입니다.",
+  "content": "게시물 내용입니다."
+}
+
+###
