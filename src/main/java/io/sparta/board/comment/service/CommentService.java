@@ -3,6 +3,7 @@ package io.sparta.board.comment.service;
 import io.sparta.board.comment.dto.requestDto.CommentCreateRequestDto;
 import io.sparta.board.comment.dto.requestDto.CommentUpdateRequestDto;
 import io.sparta.board.comment.dto.responseDto.CommentCreateResponseDto;
+import io.sparta.board.comment.dto.responseDto.CommentDeleteResponseDto;
 import io.sparta.board.comment.dto.responseDto.CommentUpdateResponseDto;
 import io.sparta.board.comment.model.Comment;
 import io.sparta.board.comment.repository.CommentRepository;
@@ -48,5 +49,15 @@ public class CommentService {
         comment.updateComment(requestDto.getContent());
 
         return new CommentUpdateResponseDto(comment);
+    }
+
+    // 댓글 삭제
+    @Transactional
+    public CommentDeleteResponseDto deleteComment(UUID commentId) {
+        Comment comment = commentRepository.findByIdAndIsDeletedFalse(commentId)
+            .orElseThrow(EntityNotFoundException::new);
+
+        comment.deleteComment();
+        return new CommentDeleteResponseDto(commentId, "Successfully deleted comment");
     }
 }

@@ -3,11 +3,13 @@ package io.sparta.board.comment.controller;
 import io.sparta.board.comment.dto.requestDto.CommentCreateRequestDto;
 import io.sparta.board.comment.dto.requestDto.CommentUpdateRequestDto;
 import io.sparta.board.comment.dto.responseDto.CommentCreateResponseDto;
+import io.sparta.board.comment.dto.responseDto.CommentDeleteResponseDto;
 import io.sparta.board.comment.dto.responseDto.CommentUpdateResponseDto;
 import io.sparta.board.comment.service.CommentService;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -38,5 +40,12 @@ public class CommentController {
         return ResponseEntity.ok(responseDto);
     }
 
+    // 댓글 삭제
+    @DeleteMapping("/{comment_id}")
+    public ResponseEntity<CommentDeleteResponseDto>  deleteComment(@PathVariable("comment_id") UUID commentId){
+
+        CommentDeleteResponseDto responseDto = commentService.deleteComment(commentId);
+        return ResponseEntity.ok(responseDto);
+    }
 
 }
