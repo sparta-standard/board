@@ -38,4 +38,6 @@ Content-Type: application/json
   "content": "댓글 수정 테스트입니다."
 }
 
-
+### Comment Delete
+DELETE http://localhost:8080/api/comments/1bf18422-16dd-4ad9-be4d-6126ca1e009f
+Content-Type: application/json
