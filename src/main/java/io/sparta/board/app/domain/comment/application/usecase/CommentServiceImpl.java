@@ -3,7 +3,9 @@ package io.sparta.board.app.domain.comment.application.usecase;
 import io.sparta.board.app.domain.comment.model.entity.Comment;
 import io.sparta.board.app.domain.comment.model.repository.CommentRepository;
 import io.sparta.board.app.domain.comment.presentation.dto.request.CommentCreateRequestDto;
+import io.sparta.board.app.domain.comment.presentation.dto.request.CommentUpdateRequestDto;
 import io.sparta.board.app.domain.comment.presentation.dto.response.CommentCreateResponseDto;
+import io.sparta.board.app.domain.comment.presentation.dto.response.CommentUpdateResponseDto;
 import io.sparta.board.app.domain.comment.presentation.mapper.CommentMapper;
 import io.sparta.board.app.domain.post.model.entity.Post;
 import io.sparta.board.app.domain.post.model.repository.PostRepository;
@@ -22,11 +24,20 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public CommentCreateResponseDto createComment(CommentCreateRequestDto commentCreateRequestDto) {
 		UUID postId = commentCreateRequestDto.getPostId();
-
 		Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("post not found"));
 
 		Comment newComment = CommentMapper.commentCreateRequestDtotoEntity(commentCreateRequestDto, post);
 		Comment createdComment = commentRepository.save(newComment);
 		return CommentMapper.entityToCreateResponseDto(createdComment);
+	}
+
+	@Override
+	public CommentUpdateResponseDto updateComment(UUID id, CommentUpdateRequestDto commentUpdateRequestDto) {
+		UUID postId = commentUpdateRequestDto.getPostId();
+		Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("post not found"));
+
+		Comment comment = commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("comment not found"));
+		comment.update(post, commentUpdateRequestDto);
+		return CommentMapper.entityToUpdateResponseDto(post, comment);
 	}
 }
