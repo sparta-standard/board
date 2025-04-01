@@ -1,6 +1,7 @@
 package io.sparta.board.domain.comment.controller;
 
 import io.sparta.board.domain.comment.dto.requeset.CommentCreateRequestDto;
+import io.sparta.board.domain.comment.dto.requeset.CommentUpdateRequestDto;
 import io.sparta.board.domain.comment.dto.response.CommentResponseDto;
 import io.sparta.board.domain.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class CommentCotroller {
 
     private final CommentService commentService;
 
+    //댓글 등록
     @PostMapping("/{postId}")
     public ResponseEntity<CommentResponseDto> createComment(
             @RequestBody CommentCreateRequestDto request,
@@ -26,4 +28,17 @@ public class CommentCotroller {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    //댓글 수정
+    @PatchMapping("/{id}")
+    public ResponseEntity<CommentResponseDto> updateComment(
+            @PathVariable UUID id,
+            @RequestBody CommentUpdateRequestDto request
+    ){
+        CommentResponseDto response = commentService.updateComment(id, request);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    //댓글 삭제
 }
