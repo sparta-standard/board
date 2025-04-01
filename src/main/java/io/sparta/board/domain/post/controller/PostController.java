@@ -70,8 +70,19 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 
+    //게시글 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePost(
+            @PathVariable UUID id
+    ){
+        if(id == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
 
+        postService.deletePost(id);
 
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
 
 
