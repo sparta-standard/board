@@ -5,11 +5,14 @@ import io.sparta.board.app.domain.post.presentation.dto.request.PostCreateReques
 import io.sparta.board.app.domain.post.presentation.dto.request.PostUpdateRequestDto;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostCreatResponseDto;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostDeleteResponseDto;
+import io.sparta.board.app.domain.post.presentation.dto.response.PostReadResponseDto;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostUpdateResponseDto;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +29,11 @@ public class PostController {
 	@PostMapping
 	public ResponseEntity<PostCreatResponseDto> createPost(@RequestBody PostCreateRequestDto postCreatRequestDto) {
 		return ResponseEntity.ok(postFacade.createPost(postCreatRequestDto));
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<PostReadResponseDto> readPost(@PathVariable("id")  UUID id, Pageable pageable) {
+		return ResponseEntity.ok(postFacade.readPost(id, pageable));
 	}
 
 	@PatchMapping("/{id}")
