@@ -3,6 +3,7 @@ package io.sparta.board.presentation.controller;
 import io.sparta.board.application.facade.PostFacade;
 import io.sparta.board.presentation.dto.PostCreateRequestDto;
 import io.sparta.board.presentation.dto.PostResponseDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<PostResponseDto> createPost(
+        @Valid
         @RequestBody PostCreateRequestDto requestDto
     ) {
         return ResponseEntity.ok(postFacade.createPost(requestDto));
