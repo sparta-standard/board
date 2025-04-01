@@ -3,6 +3,7 @@ package io.sparta.board.app.domain.post.presentation.mapper;
 import io.sparta.board.app.domain.post.presentation.dto.request.PostCreateRequestDto;
 import io.sparta.board.app.domain.post.model.entity.Post;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostCreatResponseDto;
+import io.sparta.board.app.domain.post.presentation.dto.response.PostDeleteResponseDto;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostUpdateResponseDto;
 
 public class PostMapper {
@@ -27,6 +28,9 @@ public class PostMapper {
 			.build();
 	}
 
-
-
+	public static PostDeleteResponseDto entityToDeleteResponseDto(Post post) {
+		return PostDeleteResponseDto.builder()
+			.id(post.getId())
+			.build();
+	}
 }
