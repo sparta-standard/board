@@ -51,13 +51,13 @@ public class CommentService {
         return new CommentUpdateResponseDto(comment);
     }
 
-    // 댓글 삭제
+    // 댓글 삭제 (soft delete)
     @Transactional
     public CommentDeleteResponseDto deleteComment(UUID commentId) {
         Comment comment = commentRepository.findByIdAndIsDeletedFalse(commentId)
             .orElseThrow(EntityNotFoundException::new);
 
-        comment.deleteComment();
+        comment.delete();
         return new CommentDeleteResponseDto(commentId, "Successfully deleted comment");
     }
 }

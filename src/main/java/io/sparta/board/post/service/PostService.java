@@ -93,10 +93,10 @@ public class PostService {
         Post post = postRepository.findByIdAndIsDeletedFalse(postId)
             .orElseThrow(() -> new EntityNotFoundException("Post not found"));
 
-        post.deletePost();
+        post.delete();
 
         List<Comment> comments = commentRepository.findAllByPostId(postId);
-        comments.forEach(Comment::deleteComment);
+        comments.forEach(Comment::delete);
 
         return new PostDeleteResponseDto(postId, "Post deleted successfully");
     }
