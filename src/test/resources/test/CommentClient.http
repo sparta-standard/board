@@ -1,0 +1,17 @@
+### 1. 댓글 생성
+POST http://localhost:8080/api/comments/boards/e7e659cb-415a-4c9d-82d3-4851d2d46cad/comments
+Authorization: Bearer jwt_token_string
+Content-Type: application/json
+
+{
+  "content": "댓글입니다2"
+}
+
+### 2. 댓글 수정
+PUT http://localhost:8080/api/comments/1d55b553-62b4-47cf-a9b8-7684f87b57e0/updateComment
+Authorization: Bearer jwt_token_string
+Content-Type: application/json
+
+{
+  "content": "댓글수정완"
+}
