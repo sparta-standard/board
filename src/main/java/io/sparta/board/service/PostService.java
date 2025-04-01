@@ -34,6 +34,15 @@ public class PostService {
         return PostResponseDto.from(post);
     }
 
+    // 삭제
+    @Transactional
+    public UUID deletePost(UUID id) {
+        Post post = findPost(id);
+        post.softDelete();
+        return id;
+    }
+
+
     private Post findPost(UUID id) {
         return postRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("해당 게시글이 존재하지 않습니다.")

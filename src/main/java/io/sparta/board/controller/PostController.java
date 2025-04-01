@@ -27,4 +27,10 @@ public class PostController {
     public PostResponseDto updatePost(@PathVariable UUID id, @RequestBody PostRequestDto requestDto) {
         return postService.updatePost(id, requestDto);
     }
+
+    // 삭제
+    @DeleteMapping("/posts/{id}")
+    public UUID deletePost(@PathVariable UUID id) {
+        return postService.deletePost(id);
+    }
 }
