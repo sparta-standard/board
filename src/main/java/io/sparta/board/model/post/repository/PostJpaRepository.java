@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface PostJpaRepository extends JpaRepository<Post, UUID> {
+    Boolean existsByTitle(String title);
 }

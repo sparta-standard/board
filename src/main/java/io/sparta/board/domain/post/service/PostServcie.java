@@ -7,11 +7,13 @@ import io.sparta.board.model.post.entity.Post;
 import io.sparta.board.model.post.repository.PostRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class PostServcie {
 
@@ -20,8 +22,9 @@ public class PostServcie {
     @Transactional
     public PostResponseDto createPost(PostCreateRequestDto request){
 
-            Post existTitle = postRepository.existsByTitle(request.getTitle());
-            if(existTitle != null){
+            Boolean existTitle = postRepository.existsByTitle(request.getTitle());
+            if(existTitle == true){
+                log.info("Post already exists with title {}", request.getTitle());
                 throw new IllegalArgumentException("이미 존재하는 제목입니다.");
             }
 
