@@ -20,7 +20,7 @@ public abstract class BaseEntity {
 
     @LastModifiedDate
     @Column
-    private LocalDateTime modifiedAt;
+    private LocalDateTime updatedAt;
 
     @Column
     private Boolean deleted = false;
