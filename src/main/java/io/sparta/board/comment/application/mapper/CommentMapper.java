@@ -1,8 +1,8 @@
-package io.sparta.board.application.mapper;
+package io.sparta.board.comment.application.mapper;
 
-import io.sparta.board.application.dto.request.CommentRequestDto;
-import io.sparta.board.application.dto.response.CommentResponseDto;
-import io.sparta.board.domain.entity.Comment;
+import io.sparta.board.comment.domain.entity.Comment;
+import io.sparta.board.post.application.dto.request.CommentRequestDto;
+import io.sparta.board.post.application.dto.response.CommentResponseDto;
 
 public class CommentMapper {
 

@@ -1,4 +1,4 @@
-package io.sparta.board.domain.entity;
+package io.sparta.board.post.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

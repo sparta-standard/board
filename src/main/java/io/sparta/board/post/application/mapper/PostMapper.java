@@ -1,8 +1,8 @@
-package io.sparta.board.application.mapper;
+package io.sparta.board.post.application.mapper;
 
-import io.sparta.board.application.dto.request.PostRequestDto;
-import io.sparta.board.application.dto.response.PostResponseDto;
-import io.sparta.board.domain.entity.Post;
+import io.sparta.board.post.application.dto.request.PostRequestDto;
+import io.sparta.board.post.application.dto.response.PostResponseDto;
+import io.sparta.board.post.domain.entity.Post;
 
 public class PostMapper {
 
