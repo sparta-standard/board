@@ -1,9 +1,9 @@
 package io.sparta.board.application.service;
 
 import io.sparta.board.application.dto.mapper.PostMapper;
-import io.sparta.board.application.dto.request.PostCreateRequestDto;
-import io.sparta.board.application.dto.response.PostCreateResponseDto;
-import io.sparta.board.application.dto.response.PostGetResponseDto;
+import io.sparta.board.application.dto.request.post.PostCreateRequestDto;
+import io.sparta.board.application.dto.response.post.PostCreateResponseDto;
+import io.sparta.board.application.dto.response.post.PostGetResponseDto;
 import io.sparta.board.application.dto.request.post.PostUpdateRequestDto;
 import io.sparta.board.application.dto.response.post.PostDeleteResponseDto;
 import io.sparta.board.application.dto.response.post.PostUpdateResponseDto;

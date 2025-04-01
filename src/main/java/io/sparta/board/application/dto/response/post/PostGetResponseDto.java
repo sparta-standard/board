@@ -1,6 +1,6 @@
-package io.sparta.board.application.dto.response;
+package io.sparta.board.application.dto.response.post;
 
-import io.sparta.board.domain.entity.Comment;
+import io.sparta.board.application.dto.response.comment.CommentResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

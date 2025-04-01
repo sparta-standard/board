@@ -1,8 +1,8 @@
 package io.sparta.board.application.dto.mapper;
 
-import io.sparta.board.application.dto.response.CommentResponseDto;
-import io.sparta.board.application.dto.response.PostCreateResponseDto;
-import io.sparta.board.application.dto.response.PostGetResponseDto;
+import io.sparta.board.application.dto.response.comment.CommentResponseDto;
+import io.sparta.board.application.dto.response.post.PostCreateResponseDto;
+import io.sparta.board.application.dto.response.post.PostGetResponseDto;
 import io.sparta.board.application.dto.response.post.PostDeleteResponseDto;
 import io.sparta.board.application.dto.response.post.PostUpdateResponseDto;
 import io.sparta.board.domain.entity.Comment;

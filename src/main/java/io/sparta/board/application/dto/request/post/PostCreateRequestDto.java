@@ -1,4 +1,4 @@
-package io.sparta.board.application.dto.request;
+package io.sparta.board.application.dto.request.post;
 
 import io.sparta.board.domain.entity.Post;
 import lombok.AllArgsConstructor;

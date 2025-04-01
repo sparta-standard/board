@@ -1,17 +1,18 @@
-package io.sparta.board.application.dto.response.comment;
+package io.sparta.board.application.dto.response.post;
 
-import io.sparta.board.domain.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PostUpdateRequestDto {
+public class PostCreateResponseDto {
+    private UUID id;
     private String title;
     private String content;
-
 }

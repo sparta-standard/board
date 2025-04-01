@@ -1,8 +1,8 @@
 package io.sparta.board.presentation;
 
-import io.sparta.board.application.dto.request.CommentCreateRequestDto;
+import io.sparta.board.application.dto.request.comment.CommentCreateRequestDto;
 import io.sparta.board.application.dto.request.comment.CommentUpdateRequestDto;
-import io.sparta.board.application.dto.response.CommentCreateResponseDto;
+import io.sparta.board.application.dto.response.comment.CommentCreateResponseDto;
 import io.sparta.board.application.dto.response.comment.CommentDeleteResponseDto;
 import io.sparta.board.application.dto.response.comment.CommentUpdateResponseDto;
 import io.sparta.board.application.service.CommentService;

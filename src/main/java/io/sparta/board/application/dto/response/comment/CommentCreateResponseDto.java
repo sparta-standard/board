@@ -1,4 +1,4 @@
-package io.sparta.board.application.dto.response;
+package io.sparta.board.application.dto.response.comment;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PostCreateResponseDto {
+public class CommentCreateResponseDto {
     private UUID id;
-    private String title;
     private String content;
 }
