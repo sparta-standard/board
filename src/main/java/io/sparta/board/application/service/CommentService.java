@@ -6,7 +6,6 @@ import io.sparta.board.domain.model.Post;
 import io.sparta.board.domain.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

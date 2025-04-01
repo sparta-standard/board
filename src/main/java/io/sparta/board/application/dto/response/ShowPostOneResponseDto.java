@@ -1,12 +1,9 @@
 package io.sparta.board.application.dto.response;
 
-import io.sparta.board.domain.model.Comment;
 import io.sparta.board.domain.model.Post;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Getter

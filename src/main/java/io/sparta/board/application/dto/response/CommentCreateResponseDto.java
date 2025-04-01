@@ -2,8 +2,6 @@ package io.sparta.board.application.dto.response;
 
 import io.sparta.board.domain.model.Comment;
 import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
