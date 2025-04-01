@@ -1,0 +1,11 @@
+### Post Create
+POST http://localhost:8080/api/posts
+Content-Type: application/json
+
+{
+  "title": "게시글 테스트",
+  "content": "게시글 테스트입니다."
+}
+
+
+<> 2025-04-01T200943.200.json
