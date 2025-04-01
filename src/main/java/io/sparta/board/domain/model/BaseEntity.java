@@ -26,4 +26,8 @@ public class BaseEntity {
     @UpdateTimestamp // @TimeStamp 랑 @UpdateTimestamp 의 차이
     @Column(name = "updated_at")
     protected LocalDateTime updatedAt;
+
+    public void delete() {
+        this.deleted = true;
+    }
 }

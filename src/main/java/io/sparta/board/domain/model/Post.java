@@ -34,10 +34,6 @@ public class Post extends BaseEntity {
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
-    public void delete() {
-        this.deleted = true;
-    }
-
     public void addComment(Comment comment) {
         comment.setPost(this);
         log.info("comment: {}", comment.toString());

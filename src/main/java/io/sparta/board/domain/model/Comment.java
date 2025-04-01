@@ -30,8 +30,4 @@ public class Comment extends BaseEntity {
     private Post post;
     @Setter
     private String content; // TEXT
-
-    public void delete() {
-        this.deleted = true;
-    }
 }
