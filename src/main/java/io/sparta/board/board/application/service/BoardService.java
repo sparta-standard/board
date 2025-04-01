@@ -36,9 +36,7 @@ public class BoardService {
     }
 
     public BoardSearchResponseDto searchBoard(UUID boardId) {
-        Board board = boardRepository.findById(boardId)
-            .orElseThrow(() -> new EntityNotFoundException("id에 해당하는 board 를 찾을 수 없습니다. boardId : " + boardId));
-
+        Board board = findBoard(boardId);
         return BoardSearchResponseDto.builder()
             .boardId(board.getId())
             .title(board.getTitle())
@@ -48,9 +46,7 @@ public class BoardService {
 
     @Transactional
     public BoardUpdateResponseDto updateBoard(UUID boardId, BoardUpdateRequestDto requestDto) {
-        Board board = boardRepository.findById(boardId)
-            .orElseThrow(() -> new EntityNotFoundException("id에 해당하는 board 를 찾을 수 없습니다. boardId : " + boardId));
-
+        Board board = findBoard(boardId);
         board.updateFromDto(requestDto);
         boardRepository.save(board);
 
@@ -63,11 +59,14 @@ public class BoardService {
 
     @Transactional
     public void deleteBoard(UUID boardId) {
-        Board board = boardRepository.findById(boardId)
-            .orElseThrow(() -> new EntityNotFoundException("id에 해당하는 board 를 찾을 수 없습니다. boardId : " + boardId));
-
+        Board board = findBoard(boardId);
         board.delete();
         boardRepository.save(board);
 
+    }
+
+    public Board findBoard(UUID boardId) {
+        return boardRepository.findById(boardId)
+            .orElseThrow(() -> new EntityNotFoundException("id에 해당하는 board 를 찾을 수 없습니다. boardId : " + boardId));
     }
 }
