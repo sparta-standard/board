@@ -1,5 +1,6 @@
 package io.sparta.board.app.domain.post.model.entity;
 
+import io.sparta.board.app.domain.post.presentation.dto.request.PostUpdateRequestDto;
 import io.sparta.board.app.global.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,4 +32,9 @@ public class Post extends BaseEntity {
 
 	@Column(columnDefinition = "TEXT")
 	private String content;
+
+	public void update(PostUpdateRequestDto postUpdateRequestDto) {
+		this.title = postUpdateRequestDto.getTitle();
+		this.content = postUpdateRequestDto.getContent();
+	}
 }
