@@ -5,6 +5,7 @@ import io.sparta.board.domain.post.dto.response.GetPostResponseDto;
 import io.sparta.board.domain.post.dto.response.PostResponseDto;
 import io.sparta.board.domain.post.service.PostServcie;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +14,10 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/post")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PostController {
 
-    PostServcie postService;
+    private final PostServcie postService;
     //게시글 작성
     @PostMapping
     public ResponseEntity<PostResponseDto> createPost(
