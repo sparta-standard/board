@@ -25,7 +25,7 @@ public class CommentService {
             CommentCreateRequestDto request,
             UUID postId) {
 
-        Post post = postRepository.findById(postId)
+        Post post = postRepository.findByIdAndDeletedIsFalse(postId)
                 .orElseThrow(() -> new IllegalArgumentException("게시글 없음"));
 
         Comment comment = Comment.builder()
@@ -38,7 +38,7 @@ public class CommentService {
         return CommentResponseDto.builder()
                 .id(saveComment.getId())
                 .postId(saveComment.getPost().getId())
-                .comment(saveComment.getContent())
+                .content(saveComment.getContent())
                 .build();
     }
 }
