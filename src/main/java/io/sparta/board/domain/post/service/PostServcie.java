@@ -3,6 +3,7 @@ package io.sparta.board.domain.post.service;
 import io.sparta.board.domain.post.dto.request.PostCreateRequestDto;
 import io.sparta.board.domain.post.dto.response.GetPostResponseDto;
 import io.sparta.board.domain.post.dto.response.PostResponseDto;
+import io.sparta.board.model.comment.entity.Comment;
 import io.sparta.board.model.post.entity.Post;
 import io.sparta.board.model.post.repository.PostRepository;
 import jakarta.transaction.Transactional;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -46,12 +49,16 @@ public class PostServcie {
         Post post = postRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("해당 게시글 없음"));
 
+        List<String> comments = new ArrayList<>();
+        for(Comment comment : post.getComments()){
+            comments.add(comment.getContent());
+        }
 
         return GetPostResponseDto.builder()
                 .id(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())
-                .comments(post.getComments().toString())
+                .comments(comments)
                 .build();
     }
 
