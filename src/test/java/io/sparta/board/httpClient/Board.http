@@ -19,3 +19,13 @@ Content-Type: application/json
 ### Post Delete
 DELETE http://localhost:8080/api/posts/4d04a59f-6164-44b1-9ec7-b28a182c3216
 Content-Type: application/json
+
+### Comment Create
+POST http://localhost:8080/api/comments
+Content-Type: application/json
+
+{
+  "post-id": "df656e48-83f8-46f4-88b4-31b657cee8e9",
+  "content": "댓글 테스트 입니다."
+}
+
