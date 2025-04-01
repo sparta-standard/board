@@ -5,6 +5,7 @@ import io.sparta.board.app.domain.post.presentation.dto.request.PostCreateReques
 import io.sparta.board.app.domain.post.presentation.dto.request.PostUpdateRequestDto;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostCreatResponseDto;
 import io.sparta.board.app.domain.post.model.repository.PostRepository;
+import io.sparta.board.app.domain.post.presentation.dto.response.PostDeleteResponseDto;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostUpdateResponseDto;
 import io.sparta.board.app.domain.post.presentation.mapper.PostMapper;
 import java.util.UUID;
@@ -29,5 +30,14 @@ public class PostServiceImpl implements PostService {
 			.orElseThrow(() -> new IllegalArgumentException("Post not found"));
 		post.update(postUpdateRequestDto);
 		return PostMapper.EntityToUpdateResponseDto(post);
+	}
+
+	@Override
+	public PostDeleteResponseDto deletePost(UUID id) {
+		Post post = postRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("Post not found"));
+		post.delete(true);
+
+		return PostMapper.entityToDeleteResponseDto(post);
 	}
 }
