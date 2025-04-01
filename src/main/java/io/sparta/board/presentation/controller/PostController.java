@@ -2,17 +2,15 @@ package io.sparta.board.presentation.controller;
 
 import io.sparta.board.application.dto.request.PostCreationRequestDto;
 import io.sparta.board.application.dto.request.PostUpdateRequestDto;
-import io.sparta.board.application.dto.response.DeletePost;
+import io.sparta.board.application.dto.response.DeletePostResponseDto;
 import io.sparta.board.application.dto.response.PostCreationResponseDto;
 import io.sparta.board.application.dto.response.PostUpdateResponseDto;
 import io.sparta.board.application.dto.response.ShowPostOneResponseDto;
 import io.sparta.board.application.service.PostService;
-import io.sparta.board.domain.model.Post;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -49,9 +47,9 @@ public class PostController {
 
     // 게시글 삭제
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<DeletePost> delete(@PathVariable UUID id) {
+    public ResponseEntity<DeletePostResponseDto> delete(@PathVariable UUID id) {
         log.info("Delete Method - 게시글 삭제");
-        DeletePost delete = postService.delete(id);
+        DeletePostResponseDto delete = postService.delete(id);
         return ResponseEntity.ok().body(delete);
     }
 

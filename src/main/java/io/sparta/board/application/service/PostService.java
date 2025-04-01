@@ -2,7 +2,7 @@ package io.sparta.board.application.service;
 
 import io.sparta.board.application.dto.request.PostCreationRequestDto;
 import io.sparta.board.application.dto.request.PostUpdateRequestDto;
-import io.sparta.board.application.dto.response.DeletePost;
+import io.sparta.board.application.dto.response.DeletePostResponseDto;
 import io.sparta.board.application.dto.response.PostCreationResponseDto;
 import io.sparta.board.application.dto.response.PostUpdateResponseDto;
 import io.sparta.board.application.dto.response.ShowPostOneResponseDto;
@@ -62,18 +62,18 @@ public class PostService {
     }
 
     @Transactional
-    public DeletePost delete(UUID id) {
+    public DeletePostResponseDto delete(UUID id) {
         // 1. 수정하고자 하는 post 가 존재하는지 확인
         Post post = getPost(id);
         // 2. 존재한다면 deleted 의 값을 true 로 변경
         post.delete();
         // 3. 상태 값 업데이트
         Post delete = postRepository.save(post);
-        return new DeletePost(delete);
+        return new DeletePostResponseDto(delete);
     }
 
     // 수정, 조회, 삭제 메서드에서 작성해야하는 공통 코드이므로 메서드 추출함.
-    private Post getPost(UUID id) {
+    public Post getPost(UUID id) {
         return postRepository.findById(id).orElseThrow(
                 // 게시물이 존재하지 않을 때, 어떤 예외를 발생시켜야할지 모르겠음.
                 // 상황에 따른 예외 클래스 사용법에 대한 기준을 모르겠음.
