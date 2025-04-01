@@ -42,4 +42,9 @@ public class Post extends Timestamped{
 		post.deleted = false;
 		return post;
 	}
+
+	public void update(String title, String content) {
+		this.title = title;
+		this.content = content;
+	}
 }

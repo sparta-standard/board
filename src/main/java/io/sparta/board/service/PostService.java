@@ -1,5 +1,7 @@
 package io.sparta.board.service;
 
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,16 @@ public class PostService {
 	@Transactional
 	public PostResponseDto createPost(PostRequestDto requestDto) {
 		Post post = Post.createPost(requestDto.getTitle(), requestDto.getContent());
+		postRepository.save(post);
+
+		return PostResponseDto.from(post.getPostId(), post.getTitle(), post.getContent(), post.getCreatedAt());
+	}
+
+	@Transactional
+	public PostResponseDto updatePost(UUID postId, PostRequestDto requestDto) {
+		Post post = postRepository.findByPostIdAndDeletedFalse(postId)
+			.orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+		post.update(requestDto.getTitle(), requestDto.getContent());
 		postRepository.save(post);
 
 		return PostResponseDto.from(post.getPostId(), post.getTitle(), post.getContent(), post.getCreatedAt());

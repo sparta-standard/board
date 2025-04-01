@@ -1,6 +1,10 @@
 package io.sparta.board.controller;
 
+import java.util.UUID;
+
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,5 +25,11 @@ public class PostController {
 	@PostMapping
 	public PostResponseDto createPost(@RequestBody PostRequestDto requestDto) {
 		return postService.createPost(requestDto);
+	}
+
+	//게시글 수정
+	@PutMapping("/{postId}")
+	public PostResponseDto updatePost(@PathVariable("postId") UUID postId, @RequestBody PostRequestDto requestDto) {
+		return postService.updatePost(postId, requestDto);
 	}
 }
