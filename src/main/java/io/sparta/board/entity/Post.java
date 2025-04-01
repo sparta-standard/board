@@ -47,4 +47,8 @@ public class Post extends Timestamped{
 		this.title = title;
 		this.content = content;
 	}
+
+	public void delete(boolean b) {
+		this.deleted = b;
+	}
 }

@@ -37,4 +37,21 @@ public class PostService {
 
 		return PostResponseDto.from(post.getPostId(), post.getTitle(), post.getContent(), post.getCreatedAt());
 	}
+
+	@Transactional
+	public PostResponseDto deletePost(UUID postId) {
+		Post post = postRepository.findByPostIdAndDeletedFalse(postId)
+			.orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+		post.delete(true);
+		postRepository.save(post);
+
+		return PostResponseDto.from(post.getPostId(), post.getTitle(), post.getContent(), post.getCreatedAt());
+	}
+
+	public PostResponseDto getPost(UUID postId) {
+		Post post = postRepository.findByPostIdAndDeletedFalse(postId)
+			.orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+		return PostResponseDto.from(post.getPostId(), post.getTitle(), post.getContent(), post.getCreatedAt());
+	}
 }
