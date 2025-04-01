@@ -9,6 +9,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,12 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/posts/")
+@RequestMapping("/api/v1")
 public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/{postId}/comments")
+    @PostMapping("/posts/{postId}/comments")
     public ResponseEntity<CommentCreateResponseDto> createComment(
         @PathVariable(name = "postId") UUID postId,
         @RequestBody CommentCreateRequestDto requestDto
@@ -39,6 +40,14 @@ public class CommentController {
     ) {
         CommentUpdateResponseDto responseDto = commentService.updateComment(commentId, requestDto);
         return ResponseEntity.ok(responseDto);
+    }
+
+    @DeleteMapping("/comments/{commentId}")
+    public ResponseEntity<String> deleteComment(
+        @PathVariable(name = "commentId") UUID commentId
+    ) {
+        commentService.deleteComment(commentId);
+        return ResponseEntity.ok("댓글 삭제 성공");
     }
 
 }

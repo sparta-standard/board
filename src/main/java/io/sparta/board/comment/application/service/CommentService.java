@@ -53,8 +53,17 @@ public class CommentService {
             .build();
     }
 
+    @Transactional
+    public void deleteComment(UUID commentId) {
+        Comment comment = findComment(commentId);
+
+        comment.delete();
+        commentRepository.save(comment);
+    }
+
     public Comment findComment(UUID commentId) {
         return commentRepository.findById(commentId)
             .orElseThrow(() -> new EntityNotFoundException("해당하는 댓글을 찾을 수 없습니다. 받은 commentId : " + commentId));
     }
+
 }
