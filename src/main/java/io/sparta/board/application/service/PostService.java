@@ -1,6 +1,6 @@
 package io.sparta.board.application.service;
 
-import io.sparta.board.application.dto.post.CreatePostInternalDto;
+import io.sparta.board.application.dto.post.PostInternalDto;
 import io.sparta.board.application.dto.post.PostResponseInternalDto;
 import io.sparta.board.application.mapper.PostMapper;
 import io.sparta.board.domain.model.Comment;
@@ -24,7 +24,7 @@ public class PostService {
     private final CommentDomainService commentDomainService;
 
     @Transactional
-    public PostResponseInternalDto createPost(CreatePostInternalDto internalRequest) {
+    public PostResponseInternalDto createPost(PostInternalDto internalRequest) {
 
         Post post = PostMapper.toEntity(internalRequest);
 
@@ -41,5 +41,17 @@ public class PostService {
         Page<Comment> commentPage = commentDomainService.findAllByPost(post, pageable);
 
         return PostMapper.toResponseWithComments(post, commentPage);
+    }
+
+    @Transactional
+    public PostResponseInternalDto updatePost(UUID postId, PostInternalDto request) {
+
+        Post post = postDomainService.findPostById(postId);
+
+        post.update(request.getTitle(), request.getContent());
+
+        postDomainService.updatePost(post);
+
+        return PostMapper.toResponse(post);
     }
 }

@@ -1,6 +1,6 @@
 package io.sparta.board.application.mapper;
 
-import io.sparta.board.application.dto.post.CreatePostInternalDto;
+import io.sparta.board.application.dto.post.PostInternalDto;
 import io.sparta.board.application.dto.post.PostResponseInternalDto;
 import io.sparta.board.domain.model.Comment;
 import io.sparta.board.domain.model.Post;
@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 
 public class PostMapper {
 
-    public static Post toEntity(CreatePostInternalDto dto) {
+    public static Post toEntity(PostInternalDto dto) {
 
         return Post.builder()
                 .title(dto.getTitle())

@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
 @RequiredArgsConstructor
 public class CommentRepositoryImpl implements CommentRepository {
@@ -24,5 +27,11 @@ public class CommentRepositoryImpl implements CommentRepository {
     public Page<Comment> findAllByPost(Post post, Pageable pageable) {
 
         return jpaCommentRepository.findAllByPost(post, pageable);
+    }
+
+    @Override
+    public Optional<Comment> findById(UUID commentId) {
+
+        return jpaCommentRepository.findById(commentId);
     }
 }

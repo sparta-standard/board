@@ -23,4 +23,9 @@ public class PostDomainService {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("등록된 게시글이 없습니다: " + postId));
     }
+
+    public void updatePost(Post post) {
+
+        postRepository.save(post);
+    }
 }

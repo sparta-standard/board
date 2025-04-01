@@ -1,9 +1,9 @@
 package io.sparta.board.presentation.mapper;
 
 import io.sparta.board.application.dto.comment.CommentResponseInternalDto;
-import io.sparta.board.application.dto.comment.CreateCommentRequestInternalDto;
+import io.sparta.board.application.dto.comment.CommentRequestInternalDto;
 import io.sparta.board.presentation.dto.comment.CommentResponseDto;
-import io.sparta.board.presentation.dto.comment.CreateCommentRequestDto;
+import io.sparta.board.presentation.dto.comment.CommentRequestDto;
 import lombok.Builder;
 
 import java.util.List;
@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 @Builder
 public class CommentDtoMapper {
 
-    public static CreateCommentRequestInternalDto toInternalDto(CreateCommentRequestDto request) {
+    public static CommentRequestInternalDto toInternalDto(CommentRequestDto request) {
 
-        return CreateCommentRequestInternalDto.builder()
+        return CommentRequestInternalDto.builder()
                 .content(request.getContent())
                 .build();
     }

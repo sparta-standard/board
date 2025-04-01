@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class CreatePostInternalDto {
+public class PostInternalDto {
 
     private String title;
     private String content;

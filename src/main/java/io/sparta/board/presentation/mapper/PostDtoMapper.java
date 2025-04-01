@@ -1,17 +1,17 @@
 package io.sparta.board.presentation.mapper;
 
-import io.sparta.board.application.dto.post.CreatePostInternalDto;
+import io.sparta.board.application.dto.post.PostInternalDto;
 import io.sparta.board.application.dto.post.PostResponseInternalDto;
-import io.sparta.board.presentation.dto.post.CreatePostRequestDto;
+import io.sparta.board.presentation.dto.post.PostRequestDto;
 import io.sparta.board.presentation.dto.post.PostResponseDto;
 import lombok.Builder;
 
 @Builder
 public class PostDtoMapper {
 
-    public static CreatePostInternalDto toInternalDto(CreatePostRequestDto request) {
+    public static PostInternalDto toInternalDto(PostRequestDto request) {
 
-        return CreatePostInternalDto.builder()
+        return PostInternalDto.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
                 .build();

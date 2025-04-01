@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class CreateCommentRequestInternalDto {
+public class CommentRequestInternalDto {
 
     private String content;
 }

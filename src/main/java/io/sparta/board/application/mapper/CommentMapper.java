@@ -1,13 +1,13 @@
 package io.sparta.board.application.mapper;
 
 import io.sparta.board.application.dto.comment.CommentResponseInternalDto;
-import io.sparta.board.application.dto.comment.CreateCommentRequestInternalDto;
+import io.sparta.board.application.dto.comment.CommentRequestInternalDto;
 import io.sparta.board.domain.model.Comment;
 import org.springframework.data.domain.Page;
 
 public class CommentMapper {
 
-    public static Comment toEntity(CreateCommentRequestInternalDto request) {
+    public static Comment toEntity(CommentRequestInternalDto request) {
 
         return Comment.builder()
                 .content(request.getContent())
