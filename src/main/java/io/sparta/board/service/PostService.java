@@ -52,6 +52,6 @@ public class PostService {
 		Post post = postRepository.findByPostIdAndDeletedFalse(postId)
 			.orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 
-		return PostResponseDto.from(post.getPostId(), post.getTitle(), post.getContent(), post.getCreatedAt());
+		return new PostResponseDto(post);
 	}
 }

@@ -1,0 +1,27 @@
+@postId = 3cc2939c-c475-4c15-9b8a-b3f1880693e3
+
+### CREATE POST
+POST http://localhost:8080/posts
+Content-Type: application/json
+
+{
+  "title" : "test2",
+  "content" : "test"
+}
+
+### UPDATE POST
+PUT http://localhost:8080/posts/{{postId}}
+Content-Type: application/json
+
+{
+  "title" : "test 수정",
+  "content" : "test"
+}
+
+### DELETE POST
+DELETE http://localhost:8080/posts/{{postId}}
+Content-Type: application/json
+
+### GET POST DETAILS
+GET http://localhost:8080/posts/{{postId}}
+Content-Type: application/json

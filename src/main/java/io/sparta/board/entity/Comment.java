@@ -2,6 +2,7 @@ package io.sparta.board.entity;
 
 import java.util.UUID;
 
+import io.sparta.board.dto.CommentRequestDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,4 +31,22 @@ public class Comment extends Timestamped {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "post_id", nullable = false)
 	private Post post;
+
+	public static Comment createComment(Post post, CommentRequestDto requestDto) {
+
+		Comment comment = new Comment();
+		comment.post = post;
+		comment.content = requestDto.getContent();
+		comment.deleted = false;
+
+		return comment;
+	}
+
+	public void update(String content) {
+		this.content = content;
+	}
+
+	public void delete(boolean b) {
+		this.deleted = b;
+	}
 }
