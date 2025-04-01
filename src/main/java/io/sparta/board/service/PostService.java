@@ -15,10 +15,10 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
+    // 작성
     public PostResponseDto createPost(PostRequestDto requestDto) {
         Post post = new Post(requestDto);
         Post savePost = postRepository.save(post);
-        PostResponseDto responseDto = new PostResponseDto(savePost);
-        return responseDto;
+        return PostResponseDto.from(savePost);
     }
 }
