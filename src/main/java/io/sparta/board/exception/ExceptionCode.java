@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ExceptionCode {
 
-    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "게시글을 찾을 수 없음", 4000);
+    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "게시글을 찾을 수 없음", 4000),
+    COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "댓글을 찾을 수 없음", 401);
 
 
     private final HttpStatus httpStatus;

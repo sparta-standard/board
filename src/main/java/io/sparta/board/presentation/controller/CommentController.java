@@ -4,10 +4,13 @@ import io.sparta.board.application.service.CommentService;
 import io.sparta.board.presentation.dto.request.CreateCommentRequestDto;
 import io.sparta.board.presentation.dto.request.UpdateCommentRequestDto;
 import io.sparta.board.presentation.dto.response.CreateCommentResponseDto;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,9 +28,10 @@ public class CommentController {
     }
 
     //댓글수정
-    @PatchMapping
-    public void updateComment(UpdateCommentRequestDto requestDto) {
-
+    @PatchMapping("/{commentId}")
+    public ResponseEntity<Void> updateComment(@PathVariable UUID commentId, @RequestBody UpdateCommentRequestDto requestDto) {
+        Void response = commentService.updateComment(commentId, requestDto);
+        return ResponseEntity.ok(response);
     }
 
 }

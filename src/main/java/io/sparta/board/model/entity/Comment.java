@@ -27,18 +27,18 @@ public class Comment {
     private UUID commentId;
 
     @Column(nullable = false)
-    String content;
+    private String content;
 
     @Column(nullable = false)
-    boolean deleted;
+    private boolean deleted;
 
     @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
     @Builder
-    public Comment(String content) {
+    public Comment(String content, boolean deleted) {
         this.content = content;
+        this.deleted = deleted;
     }
-
 }

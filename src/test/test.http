@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8080/api
+POST http://localhost:8080/api/post
 Content-Type: application/json
 
 {
@@ -8,7 +8,26 @@ Content-Type: application/json
 }
 
 ###
-PATCH http://localhost:8080/api/3ca5d761-e84f-4ee3-bc6b-87184133cfa4
+PATCH http://localhost:8080/api/post/bf99e99e-e826-46f5-a558-b0976f831df1
+Content-Type: application/json
+
+{
+  "title": "test1",
+  "content": "testtest1"
+}
+
+
+
+###
+POST http://localhost:8080/api/comment
+Content-Type: application/json
+
+{
+  "content": "testtest2"
+}
+
+###
+PATCH http://localhost:8080/api/comment/3ca5d761-e84f-4ee3-bc6b-87184133cfa4
 Content-Type: application/json
 
 {
