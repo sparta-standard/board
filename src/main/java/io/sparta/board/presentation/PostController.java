@@ -42,6 +42,12 @@ public class PostController {
         return ResponseEntity.ok(postService.getPost(id, page, size));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
+        postService.deletePost(id);
+        return ResponseEntity.noContent().build();
+    }
+
     private int pageSizeCheck(int size) {
         if(size != 10 && size != 30 && size != 50){
             return size = 10;
