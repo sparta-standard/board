@@ -3,6 +3,7 @@ package io.sparta.board.application.facade;
 import io.sparta.board.application.usecase.PostService;
 import io.sparta.board.model.entity.Post;
 import io.sparta.board.presentation.dto.request.PostCreateRequestDto;
+import io.sparta.board.presentation.dto.request.PostUpdateRequestDto;
 import io.sparta.board.presentation.dto.response.PostResponseDto;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,13 @@ public class PostFacadeImpl implements PostFacade {
     @Override
     public PostResponseDto getPost(UUID postId) {
         Post post = postService.getPost(postId);
+        return PostResponseDto.toResponseDto(post);
+    }
+
+    @Override
+    public PostResponseDto updatePost(UUID postId, PostUpdateRequestDto requestDto) {
+        Post post = postService.getPost(postId);
+        postService.updatePost(post, requestDto);
         return PostResponseDto.toResponseDto(post);
     }
 }
