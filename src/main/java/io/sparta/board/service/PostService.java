@@ -51,7 +51,7 @@ public class PostService {
     @Transactional
     public void deletePost(UUID id) {
         Post post = postRepository.findByIdAndDeletedFalse(id)
-                .orElseThrow(() -> new IllegalStateException("이미 삭제되었거나 존재하지 않는 게시글입니다."));
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 게시물"));
         post.softDelete();
     }
 }
