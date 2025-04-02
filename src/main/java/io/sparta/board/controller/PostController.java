@@ -1,7 +1,8 @@
 package io.sparta.board.controller;
 
-import io.sparta.board.dto.PostRequestDto;
-import io.sparta.board.dto.PostResponseDto;
+import io.sparta.board.dto.post.PostDetailResponseDto;
+import io.sparta.board.dto.post.PostRequestDto;
+import io.sparta.board.dto.post.PostResponseDto;
 import io.sparta.board.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,7 @@ public class PostController {
 
     // 단건 조회
     @GetMapping("/posts/{id}")
-    public PostResponseDto getPost(@PathVariable UUID id) {
+    public PostDetailResponseDto getPost(@PathVariable UUID id) {
         return postService.getPost(id);
     }
 }

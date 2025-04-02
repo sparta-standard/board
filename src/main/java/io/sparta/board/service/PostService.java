@@ -1,7 +1,9 @@
 package io.sparta.board.service;
 
-import io.sparta.board.dto.PostRequestDto;
-import io.sparta.board.dto.PostResponseDto;
+import io.sparta.board.dto.comment.CommentResponseDto;
+import io.sparta.board.dto.post.PostDetailResponseDto;
+import io.sparta.board.dto.post.PostRequestDto;
+import io.sparta.board.dto.post.PostResponseDto;
 import io.sparta.board.entity.Post;
 import io.sparta.board.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -49,10 +51,13 @@ public class PostService {
         return postRepository.findAllByDeletedFalseOrderByCreatedAtDesc().stream().map(PostResponseDto::from).toList();
     }
 
-    // 단건 조회
-    public PostResponseDto getPost(UUID id) {
+    // 단건 조회 (댓글 포함)
+    public PostDetailResponseDto getPost(UUID id) {
         Post post = findPost(id);
-        return PostResponseDto.from(post);
+
+        List<CommentResponseDto> comments = post.getComments().stream().map(CommentResponseDto::from).toList();
+
+        return PostDetailResponseDto.from(post,comments);
     }
 
     private Post findPost(UUID id) {
