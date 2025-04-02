@@ -1,5 +1,6 @@
 package io.sparta.board.model.entity;
 
+import io.sparta.board.presentation.dto.request.UpdatePostRequestDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,4 +47,9 @@ public class Post {
         this.comments = comments;
     }
 
+
+    public void update(UpdatePostRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+    }
 }

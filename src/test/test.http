@@ -6,3 +6,12 @@ Content-Type: application/json
   "title": "test",
   "content": "testtest"
 }
+
+###
+PATCH http://localhost:8080/api/3ca5d761-e84f-4ee3-bc6b-87184133cfa4
+Content-Type: application/json
+
+{
+  "title": "test1",
+  "content": "testtest1"
+}

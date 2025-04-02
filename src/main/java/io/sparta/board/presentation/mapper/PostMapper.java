@@ -2,9 +2,20 @@ package io.sparta.board.presentation.mapper;
 
 import io.sparta.board.model.entity.Post;
 import io.sparta.board.presentation.dto.request.CreatePostRequestDto;
+import io.sparta.board.presentation.dto.request.UpdatePostRequestDto;
 import io.sparta.board.presentation.dto.response.CreatePostResponseDto;
+import io.sparta.board.presentation.dto.response.UpdatePostResponseDto;
 
 public class PostMapper {
+
+    public static UpdatePostResponseDto entityToUpdatePostResponseDto(Post post) {
+        UpdatePostResponseDto responseDto = UpdatePostResponseDto.builder()
+                .postId(post.getPostId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .build();
+        return responseDto;
+    }
 
     public static Post createPostRequestDtotoEntity(CreatePostRequestDto requestDto) {
 
@@ -24,6 +35,8 @@ public class PostMapper {
                 .build();
         return responseDto;
     }
+
+
 
 
 }
