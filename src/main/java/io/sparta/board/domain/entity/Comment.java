@@ -35,7 +35,6 @@ public class Comment {
   @Column(name = "id", nullable = false)
   private UUID id;
 
-  @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "post_id", nullable = false)
   private UUID postId;
 
