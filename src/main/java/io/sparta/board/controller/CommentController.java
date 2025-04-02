@@ -38,9 +38,10 @@ public class CommentController {
 
     // 삭제
     @DeleteMapping("/{postId}/comments/{commentId}")
-    public UUID deleteComment(
+    public ResponseEntity<ApiResponse<UUID>> deleteComment(
             @PathVariable UUID postId,
             @PathVariable UUID commentId) {
-        return commentService.deleteComment(postId, commentId);
+        UUID deletedId = commentService.deleteComment(postId, commentId);
+        return ResponseEntity.ok(ApiResponse.success(deletedId));
     }
 }

@@ -37,19 +37,22 @@ public class PostController {
 
     // 삭제
     @DeleteMapping("/posts/{id}")
-    public UUID deletePost(@PathVariable UUID id) {
-        return postService.deletePost(id);
+    public ResponseEntity<ApiResponse<UUID>> deletePost(@PathVariable UUID id) {
+        UUID deletedId = postService.deletePost(id);
+        return ResponseEntity.ok(ApiResponse.success(deletedId));
     }
 
     // 전체 조회
     @GetMapping("/posts")
-    public List<PostResponseDto> getAllPosts() {
-        return postService.getAllPosts();
+    public ResponseEntity<ApiResponse<List<PostResponseDto>>> getAllPosts() {
+        List<PostResponseDto> response = postService.getAllPosts();
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     // 단건 조회
     @GetMapping("/posts/{id}")
-    public PostDetailResponseDto getPost(@PathVariable UUID id) {
-        return postService.getPost(id);
+    public ResponseEntity<ApiResponse<PostDetailResponseDto>> getPost(@PathVariable UUID id) {
+        PostDetailResponseDto response = postService.getPost(id);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 }
