@@ -57,7 +57,7 @@ public class BoardService {
 
     @Transactional
     public Page<Board> getBoards(int page, int size) {
-
+        // size 가 10, 30, 50이 아닐경우 size 를 10으로 고정하여 페이징
         if (size != 10 && size != 30 && size != 50) {
             size = 10;
         }
