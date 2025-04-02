@@ -26,8 +26,11 @@ public class Comment extends BaseEntity {
     // @JoinColumn 어노테이션이 작성된 엔터티가 db 에서 fk 를 갖는 테이블이 된다.
     @ManyToOne
     @JoinColumn(name = "post_id")
-    @Setter
     private Post post;
     @Setter
     private String content; // TEXT
+
+    void setPost(Post post) {
+        post.addComment(this);
+    }
 }
