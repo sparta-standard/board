@@ -1,0 +1,30 @@
+package io.sparta.board.application.service;
+
+import io.sparta.board.application.dto.request.CommentRequestDto;
+import io.sparta.board.domain.model.Comment;
+import io.sparta.board.domain.model.Post;
+import io.sparta.board.infastructure.JpaCommentRepository;
+import io.sparta.board.infastructure.JpaPostRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class CommentService {
+
+    private final JpaCommentRepository commentRepository;
+    private final JpaPostRepository postRepository;
+
+    public Long createComment(CommentRequestDto requestDto) {
+        Post post = findPostById(requestDto.postId());
+        Comment comment = commentRepository.save(requestDto.createComment(post));
+        return comment.getId();
+    }
+
+    public Post findPostById(Long id) {
+        return postRepository.findById(id).orElseThrow(()-> new NullPointerException("존재하지 않는 게시글입니다."));
+    }
+
+}

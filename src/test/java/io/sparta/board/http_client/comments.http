@@ -1,0 +1,9 @@
+POST http://localhost:8080/api/v1/comments/create
+Content-Type: application/json
+
+{
+  "postId": 8,
+  "content": "댓글을 적습니다."
+}
+
+
