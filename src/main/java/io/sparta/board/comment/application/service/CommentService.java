@@ -69,4 +69,20 @@ public class CommentService {
                 .comment(CommentMapper.toCommentData(comment))
                 .build();
     }
+
+    @Transactional
+    public CommentResponseDto deleteComment(UUID postId, UUID commentId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
+
+        comment.softDelete();
+
+        return CommentResponseDto.builder()
+                .message("댓글이 삭제되었습니다.")
+                .stateCode(200)
+                .build();
+    }
 }
