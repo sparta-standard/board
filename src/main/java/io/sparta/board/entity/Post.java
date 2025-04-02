@@ -3,6 +3,7 @@ package io.sparta.board.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -23,6 +24,7 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
+    @Setter
     @Column(nullable = false)
     private boolean deleted = false;
 
@@ -31,8 +33,7 @@ public class Post {
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
-
-    //생성자
+    
     public Post(String title, String content) {
         this.title = title;
         this.content = content;
