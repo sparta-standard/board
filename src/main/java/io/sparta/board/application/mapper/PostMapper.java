@@ -22,7 +22,7 @@ public class PostMapper {
         return PostGetResponseDto.builder()
                 .title(post.getTitle())
                 .content(post.getContent())
-                .createdAt(post.getCreateAt())
+                .createdAt(post.getCreatedAt())
                 .comments(commentList)
                 .build();
     }

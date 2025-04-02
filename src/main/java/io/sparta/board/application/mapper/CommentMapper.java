@@ -12,7 +12,7 @@ public class CommentMapper {
     public CommentGetResponseDto toDto(Comment comment) {
         return CommentGetResponseDto.builder()
                 .content(comment.getContent())
-                .createdAt(comment.getCreateAt())
+                .createdAt(comment.getCreatedAt())
                 .build();
     }
 
