@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,6 +30,14 @@ public class PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글을 찾을 수 없습니다."));
         return new PostCreateResponseDto(post);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostCreateResponseDto> getAllPosts(){
+        List<Post> posts = postRepository.findAll();
+        return posts.stream()
+                .map(PostCreateResponseDto::new)
+                .toList();
     }
 
 }
