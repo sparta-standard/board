@@ -1,0 +1,26 @@
+package io.sparta.board.comment.application.usecase;
+
+import io.sparta.board.comment.model.entity.Comment;
+import io.sparta.board.comment.presentation.dto.request.CommentUpdateRequestDto;
+import java.util.List;
+import java.util.UUID;
+import org.springframework.data.domain.Pageable;
+
+public interface CommentService {
+
+    Comment createComment(Comment comment);
+
+    Comment getComment(UUID commentId);
+
+    void updateComment(Comment comment, CommentUpdateRequestDto requestDto);
+
+    void isDeleted(Comment comment);
+
+    void deleteComment(Comment comment);
+
+    List<Comment> getComments(UUID postId, Pageable pageable);
+
+    List<Comment> getComments(UUID postId);
+
+    void deleteComments(List<Comment> comments);
+}

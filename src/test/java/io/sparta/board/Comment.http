@@ -1,0 +1,18 @@
+### Comment CREATE
+POST http://localhost:8080/api/comments/0df6a3dd-c1db-4689-9335-36985995660e
+Content-Type: application/json
+
+{
+  "content": "comment test content...."
+}
+
+### Comment UPDATE
+PATCH http://localhost:8080/api/comments/7266d4df-e9a2-43c6-802a-4e563b1c99b3
+Content-Type: application/json
+
+{
+  "content": "comment update test content...."
+}
+
+### Comment DELETE
+DELETE http://localhost:8080/api/comments/1a5182f3-da63-43f6-bcbb-2d1a23cab649
