@@ -55,7 +55,9 @@ public class BoardService {
         return new GetBoardResponseDto(title, comments);
     }
 
+    @Transactional
     public Page<Board> getBoards(int page, int size) {
+
         if (size != 10 && size != 30 && size != 50) {
             size = 10;
         }
