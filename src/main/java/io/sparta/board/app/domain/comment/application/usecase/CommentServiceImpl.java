@@ -1,5 +1,6 @@
 package io.sparta.board.app.domain.comment.application.usecase;
 
+import io.sparta.board.app.domain.comment.infrastructure.exception.CommentErrorCode;
 import io.sparta.board.app.domain.comment.model.entity.Comment;
 import io.sparta.board.app.domain.comment.model.repository.CommentRepository;
 import io.sparta.board.app.domain.comment.presentation.dto.request.CommentCreateRequestDto;
@@ -8,8 +9,10 @@ import io.sparta.board.app.domain.comment.presentation.dto.response.CommentCreat
 import io.sparta.board.app.domain.comment.presentation.dto.response.CommentDeleteResponseDto;
 import io.sparta.board.app.domain.comment.presentation.dto.response.CommentUpdateResponseDto;
 import io.sparta.board.app.domain.comment.presentation.mapper.CommentMapper;
+import io.sparta.board.app.domain.post.infrastructure.exception.PostErrorCode;
 import io.sparta.board.app.domain.post.model.entity.Post;
 import io.sparta.board.app.domain.post.model.repository.PostRepository;
+import io.sparta.board.app.global.exception.CustomException;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +28,8 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public CommentCreateResponseDto createComment(CommentCreateRequestDto commentCreateRequestDto) {
 		UUID postId = commentCreateRequestDto.getPostId();
-		Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("post not found"));
+		Post post = postRepository.findById(postId).orElseThrow(() -> new CustomException(
+			PostErrorCode.POST_NOT_FOUND));
 
 		Comment newComment = CommentMapper.commentCreateRequestDtotoEntity(commentCreateRequestDto, post);
 		Comment createdComment = commentRepository.save(newComment);
@@ -35,9 +39,9 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public CommentUpdateResponseDto updateComment(UUID id, CommentUpdateRequestDto commentUpdateRequestDto) {
 		UUID postId = commentUpdateRequestDto.getPostId();
-		Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("post not found"));
+		Post post = postRepository.findById(postId).orElseThrow(() -> new CustomException(PostErrorCode.POST_NOT_FOUND));
 
-		Comment comment = commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("comment not found"));
+		Comment comment = commentRepository.findById(id).orElseThrow(() -> new CustomException(CommentErrorCode.COMMENT_NOT_FOUND));
 		comment.update(post, commentUpdateRequestDto);
 		return CommentMapper.entityToUpdateResponseDto(post, comment);
 	}
@@ -45,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public CommentDeleteResponseDto deleteComment(UUID id) {
 		boolean deleted = true;
-		Comment comment = commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("comment not found"));
+		Comment comment = commentRepository.findById(id).orElseThrow(() -> new CustomException(CommentErrorCode.COMMENT_NOT_FOUND));
 		comment.delete(deleted);
 
 		return CommentMapper.entityToDeleteResponseDto(comment);
