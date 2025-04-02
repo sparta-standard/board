@@ -50,8 +50,8 @@ public class PostController {
   // 게시판 삭제
   @DeleteMapping("/{id}")
   public String deletePost(@PathVariable UUID id) {
-    postService.deletePost(id);
     log.info("게시판 삭제 컨트롤러 연결 완료 - id : {}", id);
+    postService.deletePost(id);
     return "delete success!";
   }
 
@@ -59,6 +59,7 @@ public class PostController {
   @GetMapping("/{id}")
   public PostDetailResponseDto getPost(@PathVariable UUID id) {
     log.info("게시판 단건 조회 컨트롤러 연결 완료 - id : {}", id);
-    return new PostDetailResponseDto();
+    PostDetailResponseDto responseDto = postService.getPost(id);
+    return responseDto;
   }
 }

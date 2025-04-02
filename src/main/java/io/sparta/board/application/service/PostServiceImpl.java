@@ -3,6 +3,7 @@ package io.sparta.board.application.service;
 import io.sparta.board.application.dto.request.PostCreateRequestDto;
 import io.sparta.board.application.dto.request.PostUpdateRequestDto;
 import io.sparta.board.application.dto.response.PostCreateResponseDto;
+import io.sparta.board.application.dto.response.PostDetailResponseDto;
 import io.sparta.board.application.dto.response.PostUpdateResponseDto;
 import io.sparta.board.domain.entity.Post;
 import io.sparta.board.domain.repository.PostRepository;
@@ -60,5 +61,14 @@ public class PostServiceImpl implements PostService {
     post.setDeleted(true);
 
     log.info("게시판 삭제 서비스 연결 완료 (삭제 후) - id: {}, deleted: {}", id, post.getDeleted());
+  }
+
+  @Override
+  @Transactional
+  public PostDetailResponseDto getPost(UUID id) {
+    log.info("게시판 수정 서비스 연결 완료 - id: {}", id);
+    Post post = postRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("해당하는 게시물이 없습니다."));
+    return PostDetailResponseDto.toResponse(post);
   }
 }
