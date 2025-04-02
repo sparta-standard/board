@@ -1,0 +1,3 @@
+### 댓글 삭제
+DELETE http://localhost:8080/api/v1/comments/{postId}/{commentId}
+Content-Type: application/json
