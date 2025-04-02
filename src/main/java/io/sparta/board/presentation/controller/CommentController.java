@@ -47,7 +47,8 @@ public class CommentController {
   @DeleteMapping("/{postId}/{id}")
   public String deleteComment(@PathVariable UUID postId,
       @PathVariable UUID id) {
-    log.info("댓글 삭제 컨트롤러 연결 완료");
+    log.info("댓글 삭제 컨트롤러 연결 완료 - postId: {}, id: {}", postId, id);
+    commentService.deleteComment(postId, id);
     return "delete success!";
   }
 }
