@@ -2,12 +2,14 @@ package io.sparta.board.presentation.controller;
 
 import io.sparta.board.application.facade.PostFacade;
 import io.sparta.board.presentation.dto.request.PostCreateRequestDto;
+import io.sparta.board.presentation.dto.request.PostUpdateRequestDto;
 import io.sparta.board.presentation.dto.response.PostResponseDto;
 import jakarta.validation.Valid;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,5 +36,14 @@ public class PostController {
         @PathVariable("id") UUID postId
     ) {
         return ResponseEntity.ok(postFacade.getPost(postId));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<PostResponseDto> updatePost(
+        @Valid
+        @RequestBody PostUpdateRequestDto requestDto,
+        @PathVariable("id") UUID postId
+    ) {
+        return ResponseEntity.ok(postFacade.updatePost(postId, requestDto));
     }
 }
