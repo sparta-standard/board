@@ -9,9 +9,11 @@ Content-Type: application/json
 
 ### Get READ
 GET http://localhost:8080/api/posts/0df6a3dd-c1db-4689-9335-36985995660e
+### Post READ
 
 ### Patch UPDATE
 PATCH http://localhost:8080/api/posts/cfe8ac2a-1b9a-4400-ae83-8919c49ff8b0
+### Post UPDATE
 Content-Type: application/json
 
 {
@@ -20,3 +22,4 @@ Content-Type: application/json
 
 ### Delete DELETE
 DELETE http://localhost:8080/api/posts/dd7bfd2a-04d6-4ae1-a090-7936b7ffcf66
+### Post DELETE
