@@ -2,6 +2,7 @@ package io.sparta.board.presentation;
 
 import io.sparta.board.application.dto.request.CommentRequestDto;
 import io.sparta.board.application.dto.request.CommentUpdateRequestDto;
+import io.sparta.board.application.dto.response.CommentResponseDto;
 import io.sparta.board.application.dto.response.CommentUpdateResponseDto;
 import io.sparta.board.application.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,10 @@ public class CommentController {
                                                                   @RequestBody CommentUpdateRequestDto requestDto) {
         CommentUpdateResponseDto responseDto = commentService.modifyComment(id,requestDto);
         return ResponseEntity.ok(responseDto);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CommentResponseDto> getComment(@PathVariable Long id) {
+        return ResponseEntity.ok(commentService.getComment(id));
     }
 }
