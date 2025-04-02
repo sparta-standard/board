@@ -1,12 +1,15 @@
 package io.sparta.board.entity;
 
+import io.sparta.board.dto.CommentRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "p_comment")
 public class Comment extends BaseEntity {
     @Id
@@ -20,4 +23,9 @@ public class Comment extends BaseEntity {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
+
+    public Comment(Post post, CommentRequestDto requestDto) {
+        this.post = post;
+        this.content = requestDto.getContent();
+    }
 }

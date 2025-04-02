@@ -21,6 +21,7 @@ public class PostService {
     }
 
     // 작성
+    @Transactional
     public PostResponseDto createPost(PostRequestDto requestDto) {
         Post post = new Post(requestDto);
         Post savePost = postRepository.save(post);
@@ -53,7 +54,6 @@ public class PostService {
         Post post = findPost(id);
         return PostResponseDto.from(post);
     }
-
 
     private Post findPost(UUID id) {
         return postRepository.findByIdAndDeletedFalse(id).orElseThrow(() ->
