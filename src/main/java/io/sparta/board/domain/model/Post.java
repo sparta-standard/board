@@ -1,5 +1,6 @@
 package io.sparta.board.domain.model;
 
+import io.sparta.board.application.dto.request.PostRequestDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,5 +29,10 @@ public class Post extends Default{
     public Post(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public void updatePost(PostRequestDto requestDto) {
+        this.title = requestDto.title();
+        this.content = requestDto.content();
     }
 }
