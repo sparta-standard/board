@@ -13,3 +13,6 @@ Content-Type: application/json
 {
   "content": "comment update test content...."
 }
+
+### Comment DELETE
+DELETE http://localhost:8080/api/comments/1a5182f3-da63-43f6-bcbb-2d1a23cab649
