@@ -3,6 +3,7 @@ package io.sparta.board.application.usecase;
 import io.sparta.board.model.entity.Comment;
 import io.sparta.board.model.repository.CommentRepository;
 import io.sparta.board.presentation.dto.request.CommentUpdateRequestDto;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -43,5 +44,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void deleteComment(Comment comment) {
         comment.delete();
+    }
+
+    @Override
+    public List<Comment> getComments(UUID postId) {
+        return commentRepository.findByPostId(postId);
     }
 }
