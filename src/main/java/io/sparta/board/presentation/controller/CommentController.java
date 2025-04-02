@@ -3,6 +3,7 @@ package io.sparta.board.presentation.controller;
 import io.sparta.board.application.facade.CommentFacade;
 import io.sparta.board.presentation.dto.request.CommentCreateRequestDto;
 import io.sparta.board.presentation.dto.response.CommentResponseDto;
+import jakarta.validation.Valid;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class CommentController {
 
     @PostMapping("/{id}")
     public ResponseEntity<CommentResponseDto> createComment(
+        @Valid
         @RequestBody CommentCreateRequestDto requestDto,
         @PathVariable("id") UUID postId
     ) {
