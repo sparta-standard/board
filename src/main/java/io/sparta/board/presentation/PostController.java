@@ -1,6 +1,7 @@
 package io.sparta.board.presentation;
 
 import io.sparta.board.application.dto.request.PostRequestDto;
+import io.sparta.board.application.dto.response.PostResponseDto;
 import io.sparta.board.application.dto.response.PostUpdateResponseDto;
 import io.sparta.board.application.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,21 @@ public class PostController {
     public ResponseEntity<PostUpdateResponseDto> modifyPost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
         PostUpdateResponseDto responseDto = postService.modifyPost(id, requestDto);
         return ResponseEntity.ok(responseDto);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostResponseDto> getPost(@PathVariable Long id,
+                                                   @RequestParam(required = false, defaultValue = "0") int page,
+                                                   @RequestParam(required = false, defaultValue = "10") int size) {
+        size = pageSizeCheck(size);
+        return ResponseEntity.ok(postService.getPost(id, page, size));
+    }
+
+    private int pageSizeCheck(int size) {
+        if(size != 10 && size != 30 && size != 50){
+            return size = 10;
+        }
+        return size;
     }
 
 }
