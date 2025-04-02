@@ -4,15 +4,18 @@ import io.sparta.board.comment.dto.requestDto.CommentCreateRequestDto;
 import io.sparta.board.comment.dto.requestDto.CommentUpdateRequestDto;
 import io.sparta.board.comment.dto.responseDto.CommentCreateResponseDto;
 import io.sparta.board.comment.dto.responseDto.CommentDeleteResponseDto;
+import io.sparta.board.comment.dto.responseDto.CommentResponseDto;
 import io.sparta.board.comment.dto.responseDto.CommentUpdateResponseDto;
 import io.sparta.board.comment.model.Comment;
 import io.sparta.board.comment.repository.CommentRepository;
-import io.sparta.board.post.model.Post;
-import io.sparta.board.post.repository.PostRepository;
+import io.sparta.board.common.PageRequestDto;
+import io.sparta.board.post.service.PostService;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,18 +25,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final PostRepository postRepository;
+    private final PostService postService;
 
     // 댓글 등록
     @Transactional
     public CommentCreateResponseDto createComment(UUID postId, CommentCreateRequestDto requestDto) {
 
-        Post post = postRepository.findByIdAndIsDeletedFalse(postId)
-            .orElseThrow(EntityNotFoundException::new);
-
         Comment comment = Comment.builder()
             .content(requestDto.getContent())
-            .post(post)
+            .post(postService.existsPost(postId))
             .build();
 
         commentRepository.save(comment);
@@ -60,5 +60,20 @@ public class CommentService {
 
         comment.delete();
         return new CommentDeleteResponseDto(commentId, "Successfully deleted comment");
+    }
+
+    // 게시물 내 -> 댓글 전체 조회
+    public Page<CommentResponseDto> getComments(UUID postId, Integer page, Integer size) {
+
+        Page<Comment> comment = commentRepository.findAllByPostIdAndIsDeletedFalse(
+            postId, new PageRequestDto(page,size).getPageable());
+
+        return comment.map(CommentResponseDto::new);
+    }
+
+    // 게시물 삭제시 -> 댓글 함께 삭제
+    public void deleteAllComments(UUID postId) {
+        List<Comment> comments = commentRepository.findAllByPostId(postId);
+        comments.forEach(Comment::delete);
     }
 }
