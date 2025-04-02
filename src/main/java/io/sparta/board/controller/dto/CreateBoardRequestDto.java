@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class CreateBoardRequestDto {
     public String title;
     public String content;

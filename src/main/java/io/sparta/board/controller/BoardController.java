@@ -1,6 +1,7 @@
 package io.sparta.board.controller;
 
 import io.sparta.board.controller.dto.CreateBoardRequestDto;
+import io.sparta.board.controller.dto.GetBoardResponseDto;
 import io.sparta.board.controller.dto.UpdateBoardRequestDto;
 import io.sparta.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,10 @@ public class BoardController {
         boardService.deleteBoard(title);
 
         return "게시글이 삭제되었습니다!";
+    }
+
+    @GetMapping("/{title}")
+    public GetBoardResponseDto GetBoard(@PathVariable("title") String title){
+        return boardService.getBoard(title);
     }
 }

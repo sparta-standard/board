@@ -1,6 +1,7 @@
 package io.sparta.board.service;
 
 import io.sparta.board.controller.dto.CreateBoardRequestDto;
+import io.sparta.board.controller.dto.GetBoardResponseDto;
 import io.sparta.board.controller.dto.UpdateBoardRequestDto;
 import io.sparta.board.repository.BoardRepository;
 import io.sparta.board.repository.CommentRepository;
@@ -41,5 +42,13 @@ public class BoardService {
             System.out.println(comment.getId());
             comment.delete();
         }
+    }
+
+    @Transactional
+    public GetBoardResponseDto getBoard(String title) {
+        Board board = boardRepository.findByTitle(title);
+        List<Comment> comments = commentRepository.findByBoardId(board.getId());
+
+        return new GetBoardResponseDto(title, comments);
     }
 }
