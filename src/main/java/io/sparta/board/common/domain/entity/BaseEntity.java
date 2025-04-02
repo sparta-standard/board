@@ -1,4 +1,4 @@
-package io.sparta.board.comment.domain.entity;
+package io.sparta.board.common.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

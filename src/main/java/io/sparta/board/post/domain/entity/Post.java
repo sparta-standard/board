@@ -1,6 +1,7 @@
 package io.sparta.board.post.domain.entity;
 
 import io.sparta.board.comment.domain.entity.Comment;
+import io.sparta.board.common.domain.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
