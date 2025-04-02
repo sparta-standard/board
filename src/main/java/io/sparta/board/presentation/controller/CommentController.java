@@ -39,7 +39,8 @@ public class CommentController {
       @PathVariable UUID id,
       @RequestBody CommentUpdateRequestDto requestDto) {
     log.info("댓글 수정 컨트롤러 연결 완료");
-    return new CommentUpdateResponseDto();
+    CommentUpdateResponseDto responseDto = commentService.updateComment(postId, id, requestDto);
+    return responseDto;
   }
 
   // 댓글 삭제
