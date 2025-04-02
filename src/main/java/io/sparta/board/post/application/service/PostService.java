@@ -69,4 +69,17 @@ public class PostService {
                 .post(PostMapper.toPostData(post))
                 .build();
     }
+
+    @Transactional
+    public PostResponseDto deletePost(UUID postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+
+        post.softDelete();
+
+        return PostResponseDto.builder()
+                .message("게시글이 삭제되었습니다.")
+                .stateCode(200)
+                .build();
+    }
 }
