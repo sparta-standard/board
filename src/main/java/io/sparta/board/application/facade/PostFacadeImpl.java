@@ -24,12 +24,14 @@ public class PostFacadeImpl implements PostFacade {
     @Override
     public PostResponseDto getPost(UUID postId) {
         Post post = postService.getPost(postId);
+        postService.isDeleted(post);
         return PostResponseDto.toResponseDto(post);
     }
 
     @Override
     public PostResponseDto updatePost(UUID postId, PostUpdateRequestDto requestDto) {
         Post post = postService.getPost(postId);
+        postService.isDeleted(post);
         postService.updatePost(post, requestDto);
         return PostResponseDto.toResponseDto(post);
     }
@@ -37,6 +39,7 @@ public class PostFacadeImpl implements PostFacade {
     @Override
     public void deletePost(UUID postId) {
         Post post = postService.getPost(postId);
+        postService.isDeleted(post);
         postService.deletePost(post);
     }
 }
