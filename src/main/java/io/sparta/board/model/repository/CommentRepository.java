@@ -12,7 +12,7 @@ public interface CommentRepository {
 
     Optional<Comment> findById(UUID commentId);
 
-    List<Comment> findByPostId(UUID postId, Pageable pageable);
+    List<Comment> findByPostIdAndDeletedFalse(UUID postId, Pageable pageable);
 
-    List<Comment> findByPostId(UUID postId);
+    List<Comment> findByPostIdAndDeletedFalse(UUID postId);
 }

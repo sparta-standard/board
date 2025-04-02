@@ -54,12 +54,12 @@ public class CommentServiceImpl implements CommentService {
         if (!pageSizeCheck(pageable.getPageSize())) {
             pageable = PageRequest.of(pageable.getPageNumber(), 10, pageable.getSort());
         }
-        return commentRepository.findByPostId(postId, pageable);
+        return commentRepository.findByPostIdAndDeletedFalse(postId, pageable);
     }
 
     @Override
     public List<Comment> getComments(UUID postId) {
-        return commentRepository.findByPostId(postId);
+        return commentRepository.findByPostIdAndDeletedFalse(postId);
     }
 
     @Transactional
