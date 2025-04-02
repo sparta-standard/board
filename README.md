@@ -18,6 +18,16 @@
 ## ☑️To Do List (Challenge)
 Pagination 요청 Page Size가 10/30/50이 아닌경우 10으로 고정
 
+## 🔨기술 스택
+![JAVA](https://img.shields.io/badge/JAVA-007396?style=for-the-badge&logo=OpenJDK&logoColor=white)
+![GITHUB](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)
+![SPRINGBOOT](https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white)
+![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000?style=for-the-badge&logo=IntelliJIDEA&logoColor=white)
+![POSTMAN](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)
+![Spring Data JPA](https://img.shields.io/badge/SpringDataJPA-6DB33F?style=for-the-badge&logo=Hibernate&logoColor=white)
+![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white)
+![H2](https://img.shields.io/badge/H2-02303A?style=for-the-badge&logo=H2&logoColor=white)
+
 ## 🏗️ 프로젝트 구조
 간단한 프로젝트이기 때문에 3계층 구조로 설게하였음
 
