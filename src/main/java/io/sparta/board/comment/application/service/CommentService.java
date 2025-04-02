@@ -6,6 +6,8 @@ import io.sparta.board.comment.application.dto.response.CommentResponseDto;
 import io.sparta.board.comment.application.mapper.CommentMapper;
 import io.sparta.board.comment.domain.entity.Comment;
 import io.sparta.board.comment.domain.repository.CommentRepository;
+import io.sparta.board.common.exception.ErrorCode;
+import io.sparta.board.common.exception.GlobalException;
 import io.sparta.board.post.domain.entity.Post;
 import io.sparta.board.post.domain.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +27,7 @@ public class CommentService {
     @Transactional
     public CommentResponseDto createComment(UUID postId, CommentRequestDto dto) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new GlobalException(ErrorCode.POST_NOT_FOUND));
 
         Comment comment = CommentMapper.toEntity(dto, post);
         Comment savedComment = commentRepository.save(comment);
@@ -40,7 +42,7 @@ public class CommentService {
     @Transactional
     public CommentListResponseDto getCommentsByPostId(UUID postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new GlobalException(ErrorCode.POST_NOT_FOUND));
 
         List<CommentResponseDto.CommentData> comments = commentRepository.findByPost(post).stream()
                 .map(CommentMapper::toCommentData)
@@ -56,10 +58,10 @@ public class CommentService {
     @Transactional
     public CommentResponseDto updateComment(UUID postId, UUID commentId, CommentRequestDto dto) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new GlobalException(ErrorCode.POST_NOT_FOUND));
 
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
+                .orElseThrow(() -> new GlobalException(ErrorCode.COMMENT_NOT_FOUND));
 
         comment.update(dto.getCommentContent());
 
@@ -73,10 +75,10 @@ public class CommentService {
     @Transactional
     public CommentResponseDto deleteComment(UUID postId, UUID commentId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new GlobalException(ErrorCode.POST_NOT_FOUND));
 
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
+                .orElseThrow(() -> new GlobalException(ErrorCode.COMMENT_NOT_FOUND));
 
         comment.softDelete();
 

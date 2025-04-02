@@ -1,5 +1,7 @@
 package io.sparta.board.post.application.service;
 
+import io.sparta.board.common.exception.ErrorCode;
+import io.sparta.board.common.exception.GlobalException;
 import io.sparta.board.post.application.dto.request.PostRequestDto;
 import io.sparta.board.post.application.dto.response.PostListResponseDto;
 import io.sparta.board.post.application.dto.response.PostResponseDto;
@@ -47,7 +49,7 @@ public class PostService {
     @Transactional
     public PostResponseDto getPostById(UUID postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new GlobalException(ErrorCode.POST_NOT_FOUND));
 
         return PostResponseDto.builder()
                 .message("게시글이 조회되었습니다.")
@@ -59,7 +61,7 @@ public class PostService {
     @Transactional
     public PostResponseDto updatePost(UUID postId, PostRequestDto dto) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new GlobalException(ErrorCode.POST_NOT_FOUND));
 
         post.update(dto.getPostTitle(), dto.getPostContent());
 
@@ -73,7 +75,7 @@ public class PostService {
     @Transactional
     public PostResponseDto deletePost(UUID postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new GlobalException(ErrorCode.POST_NOT_FOUND));
 
         post.softDelete();
 
