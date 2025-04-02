@@ -1,9 +1,11 @@
 package io.sparta.board.controller;
 
+import io.sparta.board.dto.ApiResponse;
 import io.sparta.board.dto.comment.CommentRequestDto;
 import io.sparta.board.dto.comment.CommentResponseDto;
 import io.sparta.board.service.CommentService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -19,17 +21,19 @@ public class CommentController {
 
     // 작성
     @PostMapping("/{postId}/comments")
-    public CommentResponseDto addComment(@PathVariable UUID postId, @RequestBody @Valid CommentRequestDto requestDto) {
-        return commentService.addComment(postId, requestDto);
+    public ResponseEntity<ApiResponse<CommentResponseDto>> addComment(@PathVariable UUID postId, @RequestBody @Valid CommentRequestDto requestDto) {
+        CommentResponseDto response = commentService.addComment(postId, requestDto);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     // 수정
     @PutMapping("/{postId}/comments/{commentId}")
-    public CommentResponseDto updateComment(
+    public ResponseEntity<ApiResponse<CommentResponseDto>> updateComment(
             @PathVariable UUID postId,
             @PathVariable UUID commentId,
             @RequestBody @Valid CommentRequestDto requestDto) {
-        return commentService.updateComment(postId, commentId, requestDto);
+        CommentResponseDto response = commentService.updateComment(postId, commentId, requestDto);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     // 삭제

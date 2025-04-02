@@ -1,10 +1,12 @@
 package io.sparta.board.controller;
 
+import io.sparta.board.dto.ApiResponse;
 import io.sparta.board.dto.post.PostDetailResponseDto;
 import io.sparta.board.dto.post.PostRequestDto;
 import io.sparta.board.dto.post.PostResponseDto;
 import io.sparta.board.service.PostService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,14 +23,16 @@ public class PostController {
 
     // 작성
     @PostMapping("/posts")
-    public PostResponseDto createPost(@RequestBody @Valid PostRequestDto requestDto) {
-        return postService.createPost(requestDto);
+    public ResponseEntity<ApiResponse<PostResponseDto>> createPost(@RequestBody @Valid PostRequestDto requestDto) {
+        PostResponseDto response = postService.createPost(requestDto);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     // 수정
     @PutMapping("/posts/{id}")
-    public PostResponseDto updatePost(@PathVariable UUID id, @RequestBody @Valid PostRequestDto requestDto) {
-        return postService.updatePost(id, requestDto);
+    public ResponseEntity<ApiResponse<PostResponseDto>> updatePost(@PathVariable UUID id, @RequestBody @Valid PostRequestDto requestDto) {
+        PostResponseDto response = postService.updatePost(id, requestDto);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     // 삭제
