@@ -17,3 +17,6 @@ Content-Type: application/json
 {
   "title": "update title...."
 }
+
+### Delete DELETE
+DELETE http://localhost:8080/api/posts/dd7bfd2a-04d6-4ae1-a090-7936b7ffcf66
