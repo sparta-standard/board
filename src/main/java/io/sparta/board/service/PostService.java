@@ -49,6 +49,14 @@ public class PostService {
         post.update(requestDto.getTitle(),requestDto.getContent());
 
         return new PostResponseDto(post);
+    }
+
+    @Transactional
+    public void deletePost(UUID id){
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글을 찾을 수 없습니다."));
+
+        post.setDeleted(true);
 
     }
 
