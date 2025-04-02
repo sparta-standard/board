@@ -12,4 +12,6 @@ public interface PostFacade {
     PostResponseDto getPost(UUID postId);
 
     PostResponseDto updatePost(UUID postId, PostUpdateRequestDto requestDto);
+
+    void deletePost(UUID postId);
 }

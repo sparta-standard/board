@@ -33,4 +33,10 @@ public class PostFacadeImpl implements PostFacade {
         postService.updatePost(post, requestDto);
         return PostResponseDto.toResponseDto(post);
     }
+
+    @Override
+    public void deletePost(UUID postId) {
+        Post post = postService.getPost(postId);
+        postService.deletePost(post);
+    }
 }
