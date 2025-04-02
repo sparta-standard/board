@@ -1,0 +1,7 @@
+### Comment CREATE
+POST http://localhost:8080/api/comments/0df6a3dd-c1db-4689-9335-36985995660e
+Content-Type: application/json
+
+{
+  "content": "comment test content...."
+}

@@ -6,3 +6,6 @@ Content-Type: application/json
     "title": "test title....",
     "content": "test content...."
 }
+
+### Get READ
+GET http://localhost:8080/api/posts/0df6a3dd-c1db-4689-9335-36985995660e
