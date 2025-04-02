@@ -55,7 +55,7 @@ public class PostController {
 
     /*
     TODO 게시글 단건 조회
-    - 게시글에 포함된 모든 댓글 목록을 조회 -> 하는 중,,
+    - 게시글에 포함된 모든 댓글 목록을 조회
     - 삭제된 데이터는 조회 불가능
      */
     @GetMapping("/{id}")

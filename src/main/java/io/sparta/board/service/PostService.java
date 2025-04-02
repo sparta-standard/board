@@ -49,14 +49,7 @@ public class PostService {
     }
 
     public PostResponseDto getPostById(UUID id) {
-        Optional<Post> optionalPost = postRepository.findByIdAndDeletedFalse(id);
-
-        if (optionalPost.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "게시글을 찾을 수 없습니다.");
-        }
-
-        Post post = optionalPost.get();
-
+        Post post = postRepository.findByIdAndDeletedFalse(id).orElse(null);
         return toResponseDto(post);
     }
 
@@ -70,11 +63,14 @@ public class PostService {
     }
 
     private PostResponseDto toResponseDto(Post post) {
-        List<CommentResponseDto> comments = post.getComments()
-                .stream()
-                .filter(comment -> !comment.isDeleted())
-                .map(this::toCommentResponseDto)
-                .collect(Collectors.toList());
+        List<CommentResponseDto> comments = List.of();
+
+        if (post != null && post.getComments() != null) {
+            comments = post.getComments().stream()
+                    .filter(comment -> !comment.isDeleted())
+                    .map(this::toCommentResponseDto)
+                    .collect(Collectors.toList());
+        }
 
         return new PostResponseDto(
                 post.getId(),
