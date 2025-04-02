@@ -10,4 +10,6 @@ public interface CommentFacade {
     CommentResponseDto createComment(CommentCreateRequestDto requestDto, UUID postId);
 
     CommentResponseDto updateComment(UUID commentId, CommentUpdateRequestDto requestDto);
+
+    void deleteComment(UUID commentId);
 }

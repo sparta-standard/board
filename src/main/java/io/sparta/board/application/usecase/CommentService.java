@@ -13,4 +13,6 @@ public interface CommentService {
     void updateComment(Comment comment, CommentUpdateRequestDto requestDto);
 
     void isDeleted(Comment comment);
+
+    void deleteComment(Comment comment);
 }

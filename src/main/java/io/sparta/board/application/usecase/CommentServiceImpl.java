@@ -38,4 +38,10 @@ public class CommentServiceImpl implements CommentService {
             throw new IllegalArgumentException("삭제된 댓글입니다.");
         }
     }
+
+    @Transactional
+    @Override
+    public void deleteComment(Comment comment) {
+        comment.delete();
+    }
 }

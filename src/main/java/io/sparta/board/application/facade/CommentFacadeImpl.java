@@ -35,4 +35,11 @@ public class CommentFacadeImpl implements CommentFacade {
         commentService.updateComment(comment, requestDto);
         return CommentResponseDto.toResponseDto(comment);
     }
+
+    @Override
+    public void deleteComment(UUID commentId) {
+        Comment comment = commentService.getComment(commentId);
+        commentService.isDeleted(comment);
+        commentService.deleteComment(comment);
+    }
 }
