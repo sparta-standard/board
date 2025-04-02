@@ -7,6 +7,7 @@ import io.sparta.board.repository.entity.Board;
 import io.sparta.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -42,15 +43,14 @@ public class BoardController {
 
     // 게시글 단건조회
     @GetMapping("/{title}")
-    public GetBoardResponseDto GetBoard(@PathVariable("title") String title){
-        return boardService.getBoard(title);
+    public ResponseEntity<GetBoardResponseDto> GetBoard(@PathVariable("title") String title){
+        return ResponseEntity.ok(boardService.getBoard(title));
     }
 
     // 게시글 페이징조회
     @GetMapping("")
-    public Page<Board> GetBoards(@RequestParam(required = false, defaultValue = "0") int page, @RequestParam(required = false, defaultValue = "10") int size){
-        return boardService.getBoards(page, size);
+    public ResponseEntity<Page<Board>> GetBoards(@RequestParam(required = false, defaultValue = "0") int page, @RequestParam(required = false, defaultValue = "10") int size){
+        return ResponseEntity.ok(boardService.getBoards(page, size));
     }
-
 
 }
