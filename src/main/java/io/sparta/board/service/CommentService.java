@@ -20,6 +20,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
 
+    // 작성
     @Transactional
     public CommentResponseDto addComment(UUID postId, CommentRequestDto requestDto) {
         Post post = findPost(postId);
@@ -28,9 +29,24 @@ public class CommentService {
         return CommentResponseDto.from(saveComment);
     }
 
+    // 수정
+    @Transactional
+    public CommentResponseDto updateComment(UUID postId, UUID commentId, CommentRequestDto requestDto) {
+        findPost(postId);
+        Comment comment = findComment(commentId);
+        comment.updateComment(requestDto);
+        return CommentResponseDto.from(comment);
+    }
+
     private Post findPost(UUID postId) {
         return postRepository.findByIdAndDeletedFalse(postId).orElseThrow(() ->
                 new EntityNotFoundException("해당 게시글이 존재하지 않습니다.")
+        );
+    }
+
+    private Comment findComment(UUID commentId) {
+        return commentRepository.findByIdAndDeletedFalse(commentId).orElseThrow(() ->
+                new EntityNotFoundException("해당 댓글이 존재하지 않습니다.")
         );
     }
 }

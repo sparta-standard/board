@@ -28,4 +28,8 @@ public class Comment extends BaseEntity {
         this.post = post;
         this.content = requestDto.getContent();
     }
+
+    public void updateComment(CommentRequestDto requestDto) {
+        this.content = requestDto.getContent();
+    }
 }
