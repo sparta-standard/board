@@ -1,7 +1,8 @@
 package io.sparta.board.app.domain.post.presentation.mapper;
 
-import io.sparta.board.app.domain.post.presentation.dto.request.PostCreateRequestDto;
+import io.sparta.board.app.domain.comment.model.entity.Comment;
 import io.sparta.board.app.domain.post.model.entity.Post;
+import io.sparta.board.app.domain.post.presentation.dto.request.PostCreateRequestDto;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostCreatResponseDto;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostDeleteResponseDto;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostReadResponseDto;
@@ -24,7 +25,7 @@ public class PostMapper {
 			.build();
 	}
 
-	public static PostReadResponseDto pageToReadResponseDto(Page<Post> page) {
+	public static PostReadResponseDto pageToReadResponseDto(Page<Comment> page) {
 		PostReadResponseDto.PostReadResponseDtoBuilder builder = PostReadResponseDto.builder();
 		builder = builder
 			.totalContents(page.getTotalElements())
@@ -37,11 +38,11 @@ public class PostMapper {
 		return builder.build();
 	}
 
-	private static PostReadResponseDto.CommentDto entityToPostReadDto(Post post) {
+	private static PostReadResponseDto.CommentDto entityToPostReadDto(Comment comment) {
 		return PostReadResponseDto.CommentDto.builder()
-			.id(post.getId())
-			.postId(post.getId())
-			.content(post.getContent())
+			.id(comment.getId())
+			.postId(comment.getPost().getId())
+			.content(comment.getContent())
 			.build();
 	}
 
