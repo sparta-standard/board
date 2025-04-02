@@ -1,6 +1,7 @@
 package io.sparta.board.comment.application.service;
 
 import io.sparta.board.comment.application.dto.request.CommentRequestDto;
+import io.sparta.board.comment.application.dto.response.CommentListResponseDto;
 import io.sparta.board.comment.application.dto.response.CommentResponseDto;
 import io.sparta.board.comment.application.mapper.CommentMapper;
 import io.sparta.board.comment.domain.entity.Comment;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -32,6 +34,22 @@ public class CommentService {
                 .message("댓글이 생성되었습니다.")
                 .stateCode(201)
                 .comment(CommentMapper.toCommentData(savedComment))
+                .build();
+    }
+
+    @Transactional
+    public CommentListResponseDto getCommentsByPostId(UUID postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+
+        List<CommentResponseDto.CommentData> comments = commentRepository.findByPost(post).stream()
+                .map(CommentMapper::toCommentData)
+                .toList();
+
+        return CommentListResponseDto.builder()
+                .message("댓글이 조회되었습니다.")
+                .stateCode(200)
+                .comments(comments)
                 .build();
     }
 }

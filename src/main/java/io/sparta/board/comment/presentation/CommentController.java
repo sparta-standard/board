@@ -1,6 +1,7 @@
 package io.sparta.board.comment.presentation;
 
 import io.sparta.board.comment.application.dto.request.CommentRequestDto;
+import io.sparta.board.comment.application.dto.response.CommentListResponseDto;
 import io.sparta.board.comment.application.dto.response.CommentResponseDto;
 import io.sparta.board.comment.application.service.CommentService;
 import jakarta.validation.Valid;
@@ -24,5 +25,12 @@ public class CommentController {
     ) {
         CommentResponseDto commentResponseDto = commentService.createComment(postId, commentRequestDto);
         return ResponseEntity.ok(commentResponseDto);
+    }
+
+    @GetMapping("/{postId}")
+    public ResponseEntity<CommentListResponseDto> getCommentsByPostId(
+            @PathVariable UUID postId
+    ) {
+        return ResponseEntity.ok(commentService.getCommentsByPostId(postId));
     }
 }
