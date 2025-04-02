@@ -4,9 +4,11 @@ import io.sparta.board.dto.PostCreateRequestDto;
 import io.sparta.board.dto.PostCreateResponseDto;
 import io.sparta.board.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -23,6 +25,11 @@ public class PostController {
     @GetMapping("/{id}")
     public ResponseEntity<PostCreateResponseDto> getPost(@PathVariable UUID id){
         return ResponseEntity.ok(postService.getPostById(id));
+    }
+
+    @GetMapping
+    private ResponseEntity <List<PostCreateResponseDto>> getAllPosts(){
+        return ResponseEntity.ok(postService.getAllPosts());
     }
 
 }
