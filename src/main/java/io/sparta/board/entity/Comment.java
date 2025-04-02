@@ -1,8 +1,7 @@
-package io.sparta.board.dto;
+package io.sparta.board.entity;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 

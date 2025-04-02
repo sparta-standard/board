@@ -1,4 +1,4 @@
-package io.sparta.board.dto;
+package io.sparta.board.entity;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
