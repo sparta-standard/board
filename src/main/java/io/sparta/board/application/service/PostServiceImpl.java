@@ -47,4 +47,18 @@ public class PostServiceImpl implements PostService {
 
     return new PostUpdateResponseDto(post);
   }
+
+  @Override
+  @Transactional
+  public void deletePost(UUID id) {
+
+    Post post = postRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("해당하는 게시물이 없습니다."));
+
+    log.info("게시판 삭제 서비스 연결 완료 (삭제 전) - id: {}, deleted: {}", id, post.getDeleted());
+
+    post.setDeleted(true);
+
+    log.info("게시판 삭제 서비스 연결 완료 (삭제 후) - id: {}, deleted: {}", id, post.getDeleted());
+  }
 }
