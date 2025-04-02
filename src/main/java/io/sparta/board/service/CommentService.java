@@ -38,6 +38,15 @@ public class CommentService {
         return CommentResponseDto.from(comment);
     }
 
+    // 삭제
+    @Transactional
+    public UUID deleteComment(UUID postId, UUID commentId) {
+        findPost(postId);
+        Comment comment = findComment(commentId);
+        comment.softDelete();
+        return commentId;
+    }
+
     private Post findPost(UUID postId) {
         return postRepository.findByIdAndDeletedFalse(postId).orElseThrow(() ->
                 new EntityNotFoundException("해당 게시글이 존재하지 않습니다.")

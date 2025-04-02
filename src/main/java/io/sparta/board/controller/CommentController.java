@@ -30,4 +30,12 @@ public class CommentController {
             @RequestBody CommentRequestDto requestDto) {
         return commentService.updateComment(postId, commentId, requestDto);
     }
+
+    // 삭제
+    @DeleteMapping("/{postId}/comments/{commentId}")
+    public UUID deleteComment(
+            @PathVariable UUID postId,
+            @PathVariable UUID commentId) {
+        return commentService.deleteComment(postId, commentId);
+    }
 }
