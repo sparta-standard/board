@@ -26,4 +26,12 @@ public class PostResponseDto {
             .comments(comments)
             .build();
     }
+
+    public static PostResponseDto toResponseDto(Post post) {
+        return PostResponseDto.builder()
+            .id(post.getId())
+            .title(post.getTitle())
+            .content(post.getContent())
+            .build();
+    }
 }
