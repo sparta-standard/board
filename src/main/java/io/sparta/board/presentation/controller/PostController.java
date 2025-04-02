@@ -5,9 +5,10 @@ import io.sparta.board.application.dto.request.PostUpdateRequestDto;
 import io.sparta.board.application.dto.response.PostCreateResponseDto;
 import io.sparta.board.application.dto.response.PostDetailResponseDto;
 import io.sparta.board.application.dto.response.PostUpdateResponseDto;
+import io.sparta.board.application.service.PostService;
 import jakarta.validation.Valid;
 import java.util.UUID;
-import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,21 +22,25 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/posts")
+@RequiredArgsConstructor
 public class PostController {
+
+  private final PostService postService;
 
   // 게시판 생성
   @PostMapping
   public PostCreateResponseDto createPost(
-      @Valid @RequestBody PostCreateRequestDto postCreateRequestDto) {
+      @Valid @RequestBody PostCreateRequestDto requestDto) {
     log.info("게시판 생성 컨트롤러 연결 완료");
-    return new PostCreateResponseDto();
+    PostCreateResponseDto responseDto = postService.createPost(requestDto);
+    return responseDto;
   }
 
   // 게시판 수정
   @PutMapping("/{id}")
   public PostUpdateResponseDto updatePost(
       @PathVariable UUID id,
-      @Valid @RequestBody PostUpdateRequestDto postUpdateRequestDto
+      @Valid @RequestBody PostUpdateRequestDto requestDto
   ) {
     log.info("게시판 수정 컨트롤러 연결 완료 - id : {}", id);
     return new PostUpdateResponseDto();

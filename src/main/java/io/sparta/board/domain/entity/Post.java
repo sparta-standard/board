@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,10 +41,10 @@ public class Post {
   private Boolean deleted = false;
 
   @CreatedDate
-  @Column(name = "created_at", updatable = false, nullable = false)
-  private Timestamp createdAt;
+  @Column(name = "created_at", updatable = false)
+  private LocalDateTime createdAt;
 
   @LastModifiedDate
   @Column(name = "updated_at")
-  private Timestamp updatedAt;
+  private LocalDateTime updatedAt;
 }
