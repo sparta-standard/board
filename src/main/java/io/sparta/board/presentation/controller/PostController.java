@@ -43,7 +43,8 @@ public class PostController {
       @Valid @RequestBody PostUpdateRequestDto requestDto
   ) {
     log.info("게시판 수정 컨트롤러 연결 완료 - id : {}", id);
-    return new PostUpdateResponseDto();
+    PostUpdateResponseDto responseDto = postService.updatePost(id, requestDto);
+    return responseDto;
   }
 
   // 게시판 삭제
