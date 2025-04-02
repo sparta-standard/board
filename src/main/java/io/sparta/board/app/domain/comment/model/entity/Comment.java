@@ -36,7 +36,7 @@ public class Comment extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Post post;
 
-	@Column(columnDefinition = "TEXT")
+	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
 
 	public void update(Post post, CommentUpdateRequestDto commentUpdateRequestDto) {
