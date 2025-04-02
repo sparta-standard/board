@@ -1,14 +1,14 @@
 package io.sparta.board.controller;
 
 import io.sparta.board.dto.request.CommentCreateRequestDto;
+import io.sparta.board.dto.request.CommentUpdateRequestDto;
 import io.sparta.board.dto.response.CommentResponseDto;
 import io.sparta.board.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,5 +22,10 @@ public class CommentController {
         return ResponseEntity.ok(commentService.createComment(requestDto));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<CommentResponseDto> updateComment(@PathVariable UUID id,
+                                                            @RequestBody CommentUpdateRequestDto requestDto){
+        return ResponseEntity.ok(commentService.updateComment(id,requestDto));
+    }
 
 }
