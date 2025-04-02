@@ -1,7 +1,7 @@
 package io.sparta.board.service;
 
-import io.sparta.board.dto.CommentRequestDto;
-import io.sparta.board.dto.CommentResponseDto;
+import io.sparta.board.dto.comment.CommentRequestDto;
+import io.sparta.board.dto.comment.CommentResponseDto;
 import io.sparta.board.entity.Comment;
 import io.sparta.board.entity.Post;
 import io.sparta.board.repository.CommentRepository;

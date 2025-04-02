@@ -1,7 +1,7 @@
 package io.sparta.board.controller;
 
-import io.sparta.board.dto.CommentRequestDto;
-import io.sparta.board.dto.CommentResponseDto;
+import io.sparta.board.dto.comment.CommentRequestDto;
+import io.sparta.board.dto.comment.CommentResponseDto;
 import io.sparta.board.service.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;

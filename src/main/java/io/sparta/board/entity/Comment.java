@@ -1,6 +1,6 @@
 package io.sparta.board.entity;
 
-import io.sparta.board.dto.CommentRequestDto;
+import io.sparta.board.dto.comment.CommentRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

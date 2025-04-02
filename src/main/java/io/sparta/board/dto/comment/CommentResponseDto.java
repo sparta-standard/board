@@ -1,4 +1,4 @@
-package io.sparta.board.dto;
+package io.sparta.board.dto.comment;
 
 import io.sparta.board.entity.Comment;
 import lombok.Builder;
