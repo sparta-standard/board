@@ -10,11 +10,15 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
 import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
 @Table(name = "p_post")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post {
 
     @Id
@@ -34,5 +38,12 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Comment> comments;
 
+    @Builder
+    public Post(String title, String content, Boolean deleted, List<Comment> comments) {
+        this.title = title;
+        this.content = content;
+        this.deleted = deleted;
+        this.comments = comments;
+    }
 
 }
