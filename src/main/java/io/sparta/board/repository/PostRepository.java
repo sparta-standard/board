@@ -8,7 +8,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface PostRepository extends JpaRepository<Post, UUID> {
-    List<Post> findAllByDeletedFalse();
 
+    List<Post> findAllByDeletedFalse();
     Optional<Post> findByIdAndDeletedFalse(UUID id);
+
 }

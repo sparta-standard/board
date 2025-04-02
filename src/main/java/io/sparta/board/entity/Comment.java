@@ -1,18 +1,22 @@
 package io.sparta.board.entity;
 
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
-@Table(name = "p_comment")
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "p_comment")
 public class Comment extends BaseEntity {
 
     @Id
-    @Column(nullable = false)
     @GeneratedValue
+    @Column(name = "comment_id", nullable = false, updatable = false)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,4 +29,19 @@ public class Comment extends BaseEntity {
     @Column(nullable = false)
     private boolean deleted = false;
 
+    public void update(String content) {
+        this.content = content;
+    }
+
+    public void softDelete() {
+        this.deleted = true;
+    }
+
+    public static Comment toEntity(Post post, String content) {
+        return Comment.builder()
+                .post(post)
+                .content(content)
+                .deleted(false)
+                .build();
+    }
 }
