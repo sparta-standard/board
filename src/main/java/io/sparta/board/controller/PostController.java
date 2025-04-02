@@ -1,8 +1,8 @@
 package io.sparta.board.controller;
 
-import io.sparta.board.dto.PostCreateRequestDto;
-import io.sparta.board.dto.PostResponseDto;
-import io.sparta.board.dto.PostUpdateRequestDto;
+import io.sparta.board.dto.request.PostCreateRequestDto;
+import io.sparta.board.dto.response.PostResponseDto;
+import io.sparta.board.dto.request.PostUpdateRequestDto;
 import io.sparta.board.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
