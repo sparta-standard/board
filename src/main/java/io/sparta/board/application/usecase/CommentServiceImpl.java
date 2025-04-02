@@ -6,6 +6,8 @@ import io.sparta.board.presentation.dto.request.CommentUpdateRequestDto;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,6 +50,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public List<Comment> getComments(UUID postId, Pageable pageable) {
+        if (!pageSizeCheck(pageable.getPageSize())) {
+            pageable = PageRequest.of(pageable.getPageNumber(), 10, pageable.getSort());
+        }
+        return commentRepository.findByPostId(postId, pageable);
+    }
+
+    @Override
     public List<Comment> getComments(UUID postId) {
         return commentRepository.findByPostId(postId);
     }
@@ -58,5 +68,9 @@ public class CommentServiceImpl implements CommentService {
         for (Comment comment : comments) {
             comment.delete();
         }
+    }
+
+    private boolean pageSizeCheck(int size) {
+        return size == 10 || size == 30 || size == 50;
     }
 }

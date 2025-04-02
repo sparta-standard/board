@@ -7,6 +7,7 @@ import io.sparta.board.presentation.dto.response.PostResponseDto;
 import jakarta.validation.Valid;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,9 +35,10 @@ public class PostController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PostResponseDto> getPost(
-        @PathVariable("id") UUID postId
+        @PathVariable("id") UUID postId,
+        Pageable pageable
     ) {
-        return ResponseEntity.ok(postFacade.getPost(postId));
+        return ResponseEntity.ok(postFacade.getPost(postId, pageable));
     }
 
     @PatchMapping("/{id}")

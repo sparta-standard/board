@@ -4,6 +4,7 @@ import io.sparta.board.model.entity.Comment;
 import io.sparta.board.presentation.dto.request.CommentUpdateRequestDto;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.data.domain.Pageable;
 
 public interface CommentService {
 
@@ -16,6 +17,8 @@ public interface CommentService {
     void isDeleted(Comment comment);
 
     void deleteComment(Comment comment);
+
+    List<Comment> getComments(UUID postId, Pageable pageable);
 
     List<Comment> getComments(UUID postId);
 

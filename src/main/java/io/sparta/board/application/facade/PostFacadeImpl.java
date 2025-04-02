@@ -11,6 +11,7 @@ import io.sparta.board.presentation.dto.response.PostResponseDto;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,14 +24,14 @@ public class PostFacadeImpl implements PostFacade {
     @Override
     public PostResponseDto createPost(PostCreateRequestDto requestDto) {
         Post savedPost = postService.createPost(requestDto.createPost());
-        return PostResponseDto.toResponseDto(savedPost, null);
+        return PostResponseDto.toResponseDto(savedPost);
     }
 
     @Override
-    public PostResponseDto getPost(UUID postId) {
+    public PostResponseDto getPost(UUID postId, Pageable pageable) {
         Post post = postService.getPost(postId);
         postService.isDeleted(post);
-        return PostResponseDto.toResponseDto(post, getComments(postId));
+        return PostResponseDto.toResponseDto(post, getComments(postId, pageable));
     }
 
     @Override
@@ -38,7 +39,7 @@ public class PostFacadeImpl implements PostFacade {
         Post post = postService.getPost(postId);
         postService.isDeleted(post);
         postService.updatePost(post, requestDto);
-        return PostResponseDto.toResponseDto(post, getComments(postId));
+        return PostResponseDto.toResponseDto(post);
     }
 
     @Override
@@ -50,8 +51,8 @@ public class PostFacadeImpl implements PostFacade {
         commentService.deleteComments(comments);
     }
 
-    private List<CommentResponseDto> getComments(UUID postId) {
-        List<Comment> comments = commentService.getComments(postId);
+    private List<CommentResponseDto> getComments(UUID postId, Pageable pageable) {
+        List<Comment> comments = commentService.getComments(postId, pageable);
         return comments.stream().map(CommentResponseDto::toResponseDto).toList();
     }
 }
