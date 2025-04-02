@@ -4,7 +4,9 @@ import io.sparta.board.application.dto.request.CommentCreateRequestDto;
 import io.sparta.board.application.dto.request.CommentUpdateRequestDto;
 import io.sparta.board.application.dto.response.CommentCreateResponseDto;
 import io.sparta.board.application.dto.response.CommentUpdateResponseDto;
+import io.sparta.board.application.service.CommentService;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,14 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/api/posts")
+@RequiredArgsConstructor
 public class CommentController {
+
+  private final CommentService commentService;
 
   // 댓글 등록
   @PostMapping("/{postId}")
   public CommentCreateResponseDto createComment(@PathVariable UUID postId,
       @RequestBody CommentCreateRequestDto requestDto) {
     log.info("댓글 등록 컨트롤러 연결 완료");
-    return new CommentCreateResponseDto();
+    CommentCreateResponseDto responseDto = commentService.createComment(postId, requestDto);
+    return responseDto;
   }
 
   // 댓글 수정
