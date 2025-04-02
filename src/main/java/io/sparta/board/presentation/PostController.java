@@ -3,8 +3,10 @@ package io.sparta.board.presentation;
 import io.sparta.board.application.dto.request.PostCreateRequestDto;
 import io.sparta.board.application.dto.request.PostUpdateRequestDto;
 import io.sparta.board.application.dto.response.PostGetResponseDto;
+import io.sparta.board.application.dto.response.PostResponseDto;
 import io.sparta.board.application.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,5 +53,15 @@ public class PostController {
     @GetMapping("/{post_id}")
     public ResponseEntity<PostGetResponseDto> getPost(@PathVariable("post_id") UUID id) {
         return ResponseEntity.ok().body(postService.getPost(id));
+    }
+
+
+    /**
+     * 게시글 목록 조회
+     */
+    @GetMapping
+    public ResponseEntity<Page<PostResponseDto>> getPostList (@RequestParam(defaultValue = "1") int page,
+                                                              @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok().body(postService.getPostList(page, size));
     }
 }

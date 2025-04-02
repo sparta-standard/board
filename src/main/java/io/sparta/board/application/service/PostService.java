@@ -4,6 +4,7 @@ import io.sparta.board.application.dto.request.PostCreateRequestDto;
 import io.sparta.board.application.dto.request.PostUpdateRequestDto;
 import io.sparta.board.application.dto.response.CommentGetResponseDto;
 import io.sparta.board.application.dto.response.PostGetResponseDto;
+import io.sparta.board.application.dto.response.PostResponseDto;
 import io.sparta.board.application.mapper.CommentMapper;
 import io.sparta.board.application.mapper.PostMapper;
 import io.sparta.board.domain.entity.Comment;
@@ -11,6 +12,9 @@ import io.sparta.board.domain.entity.Post;
 import io.sparta.board.domain.repository.CommentRepository;
 import io.sparta.board.domain.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +65,16 @@ public class PostService {
             commentDtoList.add(commentMapper.toDto(comment));
         }
         return postMapper.toDto(post, commentDtoList);
+    }
+
+
+    @Transactional(readOnly = true)
+    public Page<PostResponseDto> getPostList(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page-1, size, Sort.by("createdAt").descending());
+
+        Page<Post> postPage = postRepository.findAllByDeletedIsFalse(pageRequest);
+
+        return postPage.map(post -> postMapper.toListDto(post));
     }
 
 
