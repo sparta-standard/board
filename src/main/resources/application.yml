@@ -3,15 +3,18 @@ spring:
     name: board
 
   datasource:
-    hikari.jdbc-url: jdbc:h2:mem:test_db;
-    username: sa
-    password:
-
+    url: jdbc:postgresql://localhost:5432/noticedb
+    username: admin
+    password: 1234
+    driver-class-name: org.postgresql.Driver
   jpa:
-    hibernate.ddl-auto: create
+    hibernate:
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
         highlight_sql: true
 
+server:
+  port: 8080
