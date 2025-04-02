@@ -28,4 +28,10 @@ public class CommentController {
         return ResponseEntity.ok(commentService.updateComment(id,requestDto));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteComment(@PathVariable UUID id){
+        commentService.deleteComment(id);
+        return ResponseEntity.ok("해당 댓글이 삭제되었습니다.");
+    }
+
 }
