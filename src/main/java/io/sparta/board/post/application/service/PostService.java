@@ -1,5 +1,8 @@
 package io.sparta.board.post.application.service;
 
+i
+import io.sparta.board.comment.domain.entity.Comment;
+import io.sparta.board.comment.domain.repository.CommentRepository;
 import io.sparta.board.common.exception.ErrorCode;
 import io.sparta.board.common.exception.GlobalException;
 import io.sparta.board.post.application.dto.request.PostRequestDto;
@@ -19,6 +22,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PostService {
 
+    private final CommentRepository commentRepository;
     private final PostRepository postRepository;
 
     @Transactional
@@ -78,6 +82,16 @@ public class PostService {
                 .orElseThrow(() -> new GlobalException(ErrorCode.POST_NOT_FOUND));
 
         post.softDelete();
+
+        List<Comment> comments = commentRepository.findByPost(post);
+        if (comments != null && comments.size() > 0) {
+            for (int i = 0; i < comments.size(); i++) {
+                Comment comment = comments.get(i);
+                if (comment != null) {
+                    comment.softDelete();
+                }
+            }
+        }
 
         return PostResponseDto.builder()
                 .message("게시글이 삭제되었습니다.")
