@@ -1,6 +1,7 @@
 package io.sparta.board.app.domain.post.application.usecase;
 
 import io.sparta.board.app.domain.comment.model.entity.Comment;
+import io.sparta.board.app.domain.post.infrastructure.exception.PostErrorCode;
 import io.sparta.board.app.domain.post.model.entity.Post;
 import io.sparta.board.app.domain.post.model.repository.PostQueryRepository;
 import io.sparta.board.app.domain.post.model.repository.PostRepository;
@@ -11,6 +12,7 @@ import io.sparta.board.app.domain.post.presentation.dto.response.PostDeleteRespo
 import io.sparta.board.app.domain.post.presentation.dto.response.PostReadResponseDto;
 import io.sparta.board.app.domain.post.presentation.dto.response.PostUpdateResponseDto;
 import io.sparta.board.app.domain.post.presentation.mapper.PostMapper;
+import io.sparta.board.app.global.exception.CustomException;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -45,7 +47,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public PostUpdateResponseDto updatePost(UUID id, PostUpdateRequestDto postUpdateRequestDto) {
 		Post post = postRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("Post not found"));
+			.orElseThrow(() -> new CustomException(PostErrorCode.POST_NOT_FOUND));
 		post.update(postUpdateRequestDto);
 		return PostMapper.EntityToUpdateResponseDto(post);
 	}
@@ -55,7 +57,7 @@ public class PostServiceImpl implements PostService {
 	public PostDeleteResponseDto deletePost(UUID id) {
 		boolean deleted = true;
 		Post post = postRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("Post not found"));
+			.orElseThrow(() -> new CustomException(PostErrorCode.POST_NOT_FOUND));
 		post.delete(deleted);
 		return PostMapper.entityToDeleteResponseDto(post);
 	}
