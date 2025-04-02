@@ -26,6 +26,9 @@ public class CommentServiceImpl implements CommentService {
   public CommentCreateResponseDto createComment(UUID postId, CommentCreateRequestDto requestDto) {
     log.info("댓글 등록 서비스 연결 완료 - id: {} , content: {}", postId, requestDto.getContent());
 
+    postRepository.findById(postId)
+        .orElseThrow(() -> new IllegalArgumentException("해당하는 게시물이 없습니다."));
+
     Comment comment = commentRepository.save(
         Comment.builder()
             .postId(postId)
