@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-
 public class PostServiceImpl implements PostService {
 	private final PostRepository postRepository;
 	private final PostQueryRepository postQueryRepository;
