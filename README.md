@@ -20,13 +20,21 @@ Pagination 요청 Page Size가 10/30/50이 아닌경우 10으로 고정
 
 ## 🏗️ 프로젝트 구조
 간단한 프로젝트이기 때문에 3계층 구조로 설게하였음
+
 ├── Controller
+
 │ ├── dto # 응답/요청 DTO 클래스
+
 │ └── controller # API 요청 처리
+
 ├── Service
+
 │ └── service # 핵심 비즈니스 로직 처리
+
 ├── Repository
+
 │ ├── entity # 엔티티
+
 │ └── repository# JPA, QueryDSL 등의 구현체
 
 ## 🔖참고사항
