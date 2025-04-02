@@ -17,11 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CommentServiceImpl implements CommentService {
 	private final CommentRepository commentRepository;
 	private final PostRepository postRepository;
 
-	@Transactional
 	@Override
 	public CommentCreateResponseDto createComment(CommentCreateRequestDto commentCreateRequestDto) {
 		UUID postId = commentCreateRequestDto.getPostId();
@@ -44,8 +44,9 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public CommentDeleteResponseDto deleteComment(UUID id) {
+		boolean deleted = true;
 		Comment comment = commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("comment not found"));
-		comment.delete(true);
+		comment.delete(deleted);
 
 		return CommentMapper.entityToDeleteResponseDto(comment);
 	}
