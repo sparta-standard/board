@@ -1,17 +1,22 @@
 package io.sparta.board.entity;
 
+import io.sparta.board.dto.request.PostCreateRequestDto;
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
-@Table(name = "p_post")
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "p_post")
 public class Post extends BaseEntity {
 
     @Id
-    @Column(nullable = false)
+    @Column(name = "post_id", nullable = false)
     @GeneratedValue
     private UUID id;
 
@@ -23,5 +28,22 @@ public class Post extends BaseEntity {
 
     @Column(nullable = false)
     private boolean deleted = false;
+
+    public static Post toEntity(PostCreateRequestDto dto) {
+        return Post.builder()
+                .title(dto.getTitle())
+                .content(dto.getContent())
+                .deleted(false)
+                .build();
+    }
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public void softDelete() {
+        this.deleted = true;
+    }
 
 }
