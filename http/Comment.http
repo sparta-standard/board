@@ -1,0 +1,22 @@
+@postId = 3cc2939c-c475-4c15-9b8a-b3f1880693e3
+@commentId = ba24ae4b-ac3a-485f-9142-27c19af550ac
+
+### Create Comment
+POST localhost:8080/posts/{{postId}}/comments
+Content-Type: application/json
+
+{
+  "content": "게시물에 댓글 달기2"
+}
+
+### Update Comment
+PUT localhost:8080/comments/{{commentId}}
+Content-Type: application/json
+
+{
+  "content": "게시물에 댓글 수정하기"
+}
+
+### DELETE Comment
+DELETE localhost:8080/comments/{{commentId}}
+Content-Type: application/json
