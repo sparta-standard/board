@@ -1,6 +1,7 @@
 package io.sparta.board.domain.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -22,4 +23,10 @@ public class Post extends Default{
 
     @Column(nullable = false)
     private String content;
+
+    @Builder
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
