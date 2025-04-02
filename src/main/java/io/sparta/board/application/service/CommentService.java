@@ -36,6 +36,10 @@ public class CommentService {
         return CommentResponseDto.from(findCommentById(id));
     }
 
+    public void deleteComment(Long id) {
+        commentRepository.deleteById(id);
+    }
+
 
     public Comment findCommentById(Long id) {
         return commentRepository.findById(id).orElseThrow(
