@@ -52,4 +52,21 @@ public class CommentService {
                 .comments(comments)
                 .build();
     }
+
+    @Transactional
+    public CommentResponseDto updateComment(UUID postId, UUID commentId, CommentRequestDto dto) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
+
+        comment.update(dto.getCommentContent());
+
+        return CommentResponseDto.builder()
+                .message("댓글이 수정되었습니다.")
+                .stateCode(200)
+                .comment(CommentMapper.toCommentData(comment))
+                .build();
+    }
 }
