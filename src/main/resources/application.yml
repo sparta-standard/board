@@ -1,17 +1,23 @@
 spring:
   application:
     name: board
-
+  config:
+    import: optional:file:.env[.properties]
   datasource:
-    hikari.jdbc-url: jdbc:h2:mem:test_db;
-    username: sa
-    password:
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://${POSTGRES_HOST_HUB}/board
+  #  datasource:
+  #    hikari.jdbc-url: jdbc:h2:mem:test_db;
+  #    username: sa
+  #    password:
+
 
   jpa:
-    hibernate.ddl-auto: create
+    hibernate.ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
         highlight_sql: true
-
