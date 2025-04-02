@@ -1,4 +1,4 @@
-package io.sparta.board.presentation.dto;
+package io.sparta.board.presentation.dto.request;
 
 import io.sparta.board.model.entity.Post;
 import jakarta.validation.constraints.NotBlank;

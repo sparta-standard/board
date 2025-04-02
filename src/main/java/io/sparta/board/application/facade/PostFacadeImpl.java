@@ -4,6 +4,8 @@ import io.sparta.board.application.usecase.PostService;
 import io.sparta.board.model.entity.Post;
 import io.sparta.board.presentation.dto.PostCreateRequestDto;
 import io.sparta.board.presentation.dto.PostResponseDto;
+import io.sparta.board.presentation.dto.request.PostCreateRequestDto;
+import io.sparta.board.presentation.dto.response.PostResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

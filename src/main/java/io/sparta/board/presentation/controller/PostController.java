@@ -1,8 +1,8 @@
 package io.sparta.board.presentation.controller;
 
 import io.sparta.board.application.facade.PostFacade;
-import io.sparta.board.presentation.dto.PostCreateRequestDto;
-import io.sparta.board.presentation.dto.PostResponseDto;
+import io.sparta.board.presentation.dto.request.PostCreateRequestDto;
+import io.sparta.board.presentation.dto.response.PostResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

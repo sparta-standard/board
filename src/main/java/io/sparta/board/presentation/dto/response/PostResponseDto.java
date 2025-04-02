@@ -1,4 +1,4 @@
-package io.sparta.board.presentation.dto;
+package io.sparta.board.presentation.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.sparta.board.model.entity.Post;
