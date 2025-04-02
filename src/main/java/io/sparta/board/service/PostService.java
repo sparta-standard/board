@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class PostService {
@@ -20,6 +22,13 @@ public class PostService {
 
         Post savedPost = postRepository.save(post);
         return new PostCreateResponseDto(savedPost);
+    }
+
+    @Transactional(readOnly = true)
+    public PostCreateResponseDto getPostById(UUID id){
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글을 찾을 수 없습니다."));
+        return new PostCreateResponseDto(post);
     }
 
 }
