@@ -3,6 +3,7 @@ package io.sparta.board.controller;
 import io.sparta.board.dto.PostRequestDto;
 import io.sparta.board.dto.PostResponseDto;
 import io.sparta.board.service.PostService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,13 +20,13 @@ public class PostController {
 
     // 작성
     @PostMapping("/posts")
-    public PostResponseDto createPost(@RequestBody PostRequestDto requestDto) {
+    public PostResponseDto createPost(@RequestBody @Valid PostRequestDto requestDto) {
         return postService.createPost(requestDto);
     }
 
     // 수정
     @PutMapping("/posts/{id}")
-    public PostResponseDto updatePost(@PathVariable UUID id, @RequestBody PostRequestDto requestDto) {
+    public PostResponseDto updatePost(@PathVariable UUID id, @RequestBody @Valid PostRequestDto requestDto) {
         return postService.updatePost(id, requestDto);
     }
 

@@ -3,6 +3,7 @@ package io.sparta.board.controller;
 import io.sparta.board.dto.CommentRequestDto;
 import io.sparta.board.dto.CommentResponseDto;
 import io.sparta.board.service.CommentService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -18,7 +19,7 @@ public class CommentController {
 
     // 작성
     @PostMapping("/{postId}/comments")
-    public CommentResponseDto addComment(@PathVariable UUID postId, @RequestBody CommentRequestDto requestDto) {
+    public CommentResponseDto addComment(@PathVariable UUID postId, @RequestBody @Valid CommentRequestDto requestDto) {
         return commentService.addComment(postId, requestDto);
     }
 
@@ -27,7 +28,7 @@ public class CommentController {
     public CommentResponseDto updateComment(
             @PathVariable UUID postId,
             @PathVariable UUID commentId,
-            @RequestBody CommentRequestDto requestDto) {
+            @RequestBody @Valid CommentRequestDto requestDto) {
         return commentService.updateComment(postId, commentId, requestDto);
     }
 
