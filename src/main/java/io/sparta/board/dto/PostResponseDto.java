@@ -9,14 +9,14 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-public class PostCreateResponseDto {
+public class PostResponseDto {
     private UUID id;
     private String title;
     private String content;
     private LocalDateTime createdAt;
 
 
-    public PostCreateResponseDto(Post post) {
+    public PostResponseDto(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
