@@ -28,14 +28,14 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public PostResponseDto getPostById(UUID id){
-        Post post = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글을 찾을 수 없습니다."));
+        Post post = postRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new IllegalArgumentException("이미 삭제되었거나 존재하지 않는 게시글입니다."));
         return new PostResponseDto(post);
     }
 
     @Transactional(readOnly = true)
     public List<PostResponseDto> getAllPosts(){
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findByDeletedFalse();
         return posts.stream()
                 .map(PostResponseDto::new)
                 .toList();
@@ -43,8 +43,8 @@ public class PostService {
 
     @Transactional
     public PostResponseDto updatePost(UUID id, PostUpdateRequestDto requestDto){
-        Post post = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글을 찾을 수 없습니다."));
+        Post post = postRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new IllegalArgumentException("이미 삭제되었거나 존재하지 않는 게시글입니다."));
 
         post.update(requestDto.getTitle(),requestDto.getContent());
 
@@ -53,8 +53,8 @@ public class PostService {
 
     @Transactional
     public void deletePost(UUID id){
-        Post post = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글을 찾을 수 없습니다."));
+        Post post = postRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new IllegalArgumentException("이미 삭제되었거나 존재하지 않는 게시글입니다."));
 
         post.softDelete();
 
