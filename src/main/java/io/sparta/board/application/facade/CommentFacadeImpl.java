@@ -5,6 +5,7 @@ import io.sparta.board.application.usecase.PostService;
 import io.sparta.board.model.entity.Comment;
 import io.sparta.board.model.entity.Post;
 import io.sparta.board.presentation.dto.request.CommentCreateRequestDto;
+import io.sparta.board.presentation.dto.request.CommentUpdateRequestDto;
 import io.sparta.board.presentation.dto.response.CommentResponseDto;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,18 @@ public class CommentFacadeImpl implements CommentFacade {
     @Override
     public CommentResponseDto createComment(CommentCreateRequestDto requestDto, UUID postId) {
         Post post = postService.getPost(postId);
+        postService.isDeleted(post);
         Comment comment = requestDto.createComment(post);
         Comment savedComment = commentService.createComment(comment);
         return CommentResponseDto.toResponseDto(savedComment);
+    }
+
+    @Override
+    public CommentResponseDto updateComment(UUID commentId, CommentUpdateRequestDto requestDto) {
+        Comment comment = commentService.getComment(commentId);
+        postService.isDeleted(comment.getPost());
+        commentService.isDeleted(comment);
+        commentService.updateComment(comment, requestDto);
+        return CommentResponseDto.toResponseDto(comment);
     }
 }
