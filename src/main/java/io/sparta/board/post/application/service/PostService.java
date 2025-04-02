@@ -8,6 +8,7 @@ import io.sparta.board.post.domain.entity.Post;
 import io.sparta.board.post.domain.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +19,7 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+    @Transactional
     public PostResponseDto createPost(PostRequestDto dto) {
         Post post = PostMapper.toEntity(dto);
         Post savedPost = postRepository.save(post);
@@ -29,6 +31,7 @@ public class PostService {
                 .build();
     }
 
+    @Transactional
     public PostListResponseDto getAllPosts() {
         List<PostResponseDto.PostData> postList = postRepository.findAll().stream()
                 .map(PostMapper::toPostData)
@@ -41,12 +44,27 @@ public class PostService {
                 .build();
     }
 
+    @Transactional
     public PostResponseDto getPostById(UUID postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
         return PostResponseDto.builder()
                 .message("게시글이 조회되었습니다.")
+                .stateCode(200)
+                .post(PostMapper.toPostData(post))
+                .build();
+    }
+
+    @Transactional
+    public PostResponseDto updatePost(UUID postId, PostRequestDto dto) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+
+        post.update(dto.getPostTitle(), dto.getPostContent());
+
+        return PostResponseDto.builder()
+                .message("게시글이 수정되었습니다.")
                 .stateCode(200)
                 .post(PostMapper.toPostData(post))
                 .build();
