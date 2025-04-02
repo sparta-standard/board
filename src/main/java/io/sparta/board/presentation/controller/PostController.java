@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -39,10 +41,16 @@ public class PostController {
 
     // *** @PathVariable 로 전달받은 값을 dto 에 포함할 수 있을까?
     @PatchMapping("/update/{id}")
-    public ResponseEntity<PostUpdateResponseDto> update(@RequestBody PostUpdateRequestDto dto, @PathVariable UUID id) {
+    public ResponseEntity<?> update(@RequestBody PostUpdateRequestDto dto, @PathVariable UUID id) {
         log.info("Patch Method - 게시글 수정: dto = {}", dto.toString());
-        PostUpdateResponseDto updateDto = postService.update(dto, id);
-        return ResponseEntity.ok().body(updateDto);
+        try{
+            PostUpdateResponseDto updateDto = postService.update(dto, id);
+            return ResponseEntity.ok().body(updateDto);
+        }catch (Exception e){
+            HashMap<String, String> response = new HashMap<>();
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 
     // 게시글 삭제
@@ -55,8 +63,14 @@ public class PostController {
 
     // 게시글 조회
     @GetMapping("/{id}")
-    public ResponseEntity<ShowPostOneResponseDto> findOnePost(@PathVariable UUID id) {
+    public ResponseEntity<ShowPostOneResponseDto> findOnePost(
+            @PathVariable UUID id
+            /* 페이지네이션이 어떻게 구현되는지 모르겠다.
+            pageNo 라는 key 로 전달된 값을 int 타입 pageNo 변수에 담는다.
+            pageNo 는 클라이언트로부터 필수로 전달되어야할 파라미터가 아니다: required = false
+            @RequestParam(required = false, defaultValue = "10", name = "pageNo") int pageNo*/) {
         log.info("Get Method - 게시글 조회");
+        // Pageable pageable = PageRequest.of(pageNo);
         ShowPostOneResponseDto onePost = postService.findOnePost(id);
         return ResponseEntity.ok().body(onePost);
     }

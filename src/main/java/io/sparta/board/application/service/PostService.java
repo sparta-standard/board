@@ -32,27 +32,25 @@ public class PostService {
     }
 
     @Transactional
-    public PostUpdateResponseDto update(PostUpdateRequestDto dto, UUID id) {
+    public PostUpdateResponseDto update(PostUpdateRequestDto dto, UUID id) throws Exception{
         // 1. 수정하고자 하는 post 가 존재하는지 확인
         Post post = getPost(id);
         log.info("(게시물) 수정전, id 로 얻은 객체에서 updateAt 필드 값 : {}", post.getCreatedAt());
 
-        // 2. 요청 dto 가 null 이라면
-        // *** controller 에서 예외처리할 것
-        if(dto.getTitle() == null && dto.getContent() == null) {
-            throw new IllegalArgumentException("제목 또는 내용에서 수정된 사항이 없습니다.\n 수정 사항을 다시 확인해주세요.");
-        }
+        // 2. 요청 dto 가 null, 빈문자열, 공백 문자로 이루어진 문자열이라면
+        if(dto.isNotValid()) throw new IllegalArgumentException("제목 또는 내용에서 수정된 사항이 없습니다. 수정 사항을 다시 확인해주세요.");
+
         // 3. (게시물) id 로 (db 를 통해) 게시물 존재 확인 후,
         // Post 타입 객체와 클라이언트가 전달한 객체를 비교 후(title, content)
         // 다르다면 dto 의 데이터로 재설정
-        if(dto.getTitle() != null && !post.getTitle().equals(dto.getTitle())) {
+        if((dto.getTitle() != null && !(dto.getTitle().isBlank())) && !post.getTitle().equals(dto.getTitle())) {
             post.setTitle(dto.getTitle());
         }
 
         log.info("디비에 저장된 내용: {}, 수정요청 내용: {}", post.getContent(), dto.getContent());
 
 
-        if(dto.getContent() != null && !post.getContent().equals(dto.getContent())) {
+        if((!dto.getContent().isEmpty() && !(dto.getContent().isBlank())) && !post.getContent().equals(dto.getContent())) {
             post.setContent(dto.getContent());
         }
 
