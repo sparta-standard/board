@@ -11,4 +11,6 @@ public interface CommentService {
 
     Void updateComment(UUID commentId, UpdateCommentRequestDto RequestDto);
 
+    Void deleteComment(UUID commentId);
+
 }

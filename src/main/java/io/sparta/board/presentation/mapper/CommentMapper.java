@@ -14,7 +14,6 @@ public class CommentMapper {
     public static Comment createCommentRequestDtoToEntity(CreateCommentRequestDto requestDto) {
         Comment comment = Comment.builder()
                 .content(requestDto.getContent())
-                .deleted(false)
                 .build();
         return comment;
     }

@@ -34,4 +34,10 @@ public class CommentController {
         return ResponseEntity.ok(response);
     }
 
+    //댓글삭제
+    public ResponseEntity<Void> deleteComment(@PathVariable UUID commentId) {
+        Void response = commentService.deleteComment(commentId);
+        return ResponseEntity.ok(response);
+    }
+
 }

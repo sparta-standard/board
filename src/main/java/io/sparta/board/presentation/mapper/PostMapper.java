@@ -22,7 +22,6 @@ public class PostMapper {
         Post post = Post.builder()
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
-                .deleted(false)
                 .build();
         return post;
     }

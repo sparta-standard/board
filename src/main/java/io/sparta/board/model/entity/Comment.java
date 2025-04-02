@@ -1,5 +1,6 @@
 package io.sparta.board.model.entity;
 
+import io.sparta.board.presentation.dto.request.UpdateCommentRequestDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,26 +20,29 @@ import lombok.NoArgsConstructor;
 @Table(name = "p_comment")
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Comment {
+public class Comment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID commentId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
-
-    @Column(nullable = false)
-    private boolean deleted;
 
     @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
     @Builder
-    public Comment(String content, boolean deleted) {
+    public Comment(String content) {
         this.content = content;
-        this.deleted = deleted;
     }
+
+    public void update(UpdateCommentRequestDto requestDto) {
+        this.content = requestDto.getContent();
+    }
+
+
+
 }

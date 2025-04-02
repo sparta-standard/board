@@ -28,9 +28,19 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Void updateComment(UUID commentId, UpdateCommentRequestDto RequestDto) {
+    public Void updateComment(UUID commentId, UpdateCommentRequestDto requestDto) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new CustomException(
                 ExceptionCode.COMMENT_NOT_FOUND));
+        comment.update(requestDto);
+        return null;
+    }
+
+    @Override
+    public Void deleteComment(UUID commentId) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new CustomException(
+                ExceptionCode.COMMENT_NOT_FOUND));
+        comment.delete(true);
+
         return null;
     }
 }
