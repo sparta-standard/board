@@ -1,8 +1,9 @@
 package io.sparta.board.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
+
+import org.springframework.data.domain.Page;
 
 import io.sparta.board.entity.Post;
 import lombok.AllArgsConstructor;
@@ -18,18 +19,14 @@ public class PostResponseDto {
 	private String title;
 	private String content;
 	private LocalDateTime createdAt;
-	private List<CommentResponseDto> commentList;
+	private Page<CommentResponseDto> commentList;
 
-	public PostResponseDto(Post post) {
+	public PostResponseDto(Post post, Page<CommentResponseDto> commentList) {
 		this.postId = post.getPostId();
 		this.title = post.getTitle();
 		this.content = post.getContent();
 		this.createdAt = post.getCreatedAt();
-		this.commentList = post.getCommentList()
-			.stream()
-			.filter(comment -> !comment.isDeleted())
-			.map(CommentResponseDto::new)
-			.toList();
+		this.commentList = commentList;
 	}
 
 	public static PostResponseDto from(UUID postId, String title, String content, LocalDateTime createdAt) {

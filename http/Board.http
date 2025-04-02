@@ -1,11 +1,11 @@
-@postId = 3cc2939c-c475-4c15-9b8a-b3f1880693e3
+@postId = 3c275155-6199-417a-8773-a2311b85a183
 
 ### CREATE POST
 POST http://localhost:8080/posts
 Content-Type: application/json
 
 {
-  "title" : "test2",
+  "title" : "test",
   "content" : "test"
 }
 
@@ -23,5 +23,5 @@ DELETE http://localhost:8080/posts/{{postId}}
 Content-Type: application/json
 
 ### GET POST DETAILS
-GET http://localhost:8080/posts/{{postId}}
+GET http://localhost:8080/posts/{{postId}}?page=1&size=15
 Content-Type: application/json
