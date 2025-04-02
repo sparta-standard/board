@@ -9,6 +9,9 @@ import io.sparta.board.repository.entity.Board;
 import io.sparta.board.repository.entity.Comment;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,5 +53,14 @@ public class BoardService {
         List<Comment> comments = commentRepository.findByBoardId(board.getId());
 
         return new GetBoardResponseDto(title, comments);
+    }
+
+    public Page<Board> getBoards(int page, int size) {
+        if (size != 10 && size != 30 && size != 50) {
+            size = 10;
+        }
+
+        Pageable pageable = PageRequest.of(page, size);
+        return boardRepository.findAll(pageable);
     }
 }
