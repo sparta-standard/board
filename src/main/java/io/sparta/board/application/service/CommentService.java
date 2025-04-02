@@ -1,6 +1,8 @@
 package io.sparta.board.application.service;
 
 import io.sparta.board.application.dto.request.CommentRequestDto;
+import io.sparta.board.application.dto.request.CommentUpdateRequestDto;
+import io.sparta.board.application.dto.response.CommentUpdateResponseDto;
 import io.sparta.board.domain.model.Comment;
 import io.sparta.board.domain.model.Post;
 import io.sparta.board.infastructure.JpaCommentRepository;
@@ -21,6 +23,17 @@ public class CommentService {
         Post post = findPostById(requestDto.postId());
         Comment comment = commentRepository.save(requestDto.createComment(post));
         return comment.getId();
+    }
+
+    public CommentUpdateResponseDto modifyComment(Long id, CommentUpdateRequestDto requestDto) {
+        Comment comment = findCommentById(id);
+        comment.updateComment(requestDto);
+        return CommentUpdateResponseDto.from(comment);
+    }
+
+    public Comment findCommentById(Long id) {
+        return commentRepository.findById(id).orElseThrow(
+                ()-> new NullPointerException("존재하지않는 게시글입니다."));
     }
 
     public Post findPostById(Long id) {

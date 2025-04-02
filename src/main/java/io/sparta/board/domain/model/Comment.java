@@ -1,6 +1,7 @@
 package io.sparta.board.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import io.sparta.board.application.dto.request.CommentUpdateRequestDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,6 +29,9 @@ public class Comment extends Default{
     public Comment(String content, Post post){
         this.content = content;
         this.post = post;
+    }
+    public void updateComment(CommentUpdateRequestDto requestDto) {
+        this.content = requestDto.content();
     }
 
 }

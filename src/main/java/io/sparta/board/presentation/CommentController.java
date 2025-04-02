@@ -1,13 +1,12 @@
 package io.sparta.board.presentation;
 
 import io.sparta.board.application.dto.request.CommentRequestDto;
+import io.sparta.board.application.dto.request.CommentUpdateRequestDto;
+import io.sparta.board.application.dto.response.CommentUpdateResponseDto;
 import io.sparta.board.application.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -29,5 +28,12 @@ public class CommentController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CommentUpdateResponseDto> modifyComment(@PathVariable Long id,
+                                                                  @RequestBody CommentUpdateRequestDto requestDto) {
+        CommentUpdateResponseDto responseDto = commentService.modifyComment(id,requestDto);
+        return ResponseEntity.ok(responseDto);
     }
 }
