@@ -46,6 +46,8 @@ public class PostFacadeImpl implements PostFacade {
         Post post = postService.getPost(postId);
         postService.isDeleted(post);
         postService.deletePost(post);
+        List<Comment> comments = commentService.getComments(postId);
+        commentService.deleteComments(comments);
     }
 
     private List<CommentResponseDto> getComments(UUID postId) {

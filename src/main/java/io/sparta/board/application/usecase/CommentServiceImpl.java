@@ -50,4 +50,12 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getComments(UUID postId) {
         return commentRepository.findByPostId(postId);
     }
+
+    @Transactional
+    @Override
+    public void deleteComments(List<Comment> comments) {
+        for (Comment comment : comments) {
+            comment.delete();
+        }
+    }
 }

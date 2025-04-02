@@ -18,4 +18,6 @@ public interface CommentService {
     void deleteComment(Comment comment);
 
     List<Comment> getComments(UUID postId);
+
+    void deleteComments(List<Comment> comments);
 }
