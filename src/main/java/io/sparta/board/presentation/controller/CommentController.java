@@ -7,6 +7,7 @@ import io.sparta.board.presentation.dto.response.CreateCommentResponseDto;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +22,9 @@ public class CommentController {
 
     private final CommentService commentService;
     //댓글생성
-    @PostMapping
-    public ResponseEntity<CreateCommentResponseDto> CreateComment(CreateCommentRequestDto requestDto) {
-        CreateCommentResponseDto responseDto = commentService.createComment(requestDto);
+    @PostMapping("/{postId}")
+    public ResponseEntity<CreateCommentResponseDto> CreateComment(@PathVariable UUID postId, @RequestBody CreateCommentRequestDto requestDto) {
+        CreateCommentResponseDto responseDto = commentService.createComment(postId, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 
@@ -35,9 +36,12 @@ public class CommentController {
     }
 
     //댓글삭제
+    @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> deleteComment(@PathVariable UUID commentId) {
         Void response = commentService.deleteComment(commentId);
         return ResponseEntity.ok(response);
     }
+
+
 
 }
