@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface CommentService {
 
-    CreateCommentResponseDto createComment(CreateCommentRequestDto RequestDto);
+    CreateCommentResponseDto createComment(UUID postId, CreateCommentRequestDto RequestDto);
 
     Void updateComment(UUID commentId, UpdateCommentRequestDto RequestDto);
 

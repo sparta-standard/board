@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 
 ###
-PATCH http://localhost:8080/api/post/bf99e99e-e826-46f5-a558-b0976f831df1
+PATCH http://localhost:8080/api/post/f8ddfd86-e3cf-412f-98f6-ae4f1c631ada
 Content-Type: application/json
 
 {
@@ -16,21 +16,31 @@ Content-Type: application/json
   "content": "testtest1"
 }
 
-
+###
+DELETE http://localhost:8080/api/post/1664236b-6901-4956-b76f-7e36c7f66755
+Content-Type:
 
 ###
-POST http://localhost:8080/api/comment
+GET http://localhost:8080/api/post/2ff3779e-58c0-497c-bdf6-e32f92d23c57
+Content-Type:
+
+###-----
+
+###
+POST http://localhost:8080/api/comment/1664236b-6901-4956-b76f-7e36c7f66755
 Content-Type: application/json
 
 {
-  "content": "testtest2"
+  "content": "testtest3"
 }
 
 ###
-PATCH http://localhost:8080/api/comment/3ca5d761-e84f-4ee3-bc6b-87184133cfa4
+PATCH http://localhost:8080/api/comment/0cdbc30c-0741-4a0d-bc41-6faacdd09bbf
 Content-Type: application/json
 
 {
-  "title": "test1",
-  "content": "testtest1"
+  "content": "testtesttest"
 }
+
+###
+DELETE http://localhost:8080/api/comment/8377beed-02b9-418b-b920-adda8146ab81

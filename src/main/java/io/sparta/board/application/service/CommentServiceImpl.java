@@ -3,7 +3,9 @@ package io.sparta.board.application.service;
 import io.sparta.board.exception.CustomException;
 import io.sparta.board.exception.ExceptionCode;
 import io.sparta.board.model.entity.Comment;
+import io.sparta.board.model.entity.Post;
 import io.sparta.board.model.repository.CommentRepository;
+import io.sparta.board.model.repository.PostRepository;
 import io.sparta.board.presentation.dto.request.CreateCommentRequestDto;
 import io.sparta.board.presentation.dto.request.UpdateCommentRequestDto;
 import io.sparta.board.presentation.dto.response.CreateCommentResponseDto;
@@ -18,11 +20,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
 
 
     @Override
-    public CreateCommentResponseDto createComment(CreateCommentRequestDto RequestDto) {
-        Comment comment = CommentMapper.createCommentRequestDtoToEntity(RequestDto);
+    public CreateCommentResponseDto createComment(UUID postid, CreateCommentRequestDto RequestDto) {
+        Post post = postRepository.findById(postid).orElseThrow(() -> new CustomException(
+                ExceptionCode.POST_NOT_FOUND));
+        Comment comment = CommentMapper.createCommentRequestDtoToEntity(post, RequestDto);
         commentRepository.save(comment);
         return CommentMapper.entityToCreateCommentresponseDto(comment);
     }
@@ -39,8 +44,7 @@ public class CommentServiceImpl implements CommentService {
     public Void deleteComment(UUID commentId) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new CustomException(
                 ExceptionCode.COMMENT_NOT_FOUND));
-        comment.delete(true);
-
+        comment.softDelete();
         return null;
     }
 }

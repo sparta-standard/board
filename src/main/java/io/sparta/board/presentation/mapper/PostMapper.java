@@ -1,10 +1,12 @@
 package io.sparta.board.presentation.mapper;
 
 import io.sparta.board.model.entity.Post;
+import io.sparta.board.presentation.dto.CommentDto;
 import io.sparta.board.presentation.dto.request.CreatePostRequestDto;
-import io.sparta.board.presentation.dto.request.UpdatePostRequestDto;
 import io.sparta.board.presentation.dto.response.CreatePostResponseDto;
+import io.sparta.board.presentation.dto.response.GetPostResponseDto;
 import io.sparta.board.presentation.dto.response.UpdatePostResponseDto;
+import java.util.List;
 
 public class PostMapper {
 
@@ -35,7 +37,16 @@ public class PostMapper {
         return responseDto;
     }
 
-
+    public static GetPostResponseDto entityToGetPostResponseDto(Post post,
+            List<CommentDto> commentDtos) {
+        GetPostResponseDto responseDto = GetPostResponseDto.builder()
+                .postId(post.getPostId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .comments(commentDtos)
+                .build();
+        return responseDto;
+    }
 
 
 }

@@ -15,10 +15,14 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Getter
 @Entity
 @Table(name = "p_post")
+@SQLDelete(sql = "UPDATE p_post SET deleted=true WHERE id")
+@Where(clause= "deleted=false")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post extends BaseEntity {
 
@@ -27,7 +31,7 @@ public class Post extends BaseEntity {
     @Column(name = "id", nullable = false)
     private UUID postId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")
@@ -35,6 +39,9 @@ public class Post extends BaseEntity {
 
     @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Comment> comments;
+
+    @Column(nullable = false)
+    private boolean deleted;
 
     @Builder
     public Post(boolean deleted, String title, String content, List<Comment> comments) {
@@ -46,6 +53,13 @@ public class Post extends BaseEntity {
     public void update(UpdatePostRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
+    }
+
+    public void softDelete() {
+        this.deleted = true;
+        for (Comment c : comments) {
+            c.setDeleted(true);
+        }
     }
 
 
