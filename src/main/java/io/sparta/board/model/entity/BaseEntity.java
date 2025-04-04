@@ -6,6 +6,9 @@ import jakarta.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import lombok.Getter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -24,12 +27,6 @@ public abstract class BaseEntity implements Serializable {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @Column(updatable = false)
-    private boolean deleted;
-
-    public void delete(boolean deleted) {
-        this.deleted = deleted;
-    }
     protected BaseEntity() {
     }
 }
